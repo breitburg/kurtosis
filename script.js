@@ -27,6 +27,7 @@ dateInput.max = maxDateFormatted;
 
 // Load saved r-number from local storage
 const savedRNumber = localStorage.getItem('rNumber');
+
 if (savedRNumber) {
     document.getElementById('rNumber').value = savedRNumber;
 }
@@ -38,7 +39,7 @@ fetch('seats.json')
         SEATS = data;
     })
     .catch(error => {
-        console.error('Error fetching seats data:', error);
+        alert('Failed to fetch seats data from the server. Please try again later.');
     });
 
 function fetchTimeslots(date, uid) {
@@ -123,8 +124,20 @@ document.getElementById('filterForm').addEventListener('submit', function (event
     const selectedDate = new Date(document.getElementById('date').value);
     const rNumber = document.getElementById('rNumber').value;
 
-    // Save r-number to local storage
-    localStorage.setItem('rNumber', rNumber);
+    // Check if the r-number starts with 'r' and add it if it doesn't
+    if (!rNumber.startsWith('r')) {
+        document.getElementById('rNumber').value = 'r' + rNumber;
+    }
+
+    // Check if the checkbox is checked
+    const rememberRNumber = document.getElementById('rememberRNumber').checked;
+
+    // Save r-number to local storage only if the checkbox is checked
+    if (rememberRNumber) {
+        localStorage.setItem('rNumber', rNumber);
+    } else {
+        localStorage.removeItem('rNumber');
+    }
 
     const loadingMessage = document.getElementById('loadingMessage');
     loadingMessage.style.display = 'block';

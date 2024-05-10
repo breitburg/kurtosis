@@ -2,8 +2,10 @@
 <html>
 
 <head>
-    <title>Agora Seats Tool</title>
+    <title>Kurtosis for Agora</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="description" content="KURT is bad, so I've made a better one">
+    <meta name="keywords" content="Agora, booking, seats, KU Leuven">
 </head>
 
 <body>
@@ -16,16 +18,22 @@
             <label for="rNumber">R-number:</label>
             <input type="text" id="rNumber" name="rNumber" placeholder="r1234567" required>
         </div>
+        <div class="queryContainer">
+            <label for="rememberRNumber">Remember R-number:</label>
+            <input type="checkbox" id="rememberRNumber" name="rememberRNumber" checked>
+        </div>
         <button type="submit">Check</button>
     </form>
     <br>
-    <div id="loadingMessage" style="display: none;">Fetching...</div>
+    <div id="disclaimer">
+        This tool is not affiliated with KU Leuven. Please use responsibly and do not abuse the system.
+        <br>
+        If you are a KU Leuven representative and
+        would like this tool to be taken down, please <a href="mailto:kurtosis@breitburg.com">contact</a>.
+    </div>
+    <br>
+    <div id="loadingMessage" style="display: none;">Fetching availability...</div>
     <table id="seatTable" border="1">
-        <tr>
-            <th>Name</th>
-            <th colspan="24">Hours</th>
-            <th>Checking In</th>
-        </tr>
     </table>
 
     <script src="script.js"></script>

@@ -50,3 +50,7 @@ a {
     flex-direction: row;
     margin-right: 20px;
 }
+
+#disclaimer {
+    font-size: smaller;
+}
