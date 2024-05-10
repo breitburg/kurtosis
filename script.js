@@ -122,11 +122,13 @@ document.getElementById('filterForm').addEventListener('submit', function (event
     event.preventDefault();
 
     const selectedDate = new Date(document.getElementById('date').value);
-    const rNumber = document.getElementById('rNumber').value;
+    const rNumberField = document.getElementById('rNumber');
+    let rNumber = rNumberField.value;
 
     // Check if the r-number starts with 'r' and add it if it doesn't
     if (!rNumber.startsWith('r')) {
-        document.getElementById('rNumber').value = 'r' + rNumber;
+        rNumber = `r${rNumber}`;
+        rNumberField.value = rNumber;
     }
 
     // Check if the checkbox is checked
