@@ -48,7 +48,15 @@ function fetchTimeslots(date, uid) {
     const formattedDate = `${year}-${month}-${day}`;
 
     const startDateTime = `${formattedDate}T00:00:00`;
-    const endDateTime = `${formattedDate}T23:59:59`;
+
+    const nextDay = new Date(date);
+    nextDay.setDate(date.getDate() + 1);
+    const nextDayYear = nextDay.getFullYear();
+    const nextDayMonth = String(nextDay.getMonth() + 1).padStart(2, '0');
+    const nextDayDay = String(nextDay.getDate()).padStart(2, '0');
+    const nextDayFormattedDate = `${nextDayYear}-${nextDayMonth}-${nextDayDay}`;
+
+    const endDateTime = `${nextDayFormattedDate}T00:00:00`;
 
     const url = `https://wsrt.ghum.kuleuven.be/service1.asmx/GetReservationsJSON?uid=${uid}&ResourceIDList=${Object.keys(SEATS).join(',')}&startdtstring=${startDateTime}&enddtstring=${endDateTime}`;
 
