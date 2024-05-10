@@ -118,7 +118,7 @@ function renderTable(sortedTimeslots) {
     table.style.display = 'table';
 }
 
-document.getElementById('filterForm').addEventListener('submit', function (event) {
+document.getElementById('queryForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const selectedDate = new Date(document.getElementById('date').value);
@@ -141,8 +141,11 @@ document.getElementById('filterForm').addEventListener('submit', function (event
         localStorage.removeItem('rNumber');
     }
 
-    const loadingMessage = document.getElementById('loadingMessage');
-    loadingMessage.style.display = 'block';
+    const fetchButton = document.getElementById('fetchButton');
+    let previousButtonText = fetchButton.textContent;
+
+    fetchButton.textContent = 'Fetching...';
+    fetchButton.disabled = true;
 
     // Hide the table before fetching data
     document.getElementById('seatTable').style.display = 'none';
@@ -151,6 +154,7 @@ document.getElementById('filterForm').addEventListener('submit', function (event
         .then(timeslots => sortTimeslots(timeslots))
         .then(sortedTimeslots => {
             renderTable(sortedTimeslots);
-            loadingMessage.style.display = 'none';
+            fetchButton.textContent = previousButtonText;
+            fetchButton.disabled = false;
         });
 });

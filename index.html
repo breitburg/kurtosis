@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form id="filterForm">
+    <form id="queryForm">
         <div class="queryContainer">
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
@@ -22,17 +22,16 @@
             <label for="rememberRNumber">Remember R-number:</label>
             <input type="checkbox" id="rememberRNumber" name="rememberRNumber" checked>
         </div>
-        <button type="submit">Fetch</button>
+        <button id="fetchButton" type="submit">Fetch</button>
     </form>
     <br>
     <div id="disclaimer">
         This tool is not affiliated with KU Leuven. Please use responsibly and do not abuse the system.
         <br>
         If you are a KU Leuven representative and would like this tool to be removed, please <a
-            href="mailto:kurtosis@breitburg.com">contact us</a>.
+            href="mailto:kurtosis@breitburg.com">contact me</a>.
     </div>
     <br>
-    <div id="loadingMessage" style="display: none;">Fetching availability...</div>
     <table id="seatTable" border="1">
     </table>
 
