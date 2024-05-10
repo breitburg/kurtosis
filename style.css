@@ -1,0 +1,52 @@
+body {
+    padding: 10px;
+    font-family: sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    display: none;
+}
+
+
+th,
+td {
+    padding: 6px 10px;
+    text-align: center;
+    border: none;
+}
+
+.available {
+    background-color: #BDFFBC;
+    color: #286327;
+}
+
+.booked {
+    background-color: #FFA6A6;
+    color: #750909;
+}
+
+.unavailable {
+    background-color: gainsboro;
+    color: black;
+}
+
+label {
+    margin-right: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#filterForm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.queryContainer {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+}
