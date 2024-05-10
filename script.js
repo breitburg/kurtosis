@@ -87,7 +87,7 @@ function renderTable(sortedTimeslots) {
         <tr>
             <th>Name</th>
             ${[...Array(24)].map((_, index) => `<th>${index}</th>`).join('')}
-            <th>Check In Link</th>
+            <th>Links</th>
         </tr>
     `;
 
