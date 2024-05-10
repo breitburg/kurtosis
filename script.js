@@ -1,7 +1,29 @@
 let SEATS = {};
 
 // Set default date to today
-document.getElementById('date').value = new Date().toISOString().slice(0, 10);
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+let yyyy = today.getFullYear();
+
+// Format today's date
+let minDate = yyyy + '-' + mm + '-' + dd;
+
+// Get the date for 7 days from now
+let maxDate = new Date();
+maxDate.setDate(today.getDate() + 7);
+let maxDd = String(maxDate.getDate()).padStart(2, '0');
+let maxMm = String(maxDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+let maxYyyy = maxDate.getFullYear();
+
+// Format the maximum date
+let maxDateFormatted = maxYyyy + '-' + maxMm + '-' + maxDd;
+
+// Set the min and max dates for the input field
+let dateInput = document.getElementById('date');
+dateInput.value = minDate;
+dateInput.min = minDate;
+dateInput.max = maxDateFormatted;
 
 // Load saved r-number from local storage
 const savedRNumber = localStorage.getItem('rNumber');
