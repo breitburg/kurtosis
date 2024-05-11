@@ -37,6 +37,7 @@ label {
 
 a {
     text-decoration: none;
+    color: #0066ff;
 }
 
 #queryForm {
@@ -51,6 +52,6 @@ a {
     margin-right: 20px;
 }
 
-#disclaimer {
+#notice {
     font-size: 13px;
 }
