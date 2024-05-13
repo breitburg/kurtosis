@@ -101,8 +101,9 @@ function renderTable(sortedTimeslots, selectedDate) {
         const selectedYear = selectedDate.getFullYear()
         const selectedFormattedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
 
+        const checkInLink = `https://kuleuven.be/kurtqr?id=${resourceData.resourceId}`;
         const bookLink = `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/default.aspx?pid=201403&showresults=done&resourceid=${resourceData.resourceId}&startDate=${selectedFormattedDate}T00%3A00%3A00`;
-        rowHtml += `<td><a href="${bookLink}" target="_blank">Book</a></td>`;
+        rowHtml += `<td><a href="${bookLink}" target="_blank">Book</a><br><a href="${checkInLink}" target="_blank">Check In</a></td>`;
 
         rowHtml += '</tr>';
         table.insertAdjacentHTML('beforeend', rowHtml);
