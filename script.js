@@ -70,7 +70,7 @@ function sortTimeslots(timeslots) {
     return sortedTimeslots;
 }
 
-function renderTable(sortedTimeslots) {
+function renderTable(sortedTimeslots, selectedDate) {
     const table = document.getElementById('seatTable');
     table.innerHTML = `
         <tr>
@@ -96,8 +96,13 @@ function renderTable(sortedTimeslots) {
             rowHtml += `<td class="${cellClass}">${displayStatus}</td>`;
         }
 
-        const checkInLink = `https://kuleuven.be/kurtqr?id=${resourceData.resourceId}`;
-        rowHtml += `<td><a href="${checkInLink}" target="_blank">Check In</a></td>`;
+        const selectedMonth = String(selectedDate.getMonth() + 1).padStart(2, '0');
+        const selectedDay = String(selectedDate.getDate()).padStart(2, '0');
+        const selectedYear = selectedDate.getFullYear()
+        const selectedFormattedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+
+        const bookLink = `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/default.aspx?pid=201403&showresults=done&resourceid=${resourceData.resourceId}&startDate=${selectedFormattedDate}T00%3A00%3A00`;
+        rowHtml += `<td><a href="${bookLink}" target="_blank">Book</a></td>`;
 
         rowHtml += '</tr>';
         table.insertAdjacentHTML('beforeend', rowHtml);
@@ -142,7 +147,7 @@ document.getElementById('queryForm').addEventListener('submit', function (event)
     fetchTimeslots(selectedDate, rNumber)
         .then(timeslots => sortTimeslots(timeslots))
         .then(sortedTimeslots => {
-            renderTable(sortedTimeslots);
+            renderTable(sortedTimeslots, selectedDate);
             fetchButton.textContent = previousButtonText;
             fetchButton.disabled = false;
         });
