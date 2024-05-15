@@ -21,17 +21,13 @@ if (savedRNumber) {
     document.getElementById('rNumber').value = savedRNumber;
 }
 
-// Fetch seats data from seats.json file
-fetch('seats.json')
-    .then(response => response.json())
-    .then(data => {
-        SEATS = data;
-    })
-    .catch(error => {
-        alert('Failed to fetch seats data from the server. Please try again later.');
-    });
+async function fetchTimeslots(date, uid) {
+    const selectedLibrary = document.getElementById('library').value;
 
-function fetchTimeslots(date, uid) {
+    const seats = await fetch(`/seats/${selectedLibrary}.json`)
+      .then(response => response.json());
+
+    SEATS = seats; // kostyl
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -48,7 +44,7 @@ function fetchTimeslots(date, uid) {
 
     const endDateTime = `${nextDayFormattedDate}T00:00:00`;
 
-    const url = `https://wsrt.ghum.kuleuven.be/service1.asmx/GetReservationsJSON?uid=${uid}&ResourceIDList=${Object.keys(SEATS).join(',')}&startdtstring=${startDateTime}&enddtstring=${endDateTime}`;
+    const url = `https://wsrt.ghum.kuleuven.be/service1.asmx/GetReservationsJSON?uid=${uid}&ResourceIDList=${Object.keys(seats).join(',')}&startdtstring=${startDateTime}&enddtstring=${endDateTime}`;
 
     return fetch(url)
         .then(response => response.json())

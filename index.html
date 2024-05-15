@@ -13,6 +13,13 @@
 <body>
     <form id="queryForm">
         <div class="queryContainer">
+            <label for="date">Library:</label>
+            <select id="library" name="library" required>
+                <option value="agora" selected>Agora</option>
+                <option value="ebib">EBIB</option>
+            </select>
+        </div>
+        <div class="queryContainer">
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
         </div>
