@@ -68,6 +68,9 @@ a {
     #queryForm {
         flex-direction: column;
     }
+    .smolFont {
+        font-size: 10px;
+    }
 }
 
 #tableContainer {
@@ -75,6 +78,3 @@ a {
     overflow-x: scroll;
 }
 
-.smolFont {
-    font-size: 10px;
-}
