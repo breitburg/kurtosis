@@ -4,6 +4,7 @@ const PIDS = {
   "arenberg-main": 201401,
   "arenberg-rest": 201401,
   erasmus: 201404,
+  "agora-rooms": 202203
 };
 
 // Set default date to today
