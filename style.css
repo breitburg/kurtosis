@@ -16,6 +16,12 @@ td {
     border: none;
 }
 
+tr>th:first-child, tr>td:first-child {
+  position: sticky;
+  left: 0;
+  background-color: white;
+}
+
 .available {
     background-color: #BDFFBC;
     color: #286327;
@@ -44,14 +50,31 @@ a {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 10px 18px;
+    align-items: start;
 }
 
 .queryContainer {
     display: flex;
     flex-direction: row;
-    margin-right: 20px;
+    align-items: baseline;
 }
 
 #notice {
     font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    #queryForm {
+        flex-direction: column;
+    }
+}
+
+#tableContainer {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.smolFont {
+    font-size: 10px;
 }

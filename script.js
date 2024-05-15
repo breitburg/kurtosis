@@ -71,14 +71,14 @@ function renderTable(sortedTimeslots, selectedDate) {
     table.innerHTML = `
         <tr>
             <th>Name</th>
-            ${[...Array(24)].map((_, index) => `<th>${index}</th>`).join('')}
-            <th>Links</th>
+            ${[...Array(24)].map((_, index) => `<th>${index}</th>`).join("")}
+            <th colspan="2">Actions</th>
         </tr>
     `;
 
     for (const [resourceName, resourceData] of Object.entries(sortedTimeslots)) {
         const resourceReservations = resourceData.reservations;
-        let rowHtml = `<tr><td>${resourceName}</td>`;
+        let rowHtml = `<tr><td class="smolFont">${resourceName}</td>`;
 
         for (let hour = 0; hour < 24; hour++) {
             const hourReservations = resourceReservations.filter(reservation => reservation.date.getHours() === hour);
@@ -99,7 +99,7 @@ function renderTable(sortedTimeslots, selectedDate) {
 
         const checkInLink = `https://kuleuven.be/kurtqr?id=${resourceData.resourceId}`;
         const bookLink = `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/default.aspx?pid=201403&showresults=done&resourceid=${resourceData.resourceId}&startDate=${selectedFormattedDate}T00%3A00%3A00`;
-        rowHtml += `<td><a href="${bookLink}" target="_blank">Book</a><br><a href="${checkInLink}" target="_blank">Check In</a></td>`;
+        rowHtml += `<td class="smolFont"><a href="${bookLink}" target="_blank">Book</a></td><td class="smolFont"><a href="${checkInLink}" target="_blank">Check&nbsp;In</a></td>`;
 
         rowHtml += '</tr>';
         table.insertAdjacentHTML('beforeend', rowHtml);

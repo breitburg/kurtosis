@@ -8,6 +8,7 @@
     <meta name="keywords" content="Agora, booking, seats, KU Leuven">
     <script defer src="https://analytics.eu.umami.is/script.js"
         data-website-id="6857b71b-5a84-4d62-a7f1-da62c1e1cc87"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 
 <body>
@@ -25,7 +26,7 @@
         </div>
         <div class="queryContainer">
             <label for="rNumber">R-number:</label>
-            <input type="text" id="rNumber" name="rNumber" placeholder="r1234567" required>
+            <input type="text" id="rNumber" name="rNumber" placeholder="r1234567" autocapitalize="no" required>
         </div>
         <div class="queryContainer">
             <label for="rememberRNumber">Remember R-number:</label>
@@ -52,8 +53,10 @@
         it.
     </div>
     <br>
-    <table id="seatTable" border="1">
-    </table>
+    <div id="tableContainer">
+        <table id="seatTable" border="1">
+        </table>
+    </div>
 
     <script src="script.js"></script>
 </body>
