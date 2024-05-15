@@ -1,5 +1,3 @@
-let SEATS = {};
-
 // Set default date to today
 let today = new Date();
 let dd = String(today.getDate()).padStart(2, '0');
@@ -27,7 +25,6 @@ async function fetchTimeslots(date, uid) {
     const seats = await fetch(`/seats/${selectedLibrary}.json`)
       .then(response => response.json());
 
-    SEATS = seats; // kostyl
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -46,18 +43,21 @@ async function fetchTimeslots(date, uid) {
 
     const url = `https://wsrt.ghum.kuleuven.be/service1.asmx/GetReservationsJSON?uid=${uid}&ResourceIDList=${Object.keys(seats).join(',')}&startdtstring=${startDateTime}&enddtstring=${endDateTime}`;
 
-    return fetch(url)
+    const timeslots = await fetch(url)
         .then(response => response.json())
         .then(data => data.map(item => ({
             resource_id: item.ResourceID,
             date: new Date(item.Startdatetime),
             status: item.Status
         })));
+
+
+    return [timeslots, seats];
 }
 
-function sortTimeslots(timeslots) {
+function sortTimeslots(timeslots, seats) {
     const sortedTimeslots = {};
-    for (const [resourceId, resourceName] of Object.entries(SEATS)) {
+    for (const [resourceId, resourceName] of Object.entries(seats)) {
         sortedTimeslots[resourceName] = {
             resourceId: parseInt(resourceId),
             reservations: timeslots.filter(reservation => reservation.resource_id === parseInt(resourceId))
@@ -142,7 +142,7 @@ document.getElementById('queryForm').addEventListener('submit', function (event)
     document.getElementById('seatTable').style.display = 'none';
 
     fetchTimeslots(selectedDate, rNumber)
-        .then(timeslots => sortTimeslots(timeslots))
+        .then(([timeslots, seats]) => sortTimeslots(timeslots, seats))
         .then(sortedTimeslots => {
             renderTable(sortedTimeslots, selectedDate);
             fetchButton.textContent = previousButtonText;
