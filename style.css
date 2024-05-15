@@ -1,6 +1,13 @@
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+}
+
 body {
     padding: 10px;
-    font-family: sans-serif;
 }
 
 table {
@@ -8,6 +15,17 @@ table {
     display: none;
 }
 
+button {
+    background: none;
+    border-radius: 3px;
+    border: 1px solid #dfdfdf;
+    padding: 5px 10px;
+    color: black;
+}
+
+button:disabled {
+    color: #dfdfdf;
+}
 
 th,
 td {
@@ -76,5 +94,53 @@ a {
 #tableContainer {
     width: 100%;
     overflow-x: scroll;
+}
+
+dialog {
+    border-radius: 10px;
+    border: solid 1px lightgray;
+}
+
+.dialogContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+}
+
+.dialogTitle {
+    margin: 0;
+}
+
+.dialogFormBlock {
+    display: flex;
+    flex-direction: row;
+    /* gap: 10px; */
+    align-items: center;
+}
+
+label[for="startTime"], label[for="endTime"] {
+    width: 75px;
+    font-size: 13px;
+}
+
+#closeButton {
+    color: red;
+}
+
+.dialogContent > form {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.dialogContent > p {
+    font-size: 13px;
+    margin: 0;
+    opacity: 0.5;
+}
+
+.dialogContent > form > button {
+    flex: 1;
 }
 

@@ -1,68 +1,120 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Kurtosis for Agora</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta name="description" content="KURT is bad, so I've made a better one">
-    <meta name="keywords" content="Agora, booking, seats, KU Leuven">
-    <script defer src="https://analytics.eu.umami.is/script.js"
-        data-website-id="6857b71b-5a84-4d62-a7f1-da62c1e1cc87"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-</head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="description" content="KURT is bad, so I've made a better one" />
+    <meta name="keywords" content="Agora, booking, seats, KU Leuven" />
+    <script
+      defer
+      src="https://analytics.eu.umami.is/script.js"
+      data-website-id="6857b71b-5a84-4d62-a7f1-da62c1e1cc87"
+    ></script>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">  
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+  </head>
 
-<body>
+  <body>
     <form id="queryForm">
-        <div class="queryContainer">
-            <label for="date">Library:</label>
-            <select id="library" name="library" required>
-                <option value="agora" selected>Agora</option>
-                <option value="agora-rooms">Agora (Rooms)</option>
-                <option value="ebib">EBIB</option>
-                <option value="erasmus">Artes Erasmushuis</option>
-                <option value="arenberg-main">Arenberg (Boekenzaal/Leeszaal/DeLeVille)</option>
-                <!--<option value="arenberg-rest">Arenberg (Kelder/Zolder/Tulp)</option>-->
-            </select>
-        </div>
-        <div class="queryContainer">
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required>
-        </div>
-        <div class="queryContainer">
-            <label for="rNumber">R-number:</label>
-            <input type="text" id="rNumber" name="rNumber" placeholder="r1234567" autocapitalize="no" required>
-        </div>
-        <div class="queryContainer">
-            <label for="rememberRNumber">Remember R-number:</label>
-            <input type="checkbox" id="rememberRNumber" name="rememberRNumber" checked>
-        </div>
-        <button id="fetchButton" type="submit">Fetch</button>
+      <div class="queryContainer">
+        <label for="date">Library:</label>
+        <select id="library" name="library" required>
+          <option value="agora" selected>Agora</option>
+          <option value="agora-rooms">Agora (Rooms)</option>
+          <option value="ebib">EBIB</option>
+          <option value="erasmus">Artes Erasmushuis</option>
+          <option value="arenberg-main">
+            Arenberg (Boekenzaal/Leeszaal/DeLeVille)
+          </option>
+          <!--<option value="arenberg-rest">Arenberg (Kelder/Zolder/Tulp)</option>-->
+        </select>
+      </div>
+      <div class="queryContainer">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required />
+      </div>
+      <div class="queryContainer">
+        <label for="rNumber">R-number:</label>
+        <input
+          type="text"
+          id="rNumber"
+          name="rNumber"
+          placeholder="r1234567"
+          autocapitalize="no"
+          required
+        />
+      </div>
+      <div class="queryContainer">
+        <label for="rememberRNumber">Remember R-number:</label>
+        <input
+          type="checkbox"
+          id="rememberRNumber"
+          name="rememberRNumber"
+          checked
+        />
+      </div>
+      <button id="fetchButton" type="submit">Fetch</button>
     </form>
-    <br>
+    <br />
     <div id="notice">
-        This tool is not affiliated with KU Leuven. Please use it responsibly and do not abuse the system.
-        <br>
-        If you are a KU Leuven representative and would like this tool to be removed, please <a
-            href="mailto:kurtosis@breitburg.com">contact me</a>.
-        <br>
-        Your R-number is stored locally in your browser and only used to fetch the data from KURT.
-        <br>
+      This tool is not affiliated with KU Leuven. Please use it responsibly and
+      do not abuse the system.
+      <br />
+      If you are a KU Leuven representative and would like this tool to be
+      removed, please <a href="mailto:kurtosis@breitburg.com">contact me</a>.
+      <br />
+      Your R-number is stored locally in your browser and only used to fetch the
+      data from KURT.
+      <br />
     </div>
-    <br>
+    <br />
     <div id="notice">
-        You might want to visit <a href="https://bib.kuleuven.be/english/agora/planyourvisit/floorplan"
-            target="_blank">Agora
-            floor plan</a> to pick a seat and <a
-            href="https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/default.aspx" target="_blank">KURT</a> to book
-        it.
+      You might want to visit
+      <a
+        href="https://bib.kuleuven.be/english/agora/planyourvisit/floorplan"
+        target="_blank"
+        >Agora floor plan</a
+      >
+      to pick a seat and
+      <a
+        href="https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/default.aspx"
+        target="_blank"
+        >KURT</a
+      >
+      to book it.
     </div>
-    <br>
+    <br />
     <div id="tableContainer">
-        <table id="seatTable" border="1">
-        </table>
+      <table id="seatTable" border="1"></table>
     </div>
+
+    <!--<button onclick="document.getElementById('bookDialog').showModal()">DEBUG: open dialog</button>-->
+
+    <dialog id="bookDialog">
+
+      <div class="dialogContent">
+        <h2 class="dialogTitle">Reserve this seat</h2>
+        <div class="dialogFormBlock">
+          <label for="startTime">Start time:</label>
+          <select id="startTime" name="startTime"></select>
+        </div>
+
+        <div class="dialogFormBlock">
+           <label for="endTime">End time:</label>
+          <select id="endTime" name="startTime"></select>
+        </div>
+        <p>You will be able to add a subject and attendees (for a room) one the next page</p>
+        <form>
+            <button id="bookButton">Next</button>
+            <button type="submit" id="closeButton" formmethod="dialog" formnovalidate>Close</button>
+        </form>
+      </div>
+    </dialog>
 
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
