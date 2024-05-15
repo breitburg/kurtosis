@@ -1,3 +1,11 @@
+const PIDS = {
+  agora: 201403,
+  ebib: 201406,
+  "arenberg-main": 201401,
+  "arenberg-rest": 201401,
+  erasmus: 201404,
+};
+
 // Set default date to today
 let today = new Date();
 let dd = String(today.getDate()).padStart(2, '0');
@@ -66,7 +74,7 @@ function sortTimeslots(timeslots, seats) {
     return sortedTimeslots;
 }
 
-function renderTable(sortedTimeslots, selectedDate) {
+function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
     const table = document.getElementById('seatTable');
     table.innerHTML = `
         <tr>
@@ -98,7 +106,7 @@ function renderTable(sortedTimeslots, selectedDate) {
         const selectedFormattedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
 
         const checkInLink = `https://kuleuven.be/kurtqr?id=${resourceData.resourceId}`;
-        const bookLink = `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/default.aspx?pid=201403&showresults=done&resourceid=${resourceData.resourceId}&startDate=${selectedFormattedDate}T00%3A00%3A00`;
+        const bookLink = `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/default.aspx?pid=${PIDS[selectedLibrary]}&showresults=done&resourceid=${resourceData.resourceId}&startDate=${selectedFormattedDate}T00%3A00%3A00`;
         rowHtml += `<td class="smolFont"><a href="${bookLink}" target="_blank">Book</a></td><td class="smolFont"><a href="${checkInLink}" target="_blank">Check&nbsp;In</a></td>`;
 
         rowHtml += '</tr>';
@@ -144,7 +152,7 @@ document.getElementById('queryForm').addEventListener('submit', function (event)
     fetchTimeslots(selectedDate, rNumber)
         .then(([timeslots, seats]) => sortTimeslots(timeslots, seats))
         .then(sortedTimeslots => {
-            renderTable(sortedTimeslots, selectedDate);
+            renderTable(sortedTimeslots, selectedDate, document.getElementById('library').value);
             fetchButton.textContent = previousButtonText;
             fetchButton.disabled = false;
         });
