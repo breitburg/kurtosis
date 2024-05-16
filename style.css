@@ -1,9 +1,13 @@
 :root {
-  font-family: Inter, sans-serif;
-  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+    font-family: Inter, sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+    /* fix for Chrome */
 }
+
 @supports (font-variation-settings: normal) {
-  :root { font-family: InterVariable, sans-serif; }
+    :root {
+        font-family: InterVariable, sans-serif;
+    }
 }
 
 body {
@@ -15,7 +19,9 @@ table {
     display: none;
 }
 
-button {
+button,
+input,
+select {
     background: none;
     border-radius: 3px;
     border: 1px solid #dfdfdf;
@@ -34,10 +40,11 @@ td {
     border: none;
 }
 
-tr>th:first-child, tr>td:first-child {
-  position: sticky;
-  left: 0;
-  background-color: white;
+tr>th:first-child,
+tr>td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: white;
 }
 
 .available {
@@ -86,6 +93,7 @@ a {
     #queryForm {
         flex-direction: column;
     }
+
     .smolFont {
         font-size: 10px;
     }
@@ -119,7 +127,8 @@ dialog {
     align-items: center;
 }
 
-label[for="startTime"], label[for="endTime"] {
+label[for="startTime"],
+label[for="endTime"] {
     width: 75px;
     font-size: 13px;
 }
@@ -128,19 +137,18 @@ label[for="startTime"], label[for="endTime"] {
     color: red;
 }
 
-.dialogContent > form {
+.dialogContent>form {
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
 
-.dialogContent > p {
+.dialogContent>p {
     font-size: 13px;
     margin: 0;
     opacity: 0.5;
 }
 
-.dialogContent > form > button {
+.dialogContent>form>button {
     flex: 1;
 }
-
