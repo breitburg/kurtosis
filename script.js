@@ -113,8 +113,8 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
         displayStatus === "U"
           ? "unavailable"
           : displayStatus === "B"
-          ? "booked"
-          : "available";
+            ? "booked"
+            : "available";
       rowHtml += `<td class="${cellClass}">${displayStatus}</td>`;
     }
 
@@ -130,7 +130,7 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
         resourceId: resourceData.resourceId,
         reservations: resourceReservations,
       }
-    )})'>Book</button></td><td class="smolFont"><a href="${checkInLink}" target="_blank">Check&nbsp;In</a></td>`;
+    )})'>Book</button></td><td class="smolFont"><button onClick='window.open("${checkInLink}")'>Check&nbsp;In</button></td>`;
 
     rowHtml += "</tr>";
     table.insertAdjacentHTML("beforeend", rowHtml);
