@@ -1,5 +1,7 @@
 const PIDS = {
   agora: 201403,
+  "agora-blok-rooms": 201403,
+  "agora-flexispace": 201403,
   ebib: 201406,
   "arenberg-main": 201401,
   "arenberg-rest": 201401,
@@ -22,7 +24,7 @@ dateInput.value = minDate;
 dateInput.min = minDate;
 
 // Set the max date for the input field
-let maxDate = yyyy + "-" + mm + "-" + (parseInt(today.getDate()) + 8);
+let maxDate = yyyy + "-" + mm + "-" + (parseInt(today.getDate()) + 9);
 dateInput.max = maxDate;
 
 // Load saved r-number from local storage
@@ -113,8 +115,8 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
         displayStatus === "U"
           ? "unavailable"
           : displayStatus === "B"
-            ? "booked"
-            : "available";
+          ? "booked"
+          : "available";
       rowHtml += `<td class="${cellClass}">${displayStatus}</td>`;
     }
 
@@ -150,13 +152,19 @@ function openBookingDialog(resourceData) {
 
   document.getElementById("startTime").innerHTML = "";
 
+  const reservationAvailable = isReservationAvailable(
+    document.getElementById("date").value
+  );
+
   for (let i = 0; i < 24; i++) {
     const option = document.createElement("option");
     option.value = i;
     option.textContent = `${i}:00`;
-    option.disabled = resourceData.reservations.some(
-      reservation => new Date(reservation.date).getHours() === i
-    );
+    option.disabled =
+      reservationAvailable &&
+      resourceData.reservations.some(
+        reservation => new Date(reservation.date).getHours() === i
+      );
     document.getElementById("startTime").appendChild(option);
   }
 
@@ -166,6 +174,44 @@ function openBookingDialog(resourceData) {
 document.getElementById("bookDialog").addEventListener("close", function () {
   currentlyBooking = {};
 });
+
+function isReservationAvailable(targetDateInput) {
+  // Get the current date and time
+  const now = new Date();
+
+  const targetDate = new Date(targetDateInput);
+
+  // Extract the year, month, and day from the target date
+  const year = targetDate.getFullYear();
+  const month = targetDate.getMonth();
+  const day = targetDate.getDate();
+
+  // Create a new date object for the target date at 00:00:00
+  const targetDateMidnight = new Date(year, month, day);
+
+  // Create a new date object for 7 days before the target date at 00:00:00
+  const sevenDaysBefore = new Date(targetDateMidnight);
+  sevenDaysBefore.setDate(sevenDaysBefore.getDate() - 7);
+
+  // Create a new date object for today's date at 18:00:00 (6 PM)
+  const todayAt6PM = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    18,
+    0,
+    0
+  );
+
+  // Check if the current date and time is past 6 PM
+  const isPast6PM = now >= todayAt6PM;
+
+  // Check if today is within the 7-day reservation window
+  const isWithinWindow = now >= sevenDaysBefore && now < targetDateMidnight;
+
+  // Return true if both conditions are met, otherwise false
+  return isPast6PM && isWithinWindow;
+}
 
 function generateLink() {
   const startTime = document.getElementById("startTime").value;
@@ -193,22 +239,24 @@ document.getElementById("bookButton").addEventListener("click", function () {
   window.open(generateLink());
 });
 
-document.getElementById("copyLink").addEventListener("click", async function () {
-  try {
-    await navigator.clipboard.writeText(generateLink());
-    this.textContent = "Copied!";
-    this.disabled = true;
-  } catch (err) {
-    console.error("Failed to copy!", err);
-    this.textContent = "Failed to copy!";
-    this.disabled = true;
-  }
-  
-  setTimeout(() => {
-    this.textContent = "Copy booking link";
-    this.disabled = false;
-  }, 1000);
-});
+document
+  .getElementById("copyLink")
+  .addEventListener("click", async function () {
+    try {
+      await navigator.clipboard.writeText(generateLink());
+      this.textContent = "Copied!";
+      this.disabled = true;
+    } catch (err) {
+      console.error("Failed to copy!", err);
+      this.textContent = "Failed to copy!";
+      this.disabled = true;
+    }
+
+    setTimeout(() => {
+      this.textContent = "Copy booking link";
+      this.disabled = false;
+    }, 1000);
+  });
 
 function refreshDropdowns(startTime) {
   console.log(startTime);
@@ -217,16 +265,22 @@ function refreshDropdowns(startTime) {
 
   document.getElementById("endTime").innerHTML = "";
 
+  const reservationAvailable = isReservationAvailable(
+    document.getElementById("date").value
+  );
+
   for (let i = selectedEndTime; i < 24; i++) {
     // Only allow to select if the timeslot is available and if by selecting this time, there is no booked timeslot between the selected start and end time
     const option = document.createElement("option");
     option.value = i;
     option.textContent = `${i}:00`;
-    option.disabled = currentlyBooking.reservations.some(
-      reservation =>
-        new Date(reservation.date).getHours() >= selectedStartTime &&
-        new Date(reservation.date).getHours() < i
-    );
+    option.disabled =
+      reservationAvailable &&
+      currentlyBooking.reservations.some(
+        reservation =>
+          new Date(reservation.date).getHours() >= selectedStartTime &&
+          new Date(reservation.date).getHours() < i
+      );
     document.getElementById("endTime").appendChild(option);
   }
 
