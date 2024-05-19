@@ -167,7 +167,7 @@ document.getElementById("bookDialog").addEventListener("close", function () {
   currentlyBooking = {};
 });
 
-document.getElementById("bookButton").addEventListener("click", function () {
+function generateLink() {
   const startTime = document.getElementById("startTime").value;
   const endTime = document.getElementById("endTime").value;
 
@@ -186,9 +186,28 @@ document.getElementById("bookButton").addEventListener("click", function () {
     endTime == 0 ? selectedDate.getDate() + 1 : selectedDate.getDate()
   ).padStart(2, "0")}T${endTime.padStart(2, "0")}:00:00`;
 
-  window.open(
-    `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/NEW-Reservation.aspx?StartDateTime=${startTimeFormatted}&EndDateTime=${endTimeFormatted}&ID=${currentlyBooking.resourceId}&type=b`
-  );
+  return `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/NEW-Reservation.aspx?StartDateTime=${startTimeFormatted}&EndDateTime=${endTimeFormatted}&ID=${currentlyBooking.resourceId}&type=b`;
+}
+
+document.getElementById("bookButton").addEventListener("click", function () {
+  window.open(generateLink());
+});
+
+document.getElementById("copyLink").addEventListener("click", async function () {
+  try {
+    await navigator.clipboard.writeText(generateLink());
+    this.textContent = "Copied!";
+    this.disabled = true;
+  } catch (err) {
+    console.error("Failed to copy!", err);
+    this.textContent = "Failed to copy!";
+    this.disabled = true;
+  }
+  
+  setTimeout(() => {
+    this.textContent = "Copy booking link";
+    this.disabled = false;
+  }, 1000);
 });
 
 function refreshDropdowns(startTime) {
