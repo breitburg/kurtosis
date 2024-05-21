@@ -5,6 +5,7 @@ const PIDS = {
   ebib: 201406,
   "arenberg-main": 201401,
   "arenberg-rest": 201401,
+  "arenberg-tulp": 201401,
   erasmus: 201404,
   "agora-rooms": 202203,
 };
@@ -108,11 +109,17 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
 
       let displayStatus = "A";
       if (hourReservations.length > 0) {
-        displayStatus = hourReservations[0].status === "U" ? "U" : "B";
+        if (hourReservations[0].status === "U") {
+          displayStatus = "U"; // Unavailable
+        } else if (hourReservations[0].status === "B") {
+          displayStatus = "B"; // Booked
+        } else if (hourReservations[0].status === "C") {
+          displayStatus = "C"; // Closed
+        }
       }
 
       const cellClass =
-        displayStatus === "U"
+        (displayStatus === "U" || displayStatus === "C")
           ? "unavailable"
           : displayStatus === "B"
           ? "booked"

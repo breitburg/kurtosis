@@ -1,12 +1,14 @@
 :root {
     font-family: Inter, sans-serif;
-    font-feature-settings: 'liga' 1, 'calt' 1;
+    font-feature-settings: 'liga' 1, 'calt' 1, 'tnum' 1;
     /* fix for Chrome */
 }
 
 @supports (font-variation-settings: normal) {
     :root {
         font-family: InterVariable, sans-serif;
+        /* enable tnum feature */
+        font-variation-settings: 'tnum' 1;
     }
 }
 
@@ -157,4 +159,10 @@ label[for="endTime"] {
 
 .dialogButtonRow>button {
     flex: 1;
+}
+
+#seatGuide {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    display: none;
 }
