@@ -119,7 +119,7 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
       }
 
       const cellClass =
-        (displayStatus === "U" || displayStatus === "C")
+        displayStatus === "U" || displayStatus === "C"
           ? "unavailable"
           : displayStatus === "B"
           ? "booked"
@@ -159,9 +159,9 @@ function openBookingDialog(resourceData) {
 
   document.getElementById("startTime").innerHTML = "";
 
-  const reservationAvailable = isReservationAvailable(
+  const reservationAvailable = /*isReservationAvailable(
     document.getElementById("date").value
-  );
+  );*/ true; // TODO: fix
 
   for (let i = 0; i < 24; i++) {
     const option = document.createElement("option");
@@ -272,9 +272,11 @@ function refreshDropdowns(startTime) {
 
   document.getElementById("endTime").innerHTML = "";
 
-  const reservationAvailable = isReservationAvailable(
+  const reservationAvailable = /*isReservationAvailable(
     document.getElementById("date").value
-  );
+  );*/ true; // TODO: Fix
+
+  console.log(reservationAvailable);
 
   for (let i = selectedEndTime; i < 24; i++) {
     // Only allow to select if the timeslot is available and if by selecting this time, there is no booked timeslot between the selected start and end time
