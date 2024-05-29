@@ -16,6 +16,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="400x400" href="/assets/apple-icon.png" />
   </head>
 
   <body>
@@ -99,11 +102,16 @@
       >.
     </div>
 
-    <!--<button onclick="document.getElementById('bookDialog').showModal()">DEBUG: open dialog</button>-->
+    <button onclick="document.getElementById('bookDialog').showModal()">DEBUG: open dialog</button>
 
     <dialog id="bookDialog">
       <div class="dialogContent">
         <h2 class="dialogTitle">Reserve this seat</h2>
+
+        <div class="warningBlock" id="reservationClosed">
+          <b>Warning!</b> You have selected a date for which reservation is not yet open. You can still make a link and book the seat later. 
+        </div>
+
         <div class="dialogFormBlock">
           <label for="startTime">Start time:</label>
           <select id="startTime" name="startTime"></select>
@@ -115,13 +123,12 @@
         </div>
 
         <p>
-          You will be able to add a subject and attendees (for a room) one the
-          next page
+          You will be redirected to KURT to complete the reservation, where you will be able to add a subject or attendees
         </p>
 
         <div class="dialogButtonRow">
           <button id="copyLink">Copy link</button>
-          <button id="bookButton">Book</button>
+          <button id="bookButton">Go to booking</button>
         </div>
         <form class="dialogButtonRow">
           <button

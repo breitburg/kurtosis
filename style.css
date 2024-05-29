@@ -26,10 +26,12 @@ button,
 input,
 select {
     background: none;
-    border-radius: 2px;
+    border-radius: 5px;
     border: 1px solid #dfdfdf;
     padding: 5px 10px;
     color: black;
+    height: 25px;
+    box-sizing: border-box;
 }
 
 button {
@@ -165,4 +167,12 @@ label[for="endTime"] {
     margin-top: 18px;
     margin-bottom: 18px;
     display: none;
+}
+
+.warningBlock {
+    background: rgba(255, 220, 94, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px rgba(255, 220, 94, 0.6);
+    font-size: 13px;
 }

@@ -159,9 +159,9 @@ function openBookingDialog(resourceData) {
 
   document.getElementById("startTime").innerHTML = "";
 
-  const reservationAvailable = /*isReservationAvailable(
+  const reservationAvailable = isReservationAvailable(
     document.getElementById("date").value
-  );*/ true; // TODO: fix
+  );
 
   for (let i = 0; i < 24; i++) {
     const option = document.createElement("option");
@@ -183,41 +183,18 @@ document.getElementById("bookDialog").addEventListener("close", function () {
 });
 
 function isReservationAvailable(targetDateInput) {
-  // Get the current date and time
   const now = new Date();
 
   const targetDate = new Date(targetDateInput);
 
-  // Extract the year, month, and day from the target date
-  const year = targetDate.getFullYear();
-  const month = targetDate.getMonth();
-  const day = targetDate.getDate();
+  targetDate.setHours(18, 0, 0, 0); // Reservation opens at 18:00
 
-  // Create a new date object for the target date at 00:00:00
-  const targetDateMidnight = new Date(year, month, day);
-
-  // Create a new date object for 7 days before the target date at 00:00:00
-  const sevenDaysBefore = new Date(targetDateMidnight);
-  sevenDaysBefore.setDate(sevenDaysBefore.getDate() - 7);
-
-  // Create a new date object for today's date at 18:00:00 (6 PM)
-  const todayAt6PM = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    18,
-    0,
-    0
-  );
-
-  // Check if the current date and time is past 6 PM
-  const isPast6PM = now >= todayAt6PM;
-
-  // Check if today is within the 7-day reservation window
-  const isWithinWindow = now >= sevenDaysBefore && now < targetDateMidnight;
-
-  // Return true if both conditions are met, otherwise false
-  return isPast6PM && isWithinWindow;
+  // Check if the target date is within the next 8 days
+  if (targetDate.getTime() - now.getTime() <= 8 * 24 * 60 * 60 * 1000) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function generateLink() {
@@ -272,9 +249,15 @@ function refreshDropdowns(startTime) {
 
   document.getElementById("endTime").innerHTML = "";
 
-  const reservationAvailable = /*isReservationAvailable(
+  const reservationAvailable = isReservationAvailable(
     document.getElementById("date").value
-  );*/ true; // TODO: Fix
+  );
+
+  if (reservationAvailable) {
+    document.getElementById("reservationClosed").style.display = "none";
+  } else {
+    document.getElementById("reservationClosed").style.display = "block";
+  }
 
   console.log(reservationAvailable);
 
