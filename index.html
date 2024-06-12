@@ -61,6 +61,14 @@
     </div>
     <button id="fetchButton" type="submit">Fetch</button>
   </form>
+  <div id="banner" style="display: none;">
+    <div style="gap: 10px; display: flex; flex-direction: column;">
+      <h2>We're working on an app 📱</h2>
+      <p>Receive notifications about seat availability. Reserve multiple seats within a day. Use Face ID for booking,
+        not KU Leuven Authenticator. Sign up to become an early adopter.</p>
+    </div>
+    <button onclick="window.open('https://tally.so/r/3XGBad')">Join the beta</button>
+  </div>
   <!--<details id="seatGuide">
       <summary>Seat guide</summary>
       <div id="agora">
@@ -72,14 +80,6 @@
       
     </details>-->
   <div id="tableContainer">
-    <div id="banner" style="display: none;">
-      <div style="gap: 10px; display: flex; flex-direction: column;">
-        <h2>We're working on an app 📱</h2>
-        <p>Receive notifications about seat availability. Reserve multiple seats within a day. Use Face ID for booking,
-          not KU Leuven Authenticator. Sign up to become an early adopter.</p>
-      </div>
-      <button onclick="window.open('https://tally.so/r/3XGBad')">Join the beta</button>
-    </div>
     <table id="seatTable" border="1"></table>
   </div>
   <br />
