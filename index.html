@@ -1,84 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Kurtosis</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <meta name="description" content="A tool for KURT power users" />
-    <meta name="keywords" content="Agora, booking, seats, KU Leuven" />
-    <script
-      defer
-      src="https://analytics.eu.umami.is/script.js"
-      data-website-id="6857b71b-5a84-4d62-a7f1-da62c1e1cc87"
-    ></script>
-    <link rel="preconnect" href="https://rsms.me/" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=no"
-    />
 
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="400x400" href="/assets/apple-icon.png" />
-  </head>
+<head>
+  <title>Kurtosis</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <meta name="description" content="A tool for KURT power users" />
+  <meta name="keywords" content="Agora, booking, seats, KU Leuven" />
+  <script defer src="https://analytics.eu.umami.is/script.js"
+    data-website-id="6857b71b-5a84-4d62-a7f1-da62c1e1cc87"></script>
+  <link rel="preconnect" href="https://rsms.me/" />
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-  <body>
-    <form id="queryForm">
-      <div class="queryContainer">
-        <label for="date">Library:</label>
-        <select id="library" name="library" required>
-          
-          <optgroup label="Agora">
-            <option value="agora" selected>Silent Study</option>
-            <option value="agora-blok-rooms">
-              Seats in rooms (Only during blokperiode)
-            </option>
-            <option value="agora-flexispace">
-              FlexiSpace (Only during blokperiode)
-            </option>
-            <option value="agora-rooms">
-              Meeting rooms (Not during blokperiode)
-            </option>
-          </optgroup>
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" sizes="400x400" href="/assets/apple-icon.png" />
+</head>
 
-          <optgroup label="Arenberg">
-            <option value="arenberg-main">Boekenzaal/Leeszaal/DeLeVille</option>
-            <option value="arenberg-rest">Kelder/Zolder</option>
-            <option value="arenberg-tulp">Tulp 0/1</option>
-          </optgroup>
+<body>
+  <form id="queryForm">
+    <div class="queryContainer">
+      <label for="date">Library:</label>
+      <select id="library" name="library" required>
 
-          <option value="ebib">EBIB</option>
+        <optgroup label="Agora">
+          <option value="agora" selected>Silent Study</option>
+          <option value="agora-blok-rooms">
+            Seats in rooms (Only during blokperiode)
+          </option>
+          <option value="agora-flexispace">
+            FlexiSpace (Only during blokperiode)
+          </option>
+          <option value="agora-rooms">
+            Meeting rooms (Not during blokperiode)
+          </option>
+        </optgroup>
 
-          <option value="erasmus">Artes Erasmushuis</option>
-          <option value="kulak">Kulak</option>
-        </select>
-      </div>
-      <div class="queryContainer">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required />
-      </div>
-      <div class="queryContainer">
-        <label for="rNumber">R-number:</label>
-        <input
-          type="text"
-          id="rNumber"
-          name="rNumber"
-          placeholder="r1234567"
-          autocapitalize="no"
-          required
-        />
-      </div>
-      <div class="queryContainer">
-        <label for="rememberRNumber">Remember R-number:</label>
-        <input
-          type="checkbox"
-          id="rememberRNumber"
-          name="rememberRNumber"
-          checked
-        />
-      </div>
-      <button id="fetchButton" type="submit">Fetch</button>
-    </form>
-    <!--<details id="seatGuide">
+        <optgroup label="Arenberg">
+          <option value="arenberg-main">Boekenzaal/Leeszaal/DeLeVille</option>
+          <option value="arenberg-rest">Kelder/Zolder</option>
+          <option value="arenberg-tulp">Tulp 0/1</option>
+        </optgroup>
+
+        <option value="ebib">EBIB</option>
+
+        <option value="erasmus">Artes Erasmushuis</option>
+        <option value="kulak">Kulak</option>
+      </select>
+    </div>
+    <div class="queryContainer">
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" required />
+    </div>
+    <div class="queryContainer">
+      <label for="rNumber">R-number:</label>
+      <input type="text" id="rNumber" name="rNumber" placeholder="r1234567" autocapitalize="no" required />
+    </div>
+    <div class="queryContainer">
+      <label for="rememberRNumber">Remember R-number:</label>
+      <input type="checkbox" id="rememberRNumber" name="rememberRNumber" checked />
+    </div>
+    <button id="fetchButton" type="submit">Fetch</button>
+  </form>
+  <!--<details id="seatGuide">
       <summary>Seat guide</summary>
       <div id="agora">
         <ul>
@@ -88,62 +71,65 @@
       </div>
       
     </details>-->
-    <div id="tableContainer">
-      <table id="seatTable" border="1"></table>
-    </div>
-    <br />
-    <div id="notice">
-      This tool is not affiliated with KU Leuven. Please use it responsibly and
-      do not abuse the system.
-      <br />
-      Built by <a href="https://instagram.com/bre1tburg">Ilia Breitburg</a> and
-      <a href="https://gbgk.me/">George Bougakov</a>. Learn more
-      <a href="https://github.com/breitburg/kurtosis"
-        >about how this tool works</a
-      >.
-    </div>
-
-    <!-- <button onclick="document.getElementById('bookDialog').showModal()">DEBUG: open dialog</button> -->
-
-    <dialog id="bookDialog">
-      <div class="dialogContent">
-        <h2 class="dialogTitle">Reserve this seat</h2>
-
-        <div class="warningBlock" id="reservationClosed">
-          <b>Warning!</b> You have selected a date for which reservation is not yet open. You can still make a link and book the seat later. 
-        </div>
-
-        <div class="dialogFormBlock">
-          <label for="startTime">Start time:</label>
-          <select id="startTime" name="startTime"></select>
-        </div>
-
-        <div class="dialogFormBlock">
-          <label for="endTime">End time:</label>
-          <select id="endTime" name="startTime"></select>
-        </div>
-
-        <p>
-          You will be redirected to KURT to complete the reservation, where you will be able to add a subject or attendees
-        </p>
-
-        <div class="dialogButtonRow">
-          <button id="copyLink">Copy link</button>
-          <button id="bookButton">Go to booking</button>
-        </div>
-        <form class="dialogButtonRow">
-          <button
-            type="submit"
-            id="closeButton"
-            formmethod="dialog"
-            formnovalidate
-          >
-            Close
-          </button>
-        </form>
+  <div id="tableContainer">
+    <div id="banner" style="display: none;">
+      <div style="gap: 10px; display: flex; flex-direction: column;">
+        <h2>We're working on an app 📱</h2>
+        <p>Receive notifications about seat availability. Reserve multiple seats within a day. Use Face ID for booking,
+          not KU Leuven Authenticator. Sign up to become an early adopter.</p>
       </div>
-    </dialog>
+      <button onclick="window.open('https://tally.so/r/3XGBad')">Join the beta</button>
+    </div>
+    <table id="seatTable" border="1"></table>
+  </div>
+  <br />
+  <div id="notice">
+    This tool is not affiliated with KU Leuven. Please use it responsibly and
+    do not abuse the system.
+    <br />
+    Built by <a href="https://instagram.com/bre1tburg">Ilia Breitburg</a> and
+    <a href="https://gbgk.me/">George Bougakov</a>. Learn more
+    <a href="https://github.com/breitburg/kurtosis">about how this tool works</a>.
+  </div>
 
-    <script src="script.js"></script>
-  </body>
+  <!-- <button onclick="document.getElementById('bookDialog').showModal()">DEBUG: open dialog</button> -->
+
+  <dialog id="bookDialog">
+    <div class="dialogContent">
+      <h2 class="dialogTitle">Reserve this seat</h2>
+
+      <div class="warningBlock" id="reservationClosed">
+        <b>Warning!</b> You have selected a date for which reservation is not yet open. You can still make a link and
+        book the seat later.
+      </div>
+
+      <div class="dialogFormBlock">
+        <label for="startTime">Start time:</label>
+        <select id="startTime" name="startTime"></select>
+      </div>
+
+      <div class="dialogFormBlock">
+        <label for="endTime">End time:</label>
+        <select id="endTime" name="startTime"></select>
+      </div>
+
+      <p>
+        You will be redirected to KURT to complete the reservation, where you will be able to add a subject or attendees
+      </p>
+
+      <div class="dialogButtonRow">
+        <button id="copyLink">Copy link</button>
+        <button id="bookButton">Go to booking</button>
+      </div>
+      <form class="dialogButtonRow">
+        <button type="submit" id="closeButton" formmethod="dialog" formnovalidate>
+          Close
+        </button>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+
 </html>

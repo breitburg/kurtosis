@@ -1,7 +1,7 @@
 :root {
     font-family: Inter, sans-serif;
     font-feature-settings: 'liga' 1, 'calt' 1, 'tnum' 1;
-    /* fix for Chrome */
+    line-height: 1.4;
 }
 
 @supports (font-variation-settings: normal) {
@@ -30,8 +30,9 @@ select {
     border: 1px solid #dfdfdf;
     padding: 5px 10px;
     color: black;
-    height: 25px;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+
 }
 
 button {
@@ -175,4 +176,51 @@ label[for="endTime"] {
     border-radius: 5px;
     border: solid 1px rgba(255, 220, 94, 0.6);
     font-size: 13px;
+}
+
+#banner {
+    align-items: center;
+    border-radius: 10px;
+    background-color: #e3f0cb;
+    color: #0c4612;
+    margin: 20px 0px;
+    padding: 20px 20px;
+    max-width: 1120px;
+    gap: 20px;
+}
+
+#banner p {
+    color: rgba(12, 70, 18, 0.7);
+    margin: 0;
+}
+
+#banner h2 {
+    margin: 0;
+}
+
+#banner button {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    background-color: #0c4612;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    min-width: 150px;
+}
+
+/* Mobile devices */
+@media only screen and (max-width: 600px) {
+    #banner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* Large desktops */
+@media only screen and (min-width: 601px) {
+    #banner {
+        align-items: center;
+        flex-direction: row;
+    }
 }

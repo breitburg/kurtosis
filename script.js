@@ -143,6 +143,8 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
 
     rowHtml += "</tr>";
     table.insertAdjacentHTML("beforeend", rowHtml);
+
+    document.getElementById('banner').style.display = 'flex';
   }
 
   // Show the table after rendering
