@@ -144,7 +144,10 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
     rowHtml += "</tr>";
     table.insertAdjacentHTML("beforeend", rowHtml);
 
-    document.getElementById('banner').style.display = 'flex';
+    // Show the banner if the user has not hidden it yet
+    if (!localStorage.getItem("hideBanner")) {
+      document.getElementById('banner').style.display = 'flex';
+    }
   }
 
   // Show the table after rendering
@@ -306,12 +309,24 @@ document
 
     const selectedDate = new Date(document.getElementById("date").value);
     const rNumberField = document.getElementById("rNumber");
+    document.getElementById("rNumber").value = rNumberField.value.trim().toLowerCase();
     let rNumber = rNumberField.value;
 
     // Check if the r-number starts with 'r' and add it if it doesn't
-    if (!rNumber.startsWith("r")) {
+    if (!rNumber.startsWith("r") && !rNumber.startsWith("u")) {
       rNumber = `r${rNumber}`;
       rNumberField.value = rNumber;
+    }
+
+    if (rNumber.match(/[ur]\d{7}/) === null) {
+      alert("Invalid username (r-number/u-number). Make sure you entered it exactly as it is on your KU Leuven card");
+      return;
+    }
+
+    if (rNumber.match(/[u]\d{7}/)) {
+      alert(
+        "Warning: You entered a U-number. We were unable to test the functionality of this tool with U-numbers. Please proceed with caution."
+      );
     }
 
     // Check if the checkbox is checked
@@ -345,3 +360,8 @@ document
         fetchButton.disabled = false;
       });
   });
+
+function doNotShowBannerAgain() {
+  document.getElementById("banner").style.display = "none";
+  localStorage.setItem("hideBanner", true);
+}

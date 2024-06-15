@@ -1,225 +1,244 @@
 :root {
-    font-family: Inter, sans-serif;
-    font-feature-settings: 'liga' 1, 'calt' 1, 'tnum' 1;
-    line-height: 1.4;
+  font-family: Inter, sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1, "tnum" 1;
+  line-height: 1.4;
 }
 
 @supports (font-variation-settings: normal) {
-    :root {
-        font-family: InterVariable, sans-serif;
-        /* enable tnum feature */
-        font-variation-settings: 'tnum' 1;
-    }
+  :root {
+    font-family: InterVariable, sans-serif;
+    /* enable tnum feature */
+    font-variation-settings: "tnum" 1;
+  }
 }
 
 body {
-    padding: 10px;
+  padding: 10px;
 }
 
 table {
-    border-collapse: collapse;
-    display: none;
-    border: 1px solid #dfdfdf;
+  border-collapse: collapse;
+  display: none;
+  border: 1px solid #dfdfdf;
 }
 
 button,
 input,
 select {
-    background: none;
-    border-radius: 5px;
-    border: 1px solid #dfdfdf;
-    padding: 5px 10px;
-    color: black;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-
+  background: none;
+  border-radius: 5px;
+  border: 1px solid #dfdfdf;
+  padding: 5px 10px;
+  color: black;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 button:disabled {
-    cursor: not-allowed;
-    color: #dfdfdf;
+  cursor: not-allowed;
+  color: #dfdfdf;
 }
 
 th,
 td {
-    padding: 6px 10px;
-    text-align: center;
-    border: none;
+  padding: 6px 10px;
+  text-align: center;
+  border: none;
 }
 
-tr>th:first-child,
-tr>td:first-child {
-    position: sticky;
-    left: 0;
-    background-color: white;
+tr > th:first-child,
+tr > td:first-child {
+  position: sticky;
+  left: 0;
+  background-color: white;
 }
 
 .available {
-    background-color: #BDFFBC;
-    color: #286327;
+  background-color: #bdffbc;
+  color: #286327;
 }
 
 .booked {
-    background-color: #FFA6A6;
-    color: #750909;
+  background-color: #ffa6a6;
+  color: #750909;
 }
 
 .unavailable {
-    background-color: gainsboro;
-    color: black;
+  background-color: gainsboro;
+  color: black;
 }
 
 label {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 a {
-    text-decoration: none;
-    color: #0066ff;
+  text-decoration: none;
+  color: #0066ff;
 }
 
 #queryForm {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px 18px;
-    align-items: start;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px 18px;
+  align-items: start;
 }
 
 .queryContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
 
 #notice {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 @media (max-width: 600px) {
-    #queryForm {
-        flex-direction: column;
-    }
+  #queryForm {
+    flex-direction: column;
+  }
 
-    .smolFont {
-        font-size: 10px;
-    }
+  .smolFont {
+    font-size: 10px;
+  }
 }
 
 #tableContainer {
-    width: 100%;
-    overflow-x: scroll;
+  width: 100%;
+  overflow-x: scroll;
 }
 
 dialog {
-    border-radius: 10px;
-    border: solid 1px lightgray;
+  border-radius: 10px;
+  border: solid 1px lightgray;
 }
 
 .dialogContent {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
 }
 
 .dialogTitle {
-    margin: 0;
+  margin: 0;
 }
 
 .dialogFormBlock {
-    display: flex;
-    flex-direction: row;
-    /* gap: 10px; */
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  /* gap: 10px; */
+  align-items: center;
 }
 
 label[for="startTime"],
 label[for="endTime"] {
-    width: 75px;
-    font-size: 13px;
+  width: 75px;
+  font-size: 13px;
 }
 
 #closeButton {
-    color: red;
+  color: red;
 }
 
 .dialogButtonRow {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
-.dialogContent>p {
-    font-size: 13px;
-    margin: 0;
-    opacity: 0.5;
+.dialogContent > p {
+  font-size: 13px;
+  margin: 0;
+  opacity: 0.5;
 }
 
-.dialogButtonRow>button {
-    flex: 1;
+.dialogButtonRow > button {
+  flex: 1;
 }
 
 #seatGuide {
-    margin-top: 18px;
-    margin-bottom: 18px;
-    display: none;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  display: none;
 }
 
 .warningBlock {
-    background: rgba(255, 220, 94, 0.2);
-    padding: 10px;
-    border-radius: 5px;
-    border: solid 1px rgba(255, 220, 94, 0.6);
-    font-size: 13px;
+  background: rgba(255, 220, 94, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 1px rgba(255, 220, 94, 0.6);
+  font-size: 13px;
 }
 
 #banner {
-    align-items: center;
-    border-radius: 10px;
-    background-color: #e3f0cb;
-    color: #0c4612;
-    margin: 20px 0px;
-    padding: 20px 20px;
-    gap: 20px;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #e3f0cb;
+  color: #0c4612;
+  margin: 20px 0px;
+  padding: 20px 20px;
+  gap: 20px;
 }
 
 #banner p {
-    color: rgba(12, 70, 18, 0.7);
-    margin: 0;
+  color: rgba(12, 70, 18, 0.7);
+  margin: 0;
 }
 
 #banner h2 {
-    margin: 0;
+  margin: 0;
 }
 
-#banner button {
-    padding: 10px 20px;
-    border-radius: 50px;
-    border: none;
-    background-color: #0c4612;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    min-width: 150px;
+#banner button.primary {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  background-color: #0c4612;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 150px;
+}
+
+#banner button.secondary {
+  padding: 0;
+  text-decoration: underline;
+  border: none;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+#banner.btn-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* Mobile devices */
 @media only screen and (max-width: 600px) {
-    #banner {
-        align-items: flex-start;
-        flex-direction: column;
-    }
+  #banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #banner .btn-row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+  }
 }
 
 /* Large desktops */
 @media only screen and (min-width: 601px) {
-    #banner {
-        align-items: center;
-        flex-direction: row;
-    }
+  #banner {
+    align-items: center;
+    flex-direction: row;
+  }
 }
