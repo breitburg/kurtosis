@@ -71,6 +71,11 @@ async function fetchTimeslots(date, uid) {
         status: item.Status,
       }))
     );
+  
+  if (timeslots.length === 0) {
+    alert("Your username (r-number/u-number) was rejected by KURT. Please make sure you have entered it exactly as it is on your KU Leuven card");
+    throw new Error("Invalid username");
+  }
 
   return [timeslots, seats];
 }
@@ -356,6 +361,10 @@ document
           selectedDate,
           document.getElementById("library").value
         );
+        fetchButton.textContent = previousButtonText;
+        fetchButton.disabled = false;
+      }).catch((error) => {
+        console.log(error);
         fetchButton.textContent = previousButtonText;
         fetchButton.disabled = false;
       });
