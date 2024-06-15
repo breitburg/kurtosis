@@ -208,7 +208,7 @@ label[for="endTime"] {
 }
 
 #banner button.secondary {
-  padding: 0;
+  padding: 10px 0px;
   text-decoration: underline;
   border: none;
   color: rgba(0, 0, 0, 0.3);
