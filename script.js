@@ -76,6 +76,10 @@ async function fetchTimeslots(date, uid) {
     alert("Your username (r-number/u-number) was rejected by KURT. Please make sure you have entered it exactly as it is on your KU Leuven card");
     throw new Error("Invalid username");
   }
+  if(!timeslots.some(item => item.status !== "U")){
+    alert("There are no available seats, this library is probably closed.")
+    throw new Error("Library down");
+  }
 
   return [timeslots, seats];
 }
@@ -95,10 +99,11 @@ function sortTimeslots(timeslots, seats) {
 
 function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
   const table = document.getElementById("seatTable");
+  // Start from hour 6
   table.innerHTML = `
         <tr>
             <th>Name</th>
-            ${[...Array(24)].map((_, index) => `<th>${index}</th>`).join("")}
+            ${[...Array(24 - 6)].map((_, index) => `<th>${index + 6}</th>`).join("")} 
             <th colspan="2">Actions</th>
         </tr>
     `;
@@ -107,10 +112,11 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
     const resourceReservations = resourceData.reservations;
     let rowHtml = `<tr><td class="smolFont">${resourceName}</td>`;
 
-    for (let hour = 0; hour < 24; hour++) {
+    for (let hour = 6; hour < 24; hour++) { // Start from hour 6
       const hourReservations = resourceReservations.filter(
         reservation => reservation.date.getHours() === hour
       );
+
 
       let displayStatus = "A";
       if (hourReservations.length > 0) {
