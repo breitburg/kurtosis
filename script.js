@@ -71,15 +71,21 @@ async function fetchTimeslots(date, uid) {
         status: item.Status,
       }))
     );
-  
+
   if (timeslots.length === 0) {
-    alert("Your username (r-number/u-number) was rejected by KURT. Please make sure you have entered it exactly as it is on your KU Leuven card");
+    alert(
+      "Your username (r-number/u-number) was rejected by KURT. Please make sure you have entered it exactly as it is on your KU Leuven card"
+    );
     throw new Error("Invalid username");
   }
-  if(!timeslots.some(item => item.status !== "U")){
-    alert("There are no available seats, this library is probably closed.")
+
+  /* This doesn't work on holidays because the library can be open but there can be no booked seats, 
+  so this reports the library as closed when in reality it is just empty */
+  
+  /* if (!timeslots.some(item => item.status !== "U")) {
+    alert("There are no available seats, this library is probably closed.");
     throw new Error("Library down");
-  }
+  } */
 
   return [timeslots, seats];
 }
@@ -103,7 +109,9 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
   table.innerHTML = `
         <tr>
             <th>Name</th>
-            ${[...Array(24 - 6)].map((_, index) => `<th>${index + 6}</th>`).join("")} 
+            ${[...Array(24 - 6)]
+              .map((_, index) => `<th>${index + 6}</th>`)
+              .join("")} 
             <th colspan="2">Actions</th>
         </tr>
     `;
@@ -112,11 +120,11 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
     const resourceReservations = resourceData.reservations;
     let rowHtml = `<tr><td class="smolFont">${resourceName}</td>`;
 
-    for (let hour = 6; hour < 24; hour++) { // Start from hour 6
+    for (let hour = 6; hour < 24; hour++) {
+      // Start from hour 6
       const hourReservations = resourceReservations.filter(
         reservation => reservation.date.getHours() === hour
       );
-
 
       let displayStatus = "A";
       if (hourReservations.length > 0) {
@@ -157,7 +165,7 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
 
     // Show the banner if the user has not hidden it yet
     if (!localStorage.getItem("hideBanner")) {
-      document.getElementById('banner').style.display = 'flex';
+      document.getElementById("banner").style.display = "flex";
     }
   }
 
@@ -320,7 +328,9 @@ document
 
     const selectedDate = new Date(document.getElementById("date").value);
     const rNumberField = document.getElementById("rNumber");
-    document.getElementById("rNumber").value = rNumberField.value.trim().toLowerCase();
+    document.getElementById("rNumber").value = rNumberField.value
+      .trim()
+      .toLowerCase();
     let rNumber = rNumberField.value;
 
     // Check if the r-number starts with 'r' and add it if it doesn't
@@ -330,7 +340,9 @@ document
     }
 
     if (rNumber.match(/[ur]\d{7}/) === null) {
-      alert("Invalid username (r-number/u-number). Make sure you entered it exactly as it is on your KU Leuven card");
+      alert(
+        "Invalid username (r-number/u-number). Make sure you entered it exactly as it is on your KU Leuven card"
+      );
       return;
     }
 
@@ -369,7 +381,8 @@ document
         );
         fetchButton.textContent = previousButtonText;
         fetchButton.disabled = false;
-      }).catch((error) => {
+      })
+      .catch(error => {
         console.log(error);
         fetchButton.textContent = previousButtonText;
         fetchButton.disabled = false;
