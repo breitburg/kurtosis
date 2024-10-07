@@ -163,8 +163,8 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
     rowHtml += "</tr>";
     table.insertAdjacentHTML("beforeend", rowHtml);
 
-    // Show the banner if the user has not hidden it yet
-    if (!localStorage.getItem("hideBanner")) {
+    // Show the banner if the user has not hidden it yet and the selected study space is within Agora
+    if (!localStorage.getItem("hideBanner") && selectedLibrary.startsWith("agora")) {
       document.getElementById("banner").style.display = "flex";
     }
   }
