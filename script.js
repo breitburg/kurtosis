@@ -35,6 +35,13 @@ if (savedRNumber) {
   document.getElementById("rNumber").value = savedRNumber;
 }
 
+// Load saved library from local storage
+const savedLibrary = localStorage.getItem("library");
+
+if (savedLibrary) {
+  document.getElementById("library").value = savedLibrary;
+}
+
 async function fetchTimeslots(date, uid) {
   const selectedLibrary = document.getElementById("library").value;
 
@@ -361,6 +368,10 @@ document
     } else {
       localStorage.removeItem("rNumber");
     }
+
+    // Save selected library to local storage
+    const selectedLibrary = document.getElementById("library").value;
+    localStorage.setItem("library", selectedLibrary);
 
     const fetchButton = document.getElementById("fetchButton");
     let previousButtonText = fetchButton.textContent;
