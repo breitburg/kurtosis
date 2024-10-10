@@ -14,11 +14,11 @@ Kind of. The tool is not officially supported by KU Leuven, so we cannot guarant
 
 To use the tool you will need:
 
-- A working R-number (find it on your student card labeled as `Gebruikersnaam`)
-- An active KU Leuven account (you need to be a student or staff member)
+- A working R-number, U-number, or B-number (find it on your student card labeled as `Gebruikersnaam`)
+- An active KU Leuven account (you need to be a student, staff member, or guest)
 
-Go to [kurtosis.breitburg.com](https://kurtosis.breitburg.com), select a library, select a date (within the 7 days), enter your R-number and click "Fetch".
+Go to [kurtosis.breitburg.com](https://kurtosis.breitburg.com), select a library, select a date (within the 7 days), enter your R-number, U-number, or B-number and click "Fetch".
 
 ## Do you log my R-number?
 
-No, we don't. The R-number is only used to fetch the data from KURT and is only stored in your browser for your convenience. We don't store it on our servers or log it in any way.
+No, we don't. The R-number, U-number, or B-number is only used to fetch the data from KURT and is only stored in your browser for your convenience. We don't store it on our servers or log it in any way.

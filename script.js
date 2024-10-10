@@ -81,7 +81,7 @@ async function fetchTimeslots(date, uid) {
 
   if (timeslots.length === 0) {
     alert(
-      "Your username (r-number/u-number) was rejected by KURT. Please make sure you have entered it exactly as it is on your KU Leuven card"
+      "Your username (r-number/u-number/b-number) was rejected by KURT. Please make sure you have entered it exactly as it is on your KU Leuven card"
     );
     throw new Error("Invalid username");
   }
@@ -341,14 +341,14 @@ document
     let rNumber = rNumberField.value;
 
     // Check if the r-number starts with 'r' and add it if it doesn't
-    if (!rNumber.startsWith("r") && !rNumber.startsWith("u")) {
+    if (!rNumber.startsWith("r") && !rNumber.startsWith("u") && !rNumber.startsWith("b")) {
       rNumber = `r${rNumber}`;
       rNumberField.value = rNumber;
     }
 
-    if (rNumber.match(/[ur]\d{7}/) === null) {
+    if (rNumber.match(/[rub]\d{7}/) === null) {
       alert(
-        "Invalid username (r-number/u-number). Make sure you entered it exactly as it is on your KU Leuven card"
+        "Invalid username (r-number/u-number/b-number). Make sure you entered it exactly as it is on your KU Leuven card"
       );
       return;
     }
@@ -356,6 +356,12 @@ document
     if (rNumber.match(/[u]\d{7}/)) {
       alert(
         "Warning: You entered a U-number. We were unable to test the functionality of this tool with U-numbers. Please proceed with caution."
+      );
+    }
+
+    if (rNumber.match(/[b]\d{7}/)) {
+      alert(
+        "Warning: You entered a B-number. We were unable to test the functionality of this tool with B-numbers. Please proceed with caution."
       );
     }
 
