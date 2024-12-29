@@ -38,6 +38,18 @@ button {
   cursor: pointer;
 }
 
+#fetchButton {
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+#fetchButton:disabled {
+  background-color: #dfdfdf;
+  color: #a1a1a1;
+  border: none;
+}
+
 button:disabled {
   cursor: not-allowed;
   color: #dfdfdf;
