@@ -87,6 +87,7 @@ a {
   align-items: center;
   gap: 10px 18px;
   align-items: start;
+  margin-bottom: 20px;
 }
 
 .queryContainer {
@@ -95,8 +96,9 @@ a {
   align-items: baseline;
 }
 
-#notice {
+.notice {
   font-size: 13px;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 600px) {
@@ -182,7 +184,7 @@ label[for="endTime"] {
   border-radius: 10px;
   background-color: #e3f0cb;
   color: #0c4612;
-  margin: 20px 0px;
+  margin-bottom: 20px;
   padding: 20px 20px;
   gap: 20px;
 }
