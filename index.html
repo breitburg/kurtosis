@@ -16,6 +16,23 @@
 </head>
 
 <body>
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <div id="banner">
+      <img src="statement/assets/app-icon.png" alt="App Icon" style="width: 80px; height: 80px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h2>Here's our open statement.<br>KU Leuven did not allow us to launch the KURT mobile app we've been working
+          on.</h2>
+
+        <p>Hello! If you like Kurtosis and think it benefits the student community, please read our open statement,
+          which
+          explains what happened and how you can help. Otherwise, Kurtosis will soon stop working when KURTv2 is
+          disabled.
+        </p>
+      </div>
+      <button onclick="window.open('https://kurtosis.breitburg.com/statement')" class="primary">Read the
+        statement</button>
+    </div>
+  </div>
   <form id="queryForm">
     <div class="queryContainer">
       <label for="date">Library:</label>
@@ -73,17 +90,6 @@
     </div>
     <button id="fetchButton" type="submit">Fetch</button>
   </form>
-  <div id="banner" style="display: none;">
-    <div style="gap: 10px; display: flex; flex-direction: column;">
-      <h2>We're working on an app 📱</h2>
-      <p>Receive notifications about seat availability. Reserve multiple seats within a day. Use Face ID for booking,
-        not KU Leuven Authenticator. Sign up to become an early adopter.</p>
-    </div>
-    <div class="btn-row">
-      <button onclick="window.open('https://tally.so/r/3XGBad')" class="primary">Join the beta</button>
-      <button onclick="doNotShowBannerAgain()" class="secondary">Do not show again</button>
-    </div>
-  </div>
   <!--<details id="seatGuide">
       <summary>Seat guide</summary>
       <div id="agora">
@@ -108,7 +114,8 @@
   </div>
   <div class="notice">
     Built by <a href="https://instagram.com/ibreitburg">Ilia Breitburg</a> and
-    <a href="https://gbgk.me/">George Bougakov</a>. Special thanks to <a href="https://github.com/alexandervanhee">Alexander
+    <a href="https://gbgk.me/">George Bougakov</a>. Special thanks to <a
+      href="https://github.com/alexandervanhee">Alexander
       Vanhee</a>.
     <br>
     Get the source code and learn more <a href="https://github.com/breitburg/kurtosis">on GitHub</a>.
