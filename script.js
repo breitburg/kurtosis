@@ -88,7 +88,7 @@ async function fetchTimeslots(date, uid) {
 
   /* This doesn't work on holidays because the library can be open but there can be no booked seats, 
   so this reports the library as closed when in reality it is just empty */
-  
+
   /* if (!timeslots.some(item => item.status !== "U")) {
     alert("There are no available seats, this library is probably closed.");
     throw new Error("Library down");
@@ -117,8 +117,8 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
         <tr>
             <th>Name</th>
             ${[...Array(24 - 6)]
-              .map((_, index) => `<th>${index + 6}</th>`)
-              .join("")} 
+      .map((_, index) => `<th>${index + 6}</th>`)
+      .join("")} 
             <th colspan="2">Actions</th>
         </tr>
     `;
@@ -148,8 +148,8 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
         displayStatus === "U" || displayStatus === "C"
           ? "unavailable"
           : displayStatus === "B"
-          ? "booked"
-          : "available";
+            ? "booked"
+            : "available";
       rowHtml += `<td class="${cellClass}">${displayStatus}</td>`;
     }
 
@@ -169,11 +169,6 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
 
     rowHtml += "</tr>";
     table.insertAdjacentHTML("beforeend", rowHtml);
-
-    // Show the banner if the user has not hidden it yet and the selected study space is within Agora
-    if (!localStorage.getItem("hideBanner") && selectedLibrary.startsWith("agora")) {
-      document.getElementById("banner").style.display = "flex";
-    }
   }
 
   // Show the table after rendering
@@ -406,7 +401,3 @@ document
       });
   });
 
-function doNotShowBannerAgain() {
-  document.getElementById("banner").style.display = "none";
-  localStorage.setItem("hideBanner", true);
-}

@@ -1,0 +1,458 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KURT Mobile App Open Statement</title>
+    <meta name="description"
+        content="An open statement to the KU Leuven community about the KURT app and its rejection.">
+    <meta name="keywords" content="KURT app, KU Leuven, library booking system, KURT, student initiative, Kurtosis">
+    <meta name="author" content="Ilia, George, Alexander">
+    <meta property="og:title" content="KURT Mobile App Open Statement">
+    <meta property="og:description"
+        content="An open statement to the KU Leuven community about the KURT app and its rejection.">
+    <meta property="og:image" content="https://kurtosis.breitburg.com/statement/assets/app-banner.png">
+    <meta property="og:url" content="https://kurtosis.breitburg.com/statement">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+</head>
+
+<body>
+    <main class="max-w-3xl mx-auto p-5 md:p-10">
+        <article class="prose">
+            <div class="py-20 text-center">
+                <img src="https://kurtosis.breitburg.com/statement/assets/app-banner.png" class="w-full" alt="KURT mobile app">
+                <h1>We built a new, incredibly fast and user-friendly KURT mobile app, but KU Leuven did not allow us to
+                    launch it</h1>
+                <p class="text-gray-500 text-2xl">An Open Statement to the KU Leuven Community</p>
+            </div>
+
+            <div class="bg-gray-100 rounded-md prose p-4">
+                <h3>TL;DR</h3>
+                
+                <p>In early 2024, we launched <a href="https://kurtosis.breitburg.com">Kurtosis</a>, a faster
+                    alternative to KU Leuven's KURT library booking system. It became <a
+                        href="https://www.reddit.com/r/KULeuven/comments/1dbwff1/weve_built_an_alternative_web_app_for_kurt/">one
+                        of the most popular posts on r/KULeuven</a> and continues to serve hundreds of students,
+                    demonstrating the clear need for an improved KURT system.</p>
+                <p>Between July and December 2024, we developed a new mobile app for KURT featuring 4x faster
+                    performance, 3D maps of study spaces, Face ID authentication for booking and check-in, and
+                    smart seat-finding capabilities that work even when the library is full.</p>
+                <p>The app was specifically engineered to integrate with existing KURT infrastructure, requiring no
+                    maintenance from the university while consuming fewer server resources than the current KURT
+                    system.</p>
+                <p>Following an initial demo to the KURT team in September, dozens of emails, and a series of
+                    presentations, we were invited to present the app and the future plan to
+                    Campusbibliotheekraad Humane Wetenschappen in October 2024. Following this, we received an
+                    unexpected rejection with no actionable feedback.</p>
+                <p>We're sharing this information to provide students with transparency regarding the app's
+                    non-launch and to spark a broader discussion about the evaluation process for student
+                    initiatives.</p>
+                <p>The current Kurtosis web app will stop working soon when KURTv2 is disabled. If you believe this
+                    app would benefit the student community, <a href="#contact">reach out to the KURT team or KU
+                        Leuven staff to reconsider the rejection.</a></p>
+
+            </div>
+
+            <h2>Hello</h2>
+            <p>As students of KU Leuven who have experienced the pain of booking seats with KURT and saw other people
+                struggling with it, we wanted to solve this problem and share our solution with
+                other students.
+            </p>
+
+            <p>
+                In early summer 2024 we publicly launched Kurtosis — a simple web page that allowed you
+                to see the availability of the all seats in any library with a single click of a button.
+            </p>
+
+            <img src="https://kurtosis.breitburg.com/statement/assets/kurtosis.png" alt="Sample image of Kurtosis">
+
+            <p>The response was overwhelming. <a
+                    href="https://www.reddit.com/r/KULeuven/comments/1dbwff1/weve_built_an_alternative_web_app_for_kurt/">Post
+                    about Kurtosis</a>
+                on Reddit became one of the top-10 upvoted posts of all time on <a
+                    href="https://www.reddit.com/r/KULeuven/top/">
+                    r/kuleuven</a>. It was used by hundreds of students during summer blok, and people keep using it at
+                the time of writing this post.</p>
+
+            <p>We realized that we were not alone in our frustration with the official
+                KURT interface, and we put out a survey on the Kurtosis page, essentially trying to figure out "Why are
+                you here and not on the official KURT web app?" and also started researching by talking to people in
+                person. The feedback was clear: the official web app was slow, clunky, and felt like filling out a tax
+                return rather than finding a place to study.
+            </p>
+
+            <h2>What We Built</h2>
+
+            <p>Driven by the support from students, this motivated us to build a full
+                mobile app for KURT, that will be faster, more efficient, and built around the feedback from students.
+            </p>
+
+            <p>We assembled a team of
+                three people who previously contributed to Kurtosis and
+                started by researching how students interact with library spaces and designing an interface around
+                it. Over five months since June 2024, our team developed a mobile app for iOS and Android from scratch.
+            </p>
+
+
+            <div class="flex justify-center">
+                <img src="https://kurtosis.breitburg.com/statement/assets/app-icon.png" alt="App Icon"
+                    class="rounded-md size-40">
+            </div>
+
+            <video muted playsinline loop controls class="rounded-md contrast-[.9] bg-gray-100">
+                <source src=" assets/promo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <p>
+                The goal was not just to build a tool that allows "students to book seats from a list," but instead, it
+                must be driven by a deep understanding of who uses it. Maybe they're tired from yesterday's party or
+                stressed about tomorrow's exams — in every design decision, we must consider what we want the users to
+                feel, how we can help them during stressful times, and not overwhelm them with unnecessary information.
+            </p>
+
+            <p>After all, booking seats in libraries is a part of student life, not just a
+                service. Internally, we defined "efficiency and empathy" as our guiding principles.
+            </p>
+
+            <h3>Overview</h3>
+
+            <ul>
+                <li><b>Isometric maps of the libraries.</b> Pick yourself a seat visually, see where exactly your
+                    bookings are on the map, not just
+                    the seat numbers. <i>Inspired by The Sims.</i></li>
+                </li>
+                <li><b>On average, the app is 4 times faster than the KURT web app.</b> This includes
+                    search, booking, and checking in.</li>
+                <li><b>Smart search called 'Auto'.</b> It works instantly, prioritizes your favorites, and even can
+                    automatically find available seat sequences when the library is full.</li>
+                <li><b>Booking and checking in with Face ID or other built-in biometric system.</b> The app uses the
+                    same phone hardware security features as banking apps, making it more secure than the browser.
+                    No KU Leuven Authenticator is required, without compromising security.</li>
+                <li><b>Reduced load on the KURT servers.</b> The app relies on the existing KURT infrastructure
+                    and uses it more efficiently than the official web app, dramatically reducing server load
+                    and requiring no ongoing support from the KURT team.</li>
+            </ul>
+
+            <h3>Find your seat on the map, not by decoding a seat number</h3>
+
+            <p>Instead of going through endless lists of seats, we created an isometric map view (just like in The
+                Sims), where you can actually see the library layout, the trees, the monitors, and most importantly –
+                where you'll be studying. We wanted students to feel like they're choosing a real space, not just
+                clicking a database entry.</p>
+
+            <img src="https://kurtosis.breitburg.com/statement/assets/map-hd.png"
+                alt="High definition map of the library">
+
+            <p><i>Note: During development, we used a simplified version of the map to enable faster testing and
+                    iteration,
+                    rather than the final map design shown in the image above. In the interest of transparency, we chose
+                    to include
+                    actual screen recordings of the app, which show this simplified "development" version of the
+                    map.</i></p>
+
+            <video muted playsinline loop controls class="rounded-md bg-gray-100">
+                <source src="https://kurtosis.breitburg.com/statement/assets/map.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <h3>Find seats instantly, even when library is full</h3>
+
+            <p>One of the most impressive features we've developed is called “Auto”. It's an intelligent alternative to
+                random search, enabling you to find study seats even when the library is full and there are no seats in
+                KURT.
+            </p>
+
+            <p>
+                Simply select the time frame you're interested in, and the app will try to find the best seat for you,
+                prioritizing your favourites.
+                If there are no seats that are available for the entire duration,
+                the app will create a sequence of available seats, optimizing for the least amount of seat switching, so
+                you can study more without distractions.
+            </p>
+
+            <p>
+                Booking a seat or a sequence of seats requires a single tap. No need to play around with filters,
+                searches, and sitting with your notepad, calendar, and map trying to string everythig together.
+            </p>
+
+            <video muted playsinline loop controls class="rounded-md bg-gray-100">
+                <source src="https://kurtosis.breitburg.com/statement/assets/auto.mp4" type="video/mp4" muted autoplay
+                    playsinline>
+                Your browser does not support the video tag.
+            </video>
+
+            <h3>No more empty, but booked seats</h3>
+
+            <p>We know that many people take breaks during their study sessions — be it for lunch, ping pong,
+                or just a small walk. Most of the time, they keep the seat booked, and we get it — creating multiple
+                reservations is kind of a hassle.</p>
+
+            <p>However, this leads to seats that appear booked in KURT, but are empty in reality, and that is
+                frustrating
+                for everyone — both people who need a seat and people who took a break because they can't make the seat
+                available.</p>
+
+            <p>
+                Our app doesn't limit you to select a single time frame for your study session. You can add breaks
+                between your study sessions, and the app will automatically figure out which bookings to make. And
+                again, it's just a single tap.
+            </p>
+
+            <video muted playsinline loop controls class="rounded-md bg-gray-100">
+                <source src="https://kurtosis.breitburg.com/statement/assets/breaks.mp4" type="video/mp4" muted autoplay
+                    playsinline>
+                Your browser does not support the video tag.
+            </video>
+
+            <h2>Collaboration With KURT</h2>
+
+            <p>In September 2024, we had a meeting with the KURT team where we presented our work. They were
+                enthusiastic about the project and asked us to prepare a shorter pitch for higher management. This too
+                was well-received, and we eventually got invited to give a presentation at the Campus Bibliotheek Raad
+                Humane
+                Wetenschappen meeting in October.</p>
+
+            <p>On October 21st, we attended the meeting and presented our app, as well as explained our plan, ensuring
+                sustainability and addressing any concerns regarding support. When we finished the presentation with the
+                Q&A, no concerns were raised about the app at all, which made us think that our presentation went very
+                well.</p>
+
+            <p>However, a few days later we received a rejection. It came in a brief email that expressed
+                "significant concerns" citing four points:</p>
+
+            <ol>
+                <li>Risks regarding security and privacy are "particularly high"</li>
+                <li>Concerns about the lack of audit and monitoring capabilities</li>
+                <li>Collaboration would require significant ongoing time investment</li>
+                <li>Added value of the app "may be limited" due to the map being in the roadmap of KURTv3, described it
+                    as
+                    "the major shortcoming of KURT today"</li>
+            </ol>
+            <p>
+                Their email ended with "we have decided not moving forward with this collaboration", and did not contain
+                any actionable feedback. After 5 months of working on the app, it did come as a bit of a shock to the
+                team, especially after all of the work we did to eliminate such concerns:
+            </p>
+            <h4>Security and Audit</h4>
+            <ul>
+                <li>
+                    Our app implements stronger security measures than the browser-based solutions. We use the same
+                    hardware security features used by banking apps.
+                </li>
+                <li>All data processing occurs locally on the user's device. The only service that processes any
+                    personal data is KURT itself.</li>
+                <li>We have been open to any possible security and privacy audits by the university or any third-party
+                    experts to ensure the app meets all necessary standards.</li>
+                <li>Additionally, at the time of the rejection, we have already proactively reported security
+                    vulnerabilities in the current KURT system.</li>
+            </ul>
+            <h4>Time Investment</h4>
+            <ul>
+                <li>The app was specifically designed to rely on existing infrastructure, it was a conscious decision to
+                    minimize the ongoing support required from the KURT team.</li>
+                <li>During development, we implemented authentication through an alternate method made available by the
+                    KURT system, which didn't use KU Leuven Authenticator. The only thing we asked from the KURT team
+                    was to allow us to use the official authentication system, so that we could make our app even more
+                    secure. Once granted, our app would operate independently without requiring ongoing support from the
+                    KURT team.</li>
+                <li>Our team has also proposed a plan for a student organization to take over the app's maintenance and
+                    development, ensuring that the workload will be distributed among students and not fall on the KURT
+                    team.</li>
+            </ul>
+
+            <h4>Added Value</h4>
+
+            <p>While the KURT team has mentioned to us that some of the features we have implemented are planned for
+                KURTv3, such as floor plans, we believe that, even at the current stage, our app has a lot more to
+                offer, namely:</p>
+
+            <ul>
+                <li>On average, the app is 4 times faster than the KURT web app across all scenarios. Users can launch
+                    the app, book a seat, and view it on the study space map in just 15 seconds.</li>
+                <li>Reduces server load dramatically, which was acknowledged by the KURT team. By our estimates
+                    requiring up to 350% less compute <a href="#footnotes"><sup>1</sup></a> than the official KURT web
+                    app.</li>
+                <li>Enables authentication with Face ID or other built-in biometric systems instead of KU Leuven
+                    Authenticator, without compromising security.</li>
+                <li>Allows to check-in to the booked seat without the need to reauthenticate every time, again, without
+                    compromising security.</li>
+            </ul>
+
+            <p>Additionally, we had planned several app-specific features that are not possible in a web app:</p>
+
+            <ul>
+                <li>Secure and privacy-preserving detection of users leaving study spaces, with prompts to check out
+                    with a single tap, helping to further eliminate the issue of booked but empty seats in libraries.
+                </li>
+                <li>Live Activities on iOS and widgets on Android, allowing students to see how much time they have left
+                    in their booking and receive notifications when their booking is about to expire.</li>
+            </ul>
+
+            <h3>Follow-up</h3>
+
+            <p>
+                On the same day, we sent a response to the KURT team, asking for clarification on the rejection and
+                details on how Quivr approaches data access. In the response, the council members:
+            </p>
+
+            <ul>
+                <li>Noted to "appreciate proactive approach" to reporting vulnerabilities in the KURT system.</li>
+                <li>Recognized the efforts we have put into the app security, but mentioned that "trust is paramount,
+                    and we cannot trust any code that uses student data deployed into production without full assurance
+                    of its integrity and purpose."</li>
+                <li>Justified the approval of Quivr by stating that it "operates on a read-only basis regarding KU
+                    Leuven-stored student data" and handles "official KU Leuven class schedules, which are public
+                    information," compared to "the broader access your app might require".
+                </li>
+                <li>Ended the email by stating the decision stems from a trust issue, "not with you personally but with
+                    the potential risks involved" and resource limitations.</li>
+            </ul>
+
+            <p>
+                We understand that the protection of student data is important, that's why our app was built from the
+                ground up to operate without processing or storing any personal data — eliminating the need for trust
+                entirely.
+            </p>
+
+            <p>
+                While the council's claim that KU Leuven is not sharing personal data with Quivr is <i>technically</i>
+                true, Quivr still collects and processes student data, and even makes it available publicly <a
+                    href="#footnotes"><sup>2</sup></a>. Our app doesn't process or store personal data at all.
+            </p>
+
+            <p>
+                Since the university's decision to reject the app was based on a lack of trust and not on
+                technical or security concerns, we have no way to address this issue. We have proposed solutions for
+                every concern raised, but the university has not provided any actionable feedback or a path to approval.
+            </p>
+
+            <h2>Our Position</h2>
+
+            <p>While we disagree with the reasons behind this decision, we are ready to implement any changes and have
+                proposed solutions for all highlighted problems. As of now, we do not see a reliable path to our app's
+                approval, so we are disappointed to say that it is highly unlikely that our app ever gets released.</p>
+
+            <p>Our team has proposed solutions addressing all concerns, ranging from technical integration
+                to long-term maintenance. Beyond offering to implement necessary modifications in collaboration with
+                university technical teams, we developed a plan for a student organization to ensure the app's
+                sustainability. This project started because we believed in KU Leuven's commitment of supporting
+                student initiatives and we hoped to contribute to the university community.</p>
+            <p>
+                We're sharing this story because we believe in transparency, and
+                because we hope it might spark a broader discussion about how student initiatives are evaluated. The
+                code we wrote could have made hundreds of students' lives easier. Instead, it will remain unused.
+            </p>
+
+            <p>Below you can find a copy of all our presentations (both for KURT and for internal meetings) ever made
+                for the KURT mobile app project, as well as the video materials.</p>
+
+            <ul>
+                <li><a href="https://kuleuven-my.sharepoint.com/:b:/g/personal/ilia_breitburg_student_kuleuven_be/ERQiNCn6No1BsGazx8mzCLsBbylUorky9Qh7Gzbv5M4NHA?e=CmcOZA"
+                        target="_blank">(Internal) Late June Sync</a></li>
+                <li><a href="https://kuleuven-my.sharepoint.com/:b:/g/personal/ilia_breitburg_student_kuleuven_be/EWMP5umimaxGu11PWgs6Ai4BZR5yY9DxsyWBHcZogT6r-Q?e=lDSbzD"
+                        target="_blank">(Internal) Early September Team Sync & Design</a></li>
+                <li><a href="https://kuleuven-my.sharepoint.com/:b:/g/personal/ilia_breitburg_student_kuleuven_be/EcFqCqM3kaVIp68QDSOy9qEBlELA30Jk6XW2wHjQN5Nhdw?e=xuvctJ"
+                        target="_blank">September Pitch for KURT Team</a></li>
+                <li><a href="https://kuleuven-my.sharepoint.com/:b:/g/personal/ilia_breitburg_student_kuleuven_be/EWS_OIlFeDxEn7o3QpGw1kkBjtKDfV8GZC6SiueE9qGrMQ?e=bBg3qP"
+                        target="_blank">Short September Pitch for Management</a></li>
+                <li><a href="https://kuleuven-my.sharepoint.com/:b:/g/personal/ilia_breitburg_student_kuleuven_be/EbUGFLu5UFJBl8I4ywJy5IkBi3diZKOZ3lC2cB5ul1g_Bw?e=G9cSlz"
+                        target="_blank">KURT App Demo Day (21st October)</a></li>
+                <li><a href="https://kuleuven-my.sharepoint.com/:b:/g/personal/ilia_breitburg_student_kuleuven_be/EY2z_iuwsPhDmz_JheyA-7EB9qnfGwd9_5KCDDOp_7TIoA?e=TsT0gz"
+                        target="_blank">KURT App Demo Day (21st October) with notes</a></li>
+            </ul>
+
+            <p>We remain committed to finding ways to help fellow students and hope that future initiatives will find
+                more support in their efforts to improve university systems.</p>
+
+            <h2>What's Next</h2>
+            <p>The KURT development team stated that the KURTv2 will be disabled soon, which means that Kurtosis will
+                also stop working as it depends on the KURTv2 infrastructure, and we can't do anything about it.</p>
+            <p>We know many of you have shared our frustration with the official KURT web application — the performance,
+                the interface, and overall user experience. That's why so many students have embraced the
+                Kurtosis app as a better alternative. The positive feedback and growing waitlist make it clear there is
+                strong demand for a better solution.</p>
+
+            <h3 id="contact">What You Can Do</h3>
+
+            <p>Despite demonstrating that our app is significantly faster and more efficient
+                than the current KURT system, the university has prohibited us from launching it. This decision feels
+                like a major missed opportunity, both for students and for the university itself.</p>
+
+            <p>If you believe this app would benefit the student community, reach out to the KURT support team or any
+                other KU Leuven staff members you feel may be able to reconsider this rejection:</p>
+
+            <ul>
+                <li><a href="mailto:ask.kurt@kuleuven.be">ask.kurt@kuleuven.be</a> — KURT Team</li>
+                <li><a href="https://ghum.kuleuven.be/NL/campusbibliotheekraad-humane-wetenschappen">Campusbibliotheekraad
+                        Humane Wetenschappen</a></li>
+                <li><a href="mailto:luc.sels@kuleuven.be">luc.sels@kuleuven.be</a> — Rector of KU Leuven</li>
+            </ul>
+
+            <p>
+                We ask you to make your voice heard and share any problems that you see with the current KURT system
+                with the university. We hope that by helping the university understand how important a good seat
+                reservation
+                system is to a less stressful student life, we can compel them to reconsider their decision.
+            </p>
+
+            <p>Thank you for your support — it means everything to us.</p>
+
+            <p>Sincerely,<br>Ilia, George, and Alexander</p>
+
+            <p class="text-sm text-gray-500">
+                For any questions or inquiries, please <a href="mailto:kurtapp@breitburg.com">contact us</a>.
+            </p>
+
+            <div class="text-sm text-gray-600" id="footnotes">
+                <hr>
+                <h4>Footnotes</h4>
+                <ol>
+                    <li>
+                        <p>Since we don't have access to the KURT server logs, we don't have technical capacity to
+                            measure the exact performance improvement. Therefore, we made a good-faith effort to
+                            estimate
+                            the performance improvement based on the number of requests made to the server and
+                            approximated
+                            complexity of the requests.</p>
+
+                        <p>Example of the compute required for booking a seat with a one-hour break:</p>
+
+                        <ul>
+                            <li>Data lookup call = 1 compute unit</li>
+                            <li>Data write call = 1 compute unit</li>
+                            <li>Seat search call = 4 compute units (due to the complexity of the query running on the
+                                database server)</li>
+                        </ul>
+
+                        <p>For KURTv3: 1 (library data lookup) + 4 (search for booking before lunch) + 1 (book seat) + 4
+                            (search for booking after lunch) + 1 (book seat) = 11 compute units</p>
+
+                        <p>For the app: 1 (download availability data) + 2 (book two seats) = 3 compute units</p>
+
+                        <p>The same calculation was done for other use cases, such as booking or searching for a seat,
+                            and the results for some use cases were up to 3,5x performance improvement. While we
+                            understand that this is a rough estimate, when we presented this to the KURT team, they
+                            acknowledged that the app is a lot more efficient than the current system.</p>
+                    </li>
+                    <li>
+                        <p>Quivr maintains a public directory of user profiles, including full names of enrolled
+                            students, accessible to anyone with an account, and you don't have to be a student to create
+                            a Quivr account. While this student data is not directly shared by KU
+                            Leuven, it is collected and processed by Quivr on third-party servers, with no restrictions
+                            on who can access this information.</p>
+
+                        <p><i>Note: To be clear — we do not have any problems with Quivr, it't a good app and solves a
+                                lot of students' problems. We think it's great when students make tools to make their
+                                life easier, and that's why we made the KURT app.</i></p>
+                    </li>
+                </ol>
+            </div>
+        </article>
+    </main>
+
+</body>
+
+</html>
