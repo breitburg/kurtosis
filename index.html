@@ -16,26 +16,27 @@
 </head>
 
 <body>
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <div id="banner">
-      <img src="statement/assets/app-icon.png" alt="App Icon" style="width: 80px; height: 80px;">
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <h2>Kurtosis will stop working soon. We've built a new KURT mobile app, but KU Leuven didn't allow us to launch
-          it.</h2>
+  <div id="banner" style="display: none;">
+    <img src="statement/assets/app-icon.png" alt="App Icon" style="width: 80px; height: 80px;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <h2>Kurtosis might stop working at any moment. We've built a new KURT mobile app, but KU Leuven didn't allow us to
+        launch it.</h2>
 
-        <p>Hello. If you like Kurtosis and believe that improving KURT would benefit the student community, please read
-          our open statement, which explains what happened and how you can help.
-        </p>
+      <p>Hello. If you like Kurtosis and believe that improving KURT would benefit the student community, please read
+        our open statement, which explains what happened and how you can help.
+      </p>
 
-        <p>
-          Otherwise, Kurtosis will soon stop working when KURTv2 is disabled, and everyone will be forced to use the
-          official
-          KURT web app for booking.
-        </p>
-      </div>
-      <button onclick="window.open('https://kurtosis.breitburg.com/statement')" class="primary">Read our open
-        statement</button>
+      <p>
+        Otherwise, Kurtosis will stop working when KURTv2 is disabled, and everyone will be forced to use the
+        official
+        KURT web app for booking.
+      </p>
     </div>
+
+    <button onclick="window.open('https://kurtosis.breitburg.com/statement')" class="primary">Read our open
+      statement</button>
+    <button onclick="doNotShowBannerAgain()" class="secondary">Do not show again</button>
+
   </div>
   <form id="queryForm">
     <div class="queryContainer">

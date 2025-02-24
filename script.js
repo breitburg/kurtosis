@@ -169,8 +169,15 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
 
     rowHtml += "</tr>";
     table.insertAdjacentHTML("beforeend", rowHtml);
+
   }
 
+  // Show the banner if the user has not hidden it yet and the selected study space is within Agora
+  if (!localStorage.getItem("hideBanner") && selectedLibrary.startsWith("agora")) {
+    console.log("showing banner");
+    document.getElementById("banner").style.display = "flex";
+  }
+  
   // Show the table after rendering
   table.style.display = "table";
 }
@@ -401,3 +408,8 @@ document
       });
   });
 
+
+function doNotShowBannerAgain() {
+  document.getElementById("banner").style.display = "none";
+  localStorage.setItem("hideBanner", true);
+}
