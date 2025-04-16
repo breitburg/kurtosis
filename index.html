@@ -94,6 +94,7 @@
       <input type="checkbox" id="rememberRNumber" name="rememberRNumber" checked />
     </div>
     <button id="fetchButton" type="submit">Fetch</button>
+    <button id="autoButton" type="button">Auto</button>
   </form>
   <!--<details id="seatGuide">
       <summary>Seat guide</summary>
@@ -158,6 +159,31 @@
       </div>
       <form class="dialogButtonRow">
         <button type="submit" id="closeButton" formmethod="dialog" formnovalidate>
+          Close
+        </button>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog id="autoModal">
+    <div class="dialogContent">
+      <h2 class="dialogTitle">Auto Seat Finder</h2>
+
+      <div class="dialogFormBlock">
+        <label for="autoStartTime">Start time:</label>
+        <select id="autoStartTime" name="autoStartTime"></select>
+      </div>
+
+      <div class="dialogFormBlock">
+        <label for="autoEndTime">End time:</label>
+        <select id="autoEndTime" name="autoEndTime"></select>
+      </div>
+
+      <div class="dialogButtonRow">
+        <button id="computeButton">Compute</button>
+      </div>
+      <form class="dialogButtonRow">
+        <button type="submit" id="closeAutoModalButton" formmethod="dialog" formnovalidate>
           Close
         </button>
       </form>

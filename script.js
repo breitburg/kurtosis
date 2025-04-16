@@ -413,3 +413,97 @@ function doNotShowBannerAgain() {
   document.getElementById("banner").style.display = "none";
   localStorage.setItem("hideBanner", true);
 }
+
+// Add event listener to the autoButton to open the autoModal
+document.getElementById("autoButton").addEventListener("click", function () {
+  const autoModal = document.getElementById("autoModal");
+  autoModal.showModal();
+});
+
+// Add functionality to the computeButton to compute the most efficient sequence of seats
+document.getElementById("computeButton").addEventListener("click", function () {
+  const startTime = parseInt(document.getElementById("autoStartTime").value);
+  const endTime = parseInt(document.getElementById("autoEndTime").value);
+
+  const selectedDate = new Date(document.getElementById("date").value);
+  const rNumber = document.getElementById("rNumber").value;
+
+  fetchTimeslots(selectedDate, rNumber)
+    .then(([timeslots, seats]) => {
+      const sortedTimeslots = sortTimeslots(timeslots, seats);
+      const efficientSequence = computeEfficientSequence(sortedTimeslots, startTime, endTime);
+      displayEfficientSequence(efficientSequence);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
+function computeEfficientSequence(sortedTimeslots, startTime, endTime) {
+  const sequence = [];
+  let currentTime = startTime;
+
+  while (currentTime < endTime) {
+    let bestSeat = null;
+    let bestEndTime = currentTime;
+
+    for (const [resourceName, resourceData] of Object.entries(sortedTimeslots)) {
+      const resourceReservations = resourceData.reservations;
+
+      let available = true;
+      let tempEndTime = currentTime;
+
+      while (tempEndTime < endTime && available) {
+        const hourReservations = resourceReservations.filter(
+          reservation => reservation.date.getHours() === tempEndTime
+        );
+
+        if (hourReservations.length > 0 && hourReservations[0].status !== "A") {
+          available = false;
+        } else {
+          tempEndTime++;
+        }
+      }
+
+      if (tempEndTime > bestEndTime) {
+        bestSeat = resourceName;
+        bestEndTime = tempEndTime;
+      }
+    }
+
+    if (bestSeat) {
+      sequence.push({ seat: bestSeat, startTime: currentTime, endTime: bestEndTime });
+      currentTime = bestEndTime;
+    } else {
+      break;
+    }
+  }
+
+  return sequence;
+}
+
+function displayEfficientSequence(sequence) {
+  const listContainer = document.createElement("div");
+  listContainer.classList.add("efficient-sequence");
+
+  sequence.forEach(item => {
+    const listItem = document.createElement("div");
+    listItem.classList.add("sequence-item");
+
+    const seatInfo = document.createElement("span");
+    seatInfo.textContent = `${item.seat}: ${item.startTime}:00 - ${item.endTime}:00`;
+
+    const bookButton = document.createElement("button");
+    bookButton.textContent = "Book";
+    bookButton.addEventListener("click", function () {
+      bookButton.style.textDecoration = "line-through";
+    });
+
+    listItem.appendChild(seatInfo);
+    listItem.appendChild(bookButton);
+    listContainer.appendChild(listItem);
+  });
+
+  const autoModal = document.getElementById("autoModal");
+  autoModal.appendChild(listContainer);
+}
