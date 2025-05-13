@@ -10,6 +10,18 @@ const PIDS = {
   "agora-rooms": 202203,
 };
 
+const KURTV3LOCATIONS = {
+  "agora": 10,
+  "arenberg-main": 1,
+  "arenberg-rest": 1,
+  "arenberg-tulp": 1,
+  "erasmus": 3,
+  "agora-rooms": 10,
+  "agora-blok-rooms": 10,
+  "agora-flexispace": 10,
+  "ebib": 7
+}
+
 // Set default date to today
 let today = new Date();
 let dd = String(today.getDate()).padStart(2, "0");
@@ -119,7 +131,7 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
             ${[...Array(24 - 6)]
       .map((_, index) => `<th>${index + 6}</th>`)
       .join("")} 
-            <th colspan="2">Actions</th>
+            <th colspan="3">Actions</th>
         </tr>
     `;
 
@@ -160,12 +172,16 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
 
     const checkInLink = `https://kuleuven.be/kurtqr?id=${resourceData.resourceId}`;
     const bookLink = `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/default.aspx?pid=${PIDS[selectedLibrary]}&showresults=done&resourceid=${resourceData.resourceId}&startDate=${selectedFormattedDate}T00%3A00%3A00`;
+    const kurtV3Link = `https://kurt3.ghum.kuleuven.be/selection?resourceId=${resourceData.resourceId}&locationId=${KURTV3LOCATIONS[selectedLibrary]}&resourceTypeId=302`
+    
     rowHtml += `<td class="smolFont"><button onClick='openBookingDialog(${JSON.stringify(
       {
         resourceId: resourceData.resourceId,
         reservations: resourceReservations,
       }
-    )})'>Book</button></td><td class="smolFont"><button onClick='window.open("${checkInLink}")'>Check&nbsp;In</button></td>`;
+    )})'>Book</button></td>
+    <td class="smolFont"><button onClick='window.open("${kurtV3Link}")'>Open&nbsp;in&nbsp;KURT3</button></td>
+    <td class="smolFont"><button onClick='window.open("${checkInLink}")'>Check&nbsp;In</button></td>`;
 
     rowHtml += "</tr>";
     table.insertAdjacentHTML("beforeend", rowHtml);
