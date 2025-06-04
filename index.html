@@ -93,6 +93,15 @@
       <label for="rememberRNumber">Remember R-number:</label>
       <input type="checkbox" id="rememberRNumber" name="rememberRNumber" checked />
     </div>
+    <div class="queryContainer" id="sortContainer" style="display: none;">
+      <label for="sortBy">Sort by:</label>
+      <select id="sortBy" name="sortBy">
+        <option value="seat-number">Seat number</option>
+        <option value="total-hours">Total available hours</option>
+        <option value="max-consecutive">Max consecutive hours</option>
+        <option value="available-now">Available right now</option>
+      </select>
+    </div>
     <button id="fetchButton" type="submit">Fetch</button>
   </form>
   <!--<details id="seatGuide">
@@ -166,6 +175,7 @@
       </form>
     </div>
   </dialog>
+
 
   <script src="script.js"></script>
 </body>

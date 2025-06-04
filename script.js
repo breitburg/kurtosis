@@ -10,6 +10,9 @@ const PIDS = {
   "agora-rooms": 202203,
 };
 
+let currentSortedTimeslots = {};
+let originalTimeslots = {};
+
 // Set default date to today
 let today = new Date();
 let dd = String(today.getDate()).padStart(2, "0");
@@ -110,7 +113,111 @@ function sortTimeslots(timeslots, seats) {
   return sortedTimeslots;
 }
 
+function applySorting(sortedTimeslots) {
+  const sortBy = document.getElementById("sortBy").value;
+  const entries = Object.entries(sortedTimeslots);
+  
+  switch (sortBy) {
+    case "seat-number":
+      return Object.fromEntries(entries.sort(([nameA], [nameB]) => {
+        // Extract numbers from seat names for numerical sorting
+        const numA = parseInt(nameA.match(/\d+/)?.[0] || '0');
+        const numB = parseInt(nameB.match(/\d+/)?.[0] || '0');
+        return numA - numB;
+      }));
+      
+    case "total-hours":
+      return Object.fromEntries(entries.sort(([nameA, dataA], [nameB, dataB]) => {
+        const availableHoursA = calculateTotalAvailableHours(dataA.reservations);
+        const availableHoursB = calculateTotalAvailableHours(dataB.reservations);
+        return availableHoursB - availableHoursA; // Descending order (more hours first)
+      }));
+      
+    case "max-consecutive":
+      return Object.fromEntries(entries.sort(([nameA, dataA], [nameB, dataB]) => {
+        const maxConsecutiveA = calculateMaxConsecutiveHours(dataA.reservations);
+        const maxConsecutiveB = calculateMaxConsecutiveHours(dataB.reservations);
+        return maxConsecutiveB - maxConsecutiveA; // Descending order (more consecutive hours first)
+      }));
+      
+    case "available-now":
+      return Object.fromEntries(entries.sort(([nameA, dataA], [nameB, dataB]) => {
+        const currentHour = new Date().getHours();
+        const availableNowA = isAvailableAtHour(dataA.reservations, currentHour);
+        const availableNowB = isAvailableAtHour(dataB.reservations, currentHour);
+        
+        if (availableNowA && !availableNowB) return -1;
+        if (!availableNowA && availableNowB) return 1;
+        return 0; // Both available or both unavailable, maintain original order
+      }));
+      
+    default:
+      return sortedTimeslots;
+  }
+}
+
+function calculateTotalAvailableHours(reservations) {
+  let availableHours = 0;
+  for (let hour = 6; hour < 24; hour++) {
+    const hourReservation = reservations.find(r => new Date(r.date).getHours() === hour);
+    if (!hourReservation || hourReservation.status === "A") {
+      availableHours++;
+    }
+  }
+  return availableHours;
+}
+
+function calculateMaxConsecutiveHours(reservations) {
+  let maxConsecutive = 0;
+  let currentConsecutive = 0;
+  
+  for (let hour = 6; hour < 24; hour++) {
+    const hourReservation = reservations.find(r => new Date(r.date).getHours() === hour);
+    if (!hourReservation || hourReservation.status === "A") {
+      currentConsecutive++;
+      maxConsecutive = Math.max(maxConsecutive, currentConsecutive);
+    } else {
+      currentConsecutive = 0;
+    }
+  }
+  return maxConsecutive;
+}
+
+function isAvailableAtHour(reservations, hour) {
+  const hourReservation = reservations.find(r => new Date(r.date).getHours() === hour);
+  return !hourReservation || hourReservation.status === "A";
+}
+
+function updateSortDropdownAvailability(sortedTimeslots) {
+  const currentHour = new Date().getHours();
+  const sortBySelect = document.getElementById("sortBy");
+  const availableNowOption = sortBySelect.querySelector('option[value="available-now"]');
+  
+  // Check if any seat is available at the current hour
+  const hasAvailableSeats = Object.values(sortedTimeslots).some(resourceData => 
+    isAvailableAtHour(resourceData.reservations, currentHour)
+  );
+  
+  if (availableNowOption) {
+    availableNowOption.disabled = !hasAvailableSeats;
+    if (!hasAvailableSeats && sortBySelect.value === "available-now") {
+      // Switch to default sorting if currently selected
+      sortBySelect.value = "seat-number";
+    }
+  }
+}
+
 function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
+  // Store original data if this is a fresh fetch
+  if (arguments.length === 3) {
+    originalTimeslots = sortedTimeslots;
+  }
+  
+  // Update sort dropdown availability based on current hour availability
+  updateSortDropdownAvailability(originalTimeslots);
+  
+  const sortedData = applySorting(originalTimeslots);
+  currentSortedTimeslots = sortedData;
   const table = document.getElementById("seatTable");
   // Start from hour 6
   table.innerHTML = `
@@ -123,7 +230,7 @@ function renderTable(sortedTimeslots, selectedDate, selectedLibrary) {
         </tr>
     `;
 
-  for (const [resourceName, resourceData] of Object.entries(sortedTimeslots)) {
+  for (const [resourceName, resourceData] of Object.entries(sortedData)) {
     const resourceReservations = resourceData.reservations;
     let rowHtml = `<tr><td class="smolFont">${resourceName}</td>`;
 
@@ -398,6 +505,8 @@ document
           selectedDate,
           document.getElementById("library").value
         );
+        // Show the sort dropdown after successful fetch
+        document.getElementById("sortContainer").style.display = "flex";
         fetchButton.textContent = previousButtonText;
         fetchButton.disabled = false;
       })
@@ -413,3 +522,14 @@ function doNotShowBannerAgain() {
   document.getElementById("banner").style.display = "none";
   localStorage.setItem("hideBanner", true);
 }
+
+
+// Add event listener for sort dropdown to re-render table when changed
+document.getElementById("sortBy").addEventListener("change", function() {
+  if (Object.keys(originalTimeslots).length > 0) {
+    const selectedDate = new Date(document.getElementById("date").value);
+    const selectedLibrary = document.getElementById("library").value;
+    renderTable(originalTimeslots, selectedDate, selectedLibrary);
+  }
+});
+
