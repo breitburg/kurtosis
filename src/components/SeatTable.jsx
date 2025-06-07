@@ -18,7 +18,7 @@ const SeatSlot = ({ slot }) => {
       flex-1 min-w-0 h-5 flex items-center justify-center
       ${getSlotStyles()}
     `}>
-      <span className="text-sm font-medium leading-none">
+      <span className="leading-none">
         {slot.getDisplayStatus()}
       </span>
     </div>
@@ -30,7 +30,7 @@ const TableRow = ({ seatName, slots }) => {
     <div className="w-full border-b border-gray-300">
       <div className="flex items-center gap-1 pb-1">
         <div className="w-32 flex-shrink-0 text-left">
-          <span className="text-sm text-black font-normal">
+          <span className="text-black font-normal">
             {seatName}
           </span>
         </div>
@@ -49,13 +49,13 @@ const TableHeader = () => {
     <div className="w-full">
       <div className="flex items-center gap-1 pb-1">
         <div className="w-32 flex-shrink-0 text-left">
-          <span className="text-sm text-gray-500 font-normal">
+          <span className="text-gray-500 font-normal">
             № / Hour
           </span>
         </div>
         {hours.map((hour) => (
           <div key={hour} className="flex-1 min-w-0 text-center">
-            <span className="text-sm text-black font-normal">
+            <span className="text-black font-normal">
               {hour.toString().padStart(2, '0')}
             </span>
           </div>
