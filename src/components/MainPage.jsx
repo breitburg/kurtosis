@@ -446,7 +446,7 @@ const MainPage = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <header className="flex items-start gap-12 p-8">
           {/* Left: Library Name */}
@@ -495,7 +495,11 @@ const MainPage = () => {
           {/* Status */}
           <div className="flex-1 flex">
             <div className="text-left text-xs tracking-wide">
-              <div className="text-black">{loading ? 'Currently looking for seats...' : formatLastUpdated()}</div>
+              {loading ? (
+                <div></div>
+              ) : (
+                <div className="text-black">{formatLastUpdated()}</div>
+              )}
               {!loading && (
                 <button
                   className="text-black underline"
@@ -509,116 +513,119 @@ const MainPage = () => {
         </header>
 
         {/* Main Content */}
-        <div className="flex gap-12 px-8 pb-8">
-          {/* Left Sidebar */}
-          <div className="w-70">
-            {selectedSlots.size === 0 ? (
-              // Instructions when no slots selected
-              <>
-                <h2 className="text-3xl leading-none font-bold text-black tracking-tight mb-8">
-                  Click on the <span className="bg-black text-white px-4 rounded-sm text-xl font-medium">A</span> slots you want to book
-                </h2>
-
-                <p className="text-black leading-normal">
-                  You can select multiple slots across different seats to create a sequence of seats to change during study session in case of limited library capacity.
-                </p>
-              </>
-            ) : (
-              // Selected slots information panel
-              <div className="flex flex-col gap-8">
-                {/* Total hours header */}
-                <div>
-                  <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
-                    {getSelectedSlotsInfo().totalHours} hour{getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''}
+        {loading ? (
+          <div className="flex justify-center items-center py-8">
+            <div className="text-center text-neutral-500">
+              Looking up seats availability...
+            </div>
+          </div>
+        ) : (
+          <div className="flex gap-12 px-8 pb-8">
+            {/* Left Sidebar */}
+            <div className="w-70">
+              {selectedSlots.size === 0 ? (
+                // Instructions when no slots selected
+                <>
+                  <h2 className="text-3xl leading-none font-bold text-black tracking-tight mb-8">
+                    Click on the <span className="bg-black text-white px-4 rounded-sm text-xl font-medium">A</span> slots you want to book
                   </h2>
-                  <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
-                    in total
-                  </h2>
-                  <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
-                    selected
-                  </h2>
-                </div>
 
-
-                {/* Time ranges list */}
-                <div className="flex flex-col gap-1">
-                  <p class="mb-4 font-medium text-lg">
-                    Your booking links:
+                  <p className="text-black leading-normal">
+                    You can select multiple slots across different seats to create a sequence of seats to change during study session in case of limited library capacity.
                   </p>
-                  {getSelectedSlotsInfo().timeRanges.map((range, index) => (
-                    <div 
-                      key={index} 
-                      className="flex justify-between items-center py-1 border-b border-neutral-200"
-                    >
-                      {/* Clickable main content area */}
+                </>
+              ) : (
+                // Selected slots information panel
+                <div className="flex flex-col gap-8">
+                  {/* Total hours header */}
+                  <div>
+                    <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
+                      {getSelectedSlotsInfo().totalHours} hour{getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''}
+                    </h2>
+                    <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
+                      in total
+                    </h2>
+                    <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
+                      selected
+                    </h2>
+                  </div>
+
+
+                  {/* Time ranges list */}
+                  <div className="flex flex-col gap-1">
+                    <p className="mb-4 font-medium text-lg">
+                      Your booking links:
+                    </p>
+                    {getSelectedSlotsInfo().timeRanges.map((range, index) => (
                       <div 
-                        onClick={() => handleOpenBookingLink(range)}
-                        className="flex-1 flex justify-between items-center cursor-pointer hover:bg-neutral-100 rounded px-2"
+                        key={index} 
+                        className="flex justify-between items-center py-1 border-b border-neutral-200"
                       >
-                        <span className="text-black text-base">
-                          {String(range.start).padStart(2, '0')}:00 - {String(range.end).padStart(2, '0')}:00
-                        </span>
-                        <span className="text-black text-base">
-                          {range.seatName}
-                        </span>
-                      </div>
-                      
-                      {/* Action buttons */}
-                      <div className="flex items-center gap-1 ml-1">
-                        {/* Link icon for copying link */}
-                        <div className="relative">
-                          <button
-                            onClick={() => handleCopyBookingLink(range, index)}
-                            className="p-1 hover:bg-neutral-100 rounded cursor-pointer"
-                            title="Copy booking link"
-                          >
-                            <Link size={14} />
-                          </button>
-                          {copiedRangeIndex === index && (
-                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 px-2 py-1 bg-neutral-700 text-white text-xs rounded whitespace-nowrap">
-                              Copied!
-                              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-l-transparent border-r-transparent border-t-neutral-700"></div>
-                            </div>
-                          )}
+                        {/* Clickable main content area */}
+                        <div 
+                          onClick={() => handleOpenBookingLink(range)}
+                          className="flex-1 flex justify-between items-center cursor-pointer hover:bg-neutral-100 rounded px-2"
+                        >
+                          <span className="text-black text-base">
+                            {range.seatName}
+                          </span>
+                          <span className="text-black text-base">
+                            {String(range.start).padStart(2, '0')}:00 - {String(range.end).padStart(2, '0')}:00
+                          </span>
+                        </div>
+                        
+                        {/* Action buttons */}
+                        <div className="flex items-center gap-1 ml-1">
+                          {/* Link icon for copying link */}
+                          <div className="relative">
+                            <button
+                              onClick={() => handleCopyBookingLink(range, index)}
+                              className="p-1 hover:bg-neutral-100 rounded cursor-pointer"
+                              title="Copy booking link"
+                            >
+                              <Link size={14} />
+                            </button>
+                            {copiedRangeIndex === index && (
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 px-2 py-1 bg-neutral-700 text-white text-xs rounded whitespace-nowrap">
+                                Copied!
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-l-transparent border-r-transparent border-t-neutral-700"></div>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+
+
+                  {/* Info text */}
+                  <p className="text-black text-xs leading-normal tracking-wide">
+                    It's impossible to book solely within this tool, trust us, we{' '}
+                    <a href="/statement" className="underline">tried hard</a> to make it happen.
+                  </p>
                 </div>
+              )}
+            </div>
 
-
-                {/* Info text */}
-                <p className="text-black text-xs leading-normal tracking-wide">
-                  {getSelectedSlotsInfo().timeRanges.length} new booking tab{getSelectedSlotsInfo().timeRanges.length !== 1 ? 's' : ''} will be opened. It's impossible to book solely within this tool, trust us, we{' '}
-                  <span className="underline">tried hard</span> to make it happen.
-                </p>
-              </div>
-            )}
+            {/* Main Table Area */}
+            <div className="flex-1 overflow-auto">
+              {error && (
+                <div className="text-center text-red-500 py-8">
+                  Error: {error}
+                </div>
+              )}
+              {!error && (
+                <SeatTable 
+                  slots={sortedSlots} 
+                  onSlotClick={handleSlotClick}
+                  isSlotSelected={isSlotSelected}
+                  isHourBlocked={isHourBlocked}
+                  onHourClick={handleHourClick}
+                />
+              )}
+            </div>
           </div>
-
-          {/* Main Table Area */}
-          <div className="flex-1 overflow-auto">
-            {loading && (
-              <div className="text-center text-neutral-500 py-8">
-                Loading seat data...
-              </div>
-            )}
-            {error && (
-              <div className="text-center text-red-500 py-8">
-                Error: {error}
-              </div>
-            )}
-            {!loading && !error && (
-              <SeatTable 
-                slots={sortedSlots} 
-                onSlotClick={handleSlotClick}
-                isSlotSelected={isSlotSelected}
-                isHourBlocked={isHourBlocked}
-                onHourClick={handleHourClick}
-              />
-            )}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
