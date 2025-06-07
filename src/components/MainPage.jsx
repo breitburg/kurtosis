@@ -493,7 +493,7 @@ const MainPage = () => {
                 )}
                 {!loading && (
                   <button
-                    className="text-black underline p-2 md:p-0 -m-2 md:m-0"
+                    className="text-black underline p-2 md:p-0 -m-2 md:m-0 cursor-pointer"
                     onClick={loadSeatData}
                   >
                     Refresh
