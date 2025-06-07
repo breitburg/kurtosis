@@ -21,7 +21,7 @@ const SORT_LABELS = {
 const MainPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSort, setSelectedSort] = useState(SortOption.SEAT_NUMBER);
-  const [selectedLibrary, setSelectedLibrary] = useState('agora.json');
+  const [selectedLibrary, setSelectedLibrary] = useState('library-0');
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -68,34 +68,21 @@ const MainPage = () => {
   useEffect(() => {
     const loadLibraries = async () => {
       try {
-        const libraryFiles = [
-          'agora.json', 'agora-blok-rooms.json', 'agora-flexispace.json', 'agora-rooms.json',
-          'antwerp-balustrade.json', 'antwerp-silentstudy.json',
-          'arenberg-main.json', 'arenberg-rest.json', 'arenberg-tulp.json',
-          'ebib.json', 'erasmus.json', 'kulak.json',
-          'ldc-back.json', 'ldc-flex.json', 'ldc-inkom.json', 'ldc-leeszaal.json', 'ldc-rooms.json'
-        ];
-
-        const libraryData = [];
-
-        for (const file of libraryFiles) {
-          try {
-            const response = await fetch(`/${file}`);
-            if (response.ok) {
-              const data = await response.json();
-              libraryData.push({
-                file,
-                buildingName: data.buildingName,
-                spaceName: data.spaceName,
-                seats: data.seats,
-                locationId: data.locationId,
-                pid: data.pid,
-              });
-            }
-          } catch (err) {
-            console.warn(`Failed to load ${file}:`, err);
-          }
+        const response = await fetch('/studyspaces.json');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch studyspaces.json: ${response.status}`);
         }
+        
+        const studyspaces = await response.json();
+        
+        const libraryData = studyspaces.map((data, index) => ({
+          file: `library-${index}`, // Generate a unique identifier
+          buildingName: data.buildingName,
+          spaceName: data.spaceName,
+          seats: data.seats,
+          locationId: data.locationId,
+          pid: data.pid,
+        }));
 
         setLibraries(libraryData);
       } catch (err) {
