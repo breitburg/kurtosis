@@ -30,6 +30,7 @@ const MainPage = () => {
   const [secondsSinceUpdate, setSecondsSinceUpdate] = useState(0);
   const [selectedSlots, setSelectedSlots] = useState(new Set());
   const [copiedRangeIndex, setCopiedRangeIndex] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
 
   // Generate date options (today + 7 days)
@@ -513,8 +514,8 @@ const MainPage = () => {
           </div>
         ) : (
           <div className="flex flex-col lg:flex-row gap-4 lg:gap-12 px-4 md:px-8 pb-8">
-            {/* Left Sidebar */}
-            <div className="w-full lg:w-70">
+            {/* Left Sidebar - Hidden on mobile when slots are selected */}
+            <div className={`w-full lg:w-70 ${selectedSlots.size > 0 ? 'hidden md:block' : ''}`}>
               {selectedSlots.size === 0 ? (
                 // Instructions when no slots selected
                 <>
@@ -527,7 +528,7 @@ const MainPage = () => {
                   </p>
                 </>
               ) : (
-                // Selected slots information panel
+                // Selected slots information panel - Desktop only
                 <div className="flex flex-col gap-8">
                   {/* Total hours header */}
                   <div>
@@ -541,7 +542,6 @@ const MainPage = () => {
                       selected
                     </h2>
                   </div>
-
 
                   {/* Time ranges list */}
                   <div className="flex flex-col gap-1">
@@ -589,7 +589,6 @@ const MainPage = () => {
                     ))}
                   </div>
 
-
                   {/* Info text */}
                   <p className="text-black text-xs leading-normal tracking-wide">
                     It's impossible to book solely within this tool, trust us, we{' '}
@@ -617,6 +616,95 @@ const MainPage = () => {
               )}
             </div>
           </div>
+        )}
+
+        {/* Mobile Drawer Toggle Button */}
+        {(selectedSlots.size > 0 && !isDrawerOpen) && (
+          <button
+            onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+            className="md:hidden fixed bottom-4 right-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg z-50 cursor-pointer"
+          >
+            Book seat{getSelectedSlotsInfo().timeRanges.length !== 1 ? 's' : ''} for {getSelectedSlotsInfo().totalHours} hour{getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''}
+          </button>
+        )}
+
+        {/* Mobile Drawer */}
+        {selectedSlots.size > 0 && (
+          <div
+            className={`md:hidden fixed inset-x-0 bottom-0 bg-white border-t border-gray-200 shadow-lg transform transition-transform duration-300 ease-out z-60 ${
+              isDrawerOpen ? 'translate-y-0' : 'translate-y-full'
+            }`}
+          >
+
+            <div className="p-4 max-h-sm overflow-y-auto">
+              {/* Total hours header */}
+              <div className="mb-4">
+                <h3 className="text-2xl font-bold text-black">
+                  {getSelectedSlotsInfo().totalHours} hour{getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''} selected
+                </h3>
+              </div>
+
+              {/* Time ranges list */}
+              <div className="flex flex-col gap-1 mb-4">
+                <p className="mb-2 font-medium text-base">
+                  Your booking links:
+                </p>
+                {getSelectedSlotsInfo().timeRanges.map((range, index) => (
+                  <div 
+                    key={index} 
+                    className="flex justify-between items-center py-2 border-b border-neutral-200"
+                  >
+                    {/* Action buttons */}
+                    <div className="flex items-center gap-1 mr-1">
+                      {/* Link icon for copying link */}
+                      <div className="relative">
+                        <button
+                          onClick={() => handleCopyBookingLink(range, index)}
+                          className="p-2 hover:bg-neutral-100 rounded cursor-pointer"
+                          title="Copy booking link"
+                        >
+                          <Link size={16} />
+                        </button>
+                        {copiedRangeIndex === index && (
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 px-2 py-1 bg-neutral-700 text-white text-xs rounded whitespace-nowrap">
+                            Copied!
+                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-l-transparent border-r-transparent border-t-neutral-700"></div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Clickable main content area */}
+                    <div 
+                      onClick={() => handleOpenBookingLink(range)}
+                      className="flex-1 flex flex-col cursor-pointer hover:bg-neutral-100 rounded px-2 py-1 gap-1"
+                    >
+                      <span className="text-black text-base font-medium">
+                        {range.seatName}
+                      </span>
+                      <span className="text-sm text-neutral-500">
+                        {String(range.start).padStart(2, '0')}:00 - {String(range.end).padStart(2, '0')}:00
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Info text */}
+              <p className="text-black text-xs leading-normal tracking-wide">
+                It's impossible to book solely within this tool, trust us, we{' '}
+                <a href="/statement" className="underline">tried hard</a> to make it happen.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Overlay for drawer */}
+        {selectedSlots.size > 0 && isDrawerOpen && (
+          <div 
+            className="md:hidden fixed inset-0 bg-black/25 z-30"
+            onClick={() => setIsDrawerOpen(false)}
+          />
         )}
       </div>
     </div>
