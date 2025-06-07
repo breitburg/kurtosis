@@ -3,6 +3,9 @@ const PIDS = {
   "agora-blok-rooms": 201403,
   "agora-flexispace": 201403,
   ebib: 201406,
+  "ebib-flexispace": 201406,
+  "ebib-reslab": 201406,
+  "ebib-kelder": 201406,
   "arenberg-main": 201401,
   "arenberg-rest": 201401,
   "arenberg-tulp": 201401,
@@ -22,7 +25,10 @@ const KURTV3LOCATIONS = {
   "agora-rooms": 10,
   "agora-blok-rooms": 10,
   "agora-flexispace": 10,
-  "ebib": 7
+  "ebib": 7,
+  "ebib-flexispace": 7,
+  "ebib-reslab": 7,
+  "ebib-kelder": 7
 }
 
 // Set default date to today
