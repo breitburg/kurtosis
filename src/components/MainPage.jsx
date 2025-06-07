@@ -8,14 +8,14 @@ const SortOption = {
   SEAT_NUMBER: 'seatNumber',
   TOTAL_AVAILABLE: 'totalAvailable',
   MAX_CONSECUTIVE: 'maxConsecutive',
-  AVAILABLE_NOW: 'availableNow'
+  AVAILABLE_NOW: 'availableNow',
 };
 
 const SORT_LABELS = {
   [SortOption.SEAT_NUMBER]: 'Sequential',
   [SortOption.TOTAL_AVAILABLE]: 'Most available hours',
   [SortOption.MAX_CONSECUTIVE]: 'Max consecutive hours',
-  [SortOption.AVAILABLE_NOW]: 'Available right now first'
+  [SortOption.AVAILABLE_NOW]: 'Available right now first',
 };
 
 const MainPage = () => {
@@ -31,7 +31,6 @@ const MainPage = () => {
   const [selectedSlots, setSelectedSlots] = useState(new Set());
   const [copiedRangeIndex, setCopiedRangeIndex] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
 
   // Generate date options (today + 7 days)
   const generateDateOptions = () => {
@@ -53,7 +52,7 @@ const MainPage = () => {
         label = date.toLocaleDateString('en-US', {
           weekday: 'long',
           month: 'short',
-          day: 'numeric'
+          day: 'numeric',
         });
       }
 
@@ -71,11 +70,13 @@ const MainPage = () => {
       try {
         const response = await fetch('/studyspaces.json');
         if (!response.ok) {
-          throw new Error(`Failed to fetch studyspaces.json: ${response.status}`);
+          throw new Error(
+            `Failed to fetch studyspaces.json: ${response.status}`
+          );
         }
-        
+
         const studyspaces = await response.json();
-        
+
         const libraryData = studyspaces.map((data, index) => ({
           file: `library-${index}`, // Generate a unique identifier
           buildingName: data.buildingName,
@@ -110,7 +111,7 @@ const MainPage = () => {
     setSelectedSlots(new Set()); // Clear selected slots when starting new data load
 
     try {
-      const library = libraries.find(lib => lib.file === selectedLibrary);
+      const library = libraries.find((lib) => lib.file === selectedLibrary);
       if (!library) {
         throw new Error('Library not found');
       }
@@ -119,10 +120,14 @@ const MainPage = () => {
       const uid = 'r0971578';
 
       const api = new KurtApi();
-      const slotsData = await api.queryAvailability(resourceIds, selectedDate, uid);
+      const slotsData = await api.queryAvailability(
+        resourceIds,
+        selectedDate,
+        uid
+      );
 
       // Add seat names to slots
-      const slotsWithNames = slotsData.map(slot => {
+      const slotsWithNames = slotsData.map((slot) => {
         const seatName = library.seats[slot.resourceId] || slot.resourceId;
         return new Slot(slot.resourceId, slot.hour, slot.status, seatName);
       });
@@ -130,7 +135,6 @@ const MainPage = () => {
       setSlots(slotsWithNames);
       setLastUpdated(new Date());
       setSecondsSinceUpdate(0);
-
     } catch (err) {
       console.error('Failed to load seat data:', err);
       setError(err.message);
@@ -139,7 +143,6 @@ const MainPage = () => {
       setLoading(false);
     }
   }, [selectedLibrary, selectedDate, libraries]);
-
 
   // Load data on component mount and when dependencies change
   useEffect(() => {
@@ -172,7 +175,7 @@ const MainPage = () => {
           slots: [],
           availableCount: 0,
           maxConsecutive: 0,
-          availableNow: false
+          availableNow: false,
         };
       }
       acc[slot.resourceId].slots.push(slot);
@@ -183,7 +186,7 @@ const MainPage = () => {
     }, {});
 
     // Calculate metrics for each seat
-    Object.values(groupedSlots).forEach(group => {
+    Object.values(groupedSlots).forEach((group) => {
       // Sort slots by hour for consecutive calculation
       const sortedSlots = group.slots.sort((a, b) => a.hour - b.hour);
 
@@ -191,7 +194,7 @@ const MainPage = () => {
       let maxConsecutive = 0;
       let currentConsecutive = 0;
 
-      sortedSlots.forEach(slot => {
+      sortedSlots.forEach((slot) => {
         if (slot.isAvailable()) {
           currentConsecutive++;
           maxConsecutive = Math.max(maxConsecutive, currentConsecutive);
@@ -204,7 +207,7 @@ const MainPage = () => {
 
       // Check if available right now (current hour)
       const currentHour = new Date().getHours();
-      const currentSlot = sortedSlots.find(slot => slot.hour === currentHour);
+      const currentSlot = sortedSlots.find((slot) => slot.hour === currentHour);
       group.availableNow = currentSlot ? currentSlot.isAvailable() : false;
 
       // Re-sort slots back to original order (8-23)
@@ -242,7 +245,7 @@ const MainPage = () => {
     // Flatten back to slot array, preserving the sorted order by adding a sortOrder property
     const flattenedSlots = [];
     sortedGroups.forEach((group, groupIndex) => {
-      group.slots.forEach(slot => {
+      group.slots.forEach((slot) => {
         slot.sortOrder = groupIndex; // Add sort order to preserve grouping
         flattenedSlots.push(slot);
       });
@@ -259,7 +262,9 @@ const MainPage = () => {
 
     // Only show if there's at least one slot available for current hour
     const currentHour = new Date().getHours();
-    return slots.some(slot => slot.hour === currentHour && slot.isAvailable());
+    return slots.some(
+      (slot) => slot.hour === currentHour && slot.isAvailable()
+    );
   }, [selectedDate, slots]);
 
   // Get available sort options
@@ -267,7 +272,7 @@ const MainPage = () => {
     const options = [
       SortOption.SEAT_NUMBER,
       SortOption.TOTAL_AVAILABLE,
-      SortOption.MAX_CONSECUTIVE
+      SortOption.MAX_CONSECUTIVE,
     ];
 
     if (shouldShowAvailableNow) {
@@ -289,16 +294,16 @@ const MainPage = () => {
   // Handle slot selection/deselection
   const handleSlotClick = (slot) => {
     if (!slot.isAvailable()) return;
-    
+
     const slotKey = `${slot.resourceId}-${slot.hour}`;
     const newSelectedSlots = new Set(selectedSlots);
-    
+
     if (selectedSlots.has(slotKey)) {
       newSelectedSlots.delete(slotKey);
     } else {
       newSelectedSlots.add(slotKey);
     }
-    
+
     setSelectedSlots(newSelectedSlots);
   };
 
@@ -310,7 +315,7 @@ const MainPage = () => {
 
   // Check if any slot in the same hour is selected
   const isHourBlocked = (hour) => {
-    return Array.from(selectedSlots).some(slotKey => {
+    return Array.from(selectedSlots).some((slotKey) => {
       const [, slotHour] = slotKey.split('-');
       return parseInt(slotHour) === hour;
     });
@@ -319,7 +324,7 @@ const MainPage = () => {
   // Handle hour click to deselect all slots in that hour
   const handleHourClick = (hour) => {
     const newSelectedSlots = new Set(selectedSlots);
-    Array.from(selectedSlots).forEach(slotKey => {
+    Array.from(selectedSlots).forEach((slotKey) => {
       const [, slotHour] = slotKey.split('-');
       if (parseInt(slotHour) === hour) {
         newSelectedSlots.delete(slotKey);
@@ -330,18 +335,22 @@ const MainPage = () => {
 
   // Get selected slots information for display
   const getSelectedSlotsInfo = () => {
-    const selectedSlotsArray = Array.from(selectedSlots).map(slotKey => {
-      const [resourceId, hour] = slotKey.split('-');
-      const slot = slots.find(s => s.resourceId === resourceId && s.hour === parseInt(hour));
-      return slot;
-    }).filter(Boolean);
+    const selectedSlotsArray = Array.from(selectedSlots)
+      .map((slotKey) => {
+        const [resourceId, hour] = slotKey.split('-');
+        const slot = slots.find(
+          (s) => s.resourceId === resourceId && s.hour === parseInt(hour)
+        );
+        return slot;
+      })
+      .filter(Boolean);
 
     // Group consecutive slots by seat
     const groupedByResource = selectedSlotsArray.reduce((acc, slot) => {
       if (!acc[slot.resourceId]) {
         acc[slot.resourceId] = {
           seatName: slot.seatName,
-          hours: []
+          hours: [],
         };
       }
       acc[slot.resourceId].hours.push(slot.hour);
@@ -349,24 +358,26 @@ const MainPage = () => {
     }, {});
 
     // Convert to time ranges
-    const timeRanges = Object.entries(groupedByResource).map(([, data]) => {
-      const sortedHours = data.hours.sort((a, b) => a - b);
-      const ranges = [];
-      let start = sortedHours[0];
-      let end = sortedHours[0];
+    const timeRanges = Object.entries(groupedByResource)
+      .map(([, data]) => {
+        const sortedHours = data.hours.sort((a, b) => a - b);
+        const ranges = [];
+        let start = sortedHours[0];
+        let end = sortedHours[0];
 
-      for (let i = 1; i < sortedHours.length; i++) {
-        if (sortedHours[i] === end + 1) {
-          end = sortedHours[i];
-        } else {
-          ranges.push({ start, end: end + 1, seatName: data.seatName });
-          start = sortedHours[i];
-          end = sortedHours[i];
+        for (let i = 1; i < sortedHours.length; i++) {
+          if (sortedHours[i] === end + 1) {
+            end = sortedHours[i];
+          } else {
+            ranges.push({ start, end: end + 1, seatName: data.seatName });
+            start = sortedHours[i];
+            end = sortedHours[i];
+          }
         }
-      }
-      ranges.push({ start, end: end + 1, seatName: data.seatName });
-      return ranges;
-    }).flat();
+        ranges.push({ start, end: end + 1, seatName: data.seatName });
+        return ranges;
+      })
+      .flat();
 
     const totalHours = selectedSlotsArray.length;
     return { timeRanges, totalHours };
@@ -374,7 +385,7 @@ const MainPage = () => {
 
   // Generate booking link for a range
   const generateBookingLinkForRange = (range) => {
-    const library = libraries.find(lib => lib.file === selectedLibrary);
+    const library = libraries.find((lib) => lib.file === selectedLibrary);
     if (!library) {
       console.error('Library not found');
       return null;
@@ -382,7 +393,7 @@ const MainPage = () => {
 
     // Find the resourceId for this seat
     const resourceId = Object.keys(library.seats).find(
-      id => library.seats[id] === range.seatName
+      (id) => library.seats[id] === range.seatName
     );
 
     if (!resourceId) {
@@ -424,10 +435,10 @@ const MainPage = () => {
     }
   };
 
-
   const formatLastUpdated = () => {
     if (!lastUpdated) return 'Never updated';
-    if (secondsSinceUpdate < 60) return `Last updated ${secondsSinceUpdate} sec. ago`;
+    if (secondsSinceUpdate < 60)
+      return `Last updated ${secondsSinceUpdate} sec. ago`;
     const minutes = Math.floor(secondsSinceUpdate / 60);
     return `Last updated ${minutes} min. ago`;
   };
@@ -436,7 +447,7 @@ const MainPage = () => {
     <div className="min-h-screen">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <header className="flex flex-col md:flex-row md:items-start gap-4 md:gap-12 p-4 md:p-8">
+        <header className="flex flex-col md:flex-row md:items-center  gap-4 md:gap-12 p-4 md:p-8">
           {/* Library Name */}
           <div className="w-full md:w-auto">
             <select
@@ -445,7 +456,7 @@ const MainPage = () => {
               onChange={(e) => setSelectedLibrary(e.target.value)}
               disabled={loading}
             >
-              {libraries.map(library => (
+              {libraries.map((library) => (
                 <option key={library.file} value={library.file}>
                   {`${library.buildingName}\n${library.spaceName}`}
                 </option>
@@ -456,14 +467,14 @@ const MainPage = () => {
           {/* Controls Row */}
           <div className="flex flex-col sm:flex-row gap-4 w-full md:flex-1">
             {/* Date Dropdown */}
-            <div className="flex-1">
+            <div className="flex flex-1 items-center">
               <select
                 className="text-black bg-white border border-gray-300 md:border-none outline-none cursor-pointer w-full p-2 md:p-0 rounded md:rounded-none"
                 value={selectedDate || ''}
                 onChange={(e) => setSelectedDate(e.target.value)}
                 disabled={loading}
               >
-                {dateOptions.map(option => (
+                {dateOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
@@ -472,20 +483,22 @@ const MainPage = () => {
             </div>
 
             {/* Sort Dropdown */}
-            <div className="flex-1">
+            <div className="flex flex-1 items-center">
               <select
                 className="text-black bg-white border border-gray-300 md:border-none outline-none cursor-pointer w-full p-2 md:p-0 rounded md:rounded-none"
                 value={selectedSort}
                 onChange={(e) => setSelectedSort(e.target.value)}
               >
-                {availableSortOptions.map(option => (
-                  <option key={option} value={option}>{SORT_LABELS[option]}</option>
+                {availableSortOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {SORT_LABELS[option]}
+                  </option>
                 ))}
               </select>
             </div>
 
             {/* Status */}
-            <div className="flex-1">
+            <div className="flex flex-1 items-center">
               <div className="text-left text-xs tracking-wide">
                 {loading ? (
                   <div></div>
@@ -512,7 +525,9 @@ const MainPage = () => {
               Looking up seats availability...
             </div>
           </div>
-        ) : slots.length > 0 && !slots.some(slot => slot.isAvailable()) && !error ? (
+        ) : slots.length > 0 &&
+          !slots.some((slot) => slot.isAvailable()) &&
+          !error ? (
           <div className="flex justify-center items-center py-8">
             <div className="text-center text-neutral-500">
               No available time slots found
@@ -521,25 +536,31 @@ const MainPage = () => {
         ) : (
           <div className="flex flex-col lg:flex-row gap-4 lg:gap-12 px-4 md:px-8 pb-8">
             {/* Left Sidebar - Hidden on mobile when slots are selected */}
-            <div className={`w-full lg:w-70 ${selectedSlots.size > 0 ? 'hidden md:block' : ''}`}>
-              {selectedSlots.size === 0 ? (
-                // Instructions when no slots selected
-                <>
-                  <h2 className="text-3xl leading-none font-bold text-black tracking-tight mb-4 md:mb-8">
-                    Click on the <span className="bg-black text-white px-2 md:px-4 rounded-sm text-xl font-medium">A</span> slots you want to book
-                  </h2>
 
-                  <p className="text-black leading-normal text-base">
-                    You can select multiple slots across different seats to create a sequence of seats to change during study session in case of limited library capacity.
-                  </p>
-                </>
-              ) : (
+            <div className={`w-full lg:w-70`}>
+              <div className={selectedSlots.size !== 0 ? 'md:hidden' : ''}>
+                <h2 className="text-3xl leading-none font-bold text-black tracking-tight mb-4 md:mb-8">
+                  Click on the{' '}
+                  <span className="bg-black text-white px-2 md:px-4 rounded-sm text-xl font-medium">
+                    A
+                  </span>{' '}
+                  slots you want to book
+                </h2>
+
+                <p className="text-black leading-normal text-base">
+                  You can select multiple slots across different seats to create
+                  a sequence of seats to change during study session in case of
+                  limited library capacity.
+                </p>
+              </div>
+              {selectedSlots.size !== 0 && (
                 // Selected slots information panel - Desktop only
-                <div className="flex flex-col gap-8">
+                <div className="flex-col gap-8 hidden md:flex">
                   {/* Total hours header */}
                   <div>
                     <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
-                      {getSelectedSlotsInfo().totalHours} hour{getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''}
+                      {getSelectedSlotsInfo().totalHours} hour
+                      {getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''}
                     </h2>
                     <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
                       in total
@@ -555,8 +576,8 @@ const MainPage = () => {
                       Your booking links:
                     </p>
                     {getSelectedSlotsInfo().timeRanges.map((range, index) => (
-                      <div 
-                        key={index} 
+                      <div
+                        key={index}
                         className="flex justify-between items-center py-1 border-b border-neutral-200"
                       >
                         {/* Action buttons */}
@@ -564,7 +585,9 @@ const MainPage = () => {
                           {/* Link icon for copying link */}
                           <div className="relative">
                             <button
-                              onClick={() => handleCopyBookingLink(range, index)}
+                              onClick={() =>
+                                handleCopyBookingLink(range, index)
+                              }
                               className="p-1 hover:bg-neutral-100 rounded cursor-pointer"
                               title="Copy booking link"
                             >
@@ -580,7 +603,7 @@ const MainPage = () => {
                         </div>
 
                         {/* Clickable main content area */}
-                        <div 
+                        <div
                           onClick={() => handleOpenBookingLink(range)}
                           className="flex-1 flex flex-col sm:flex-row items-start sm:items-center cursor-pointer hover:bg-neutral-100 rounded px-1 gap-1"
                         >
@@ -588,7 +611,8 @@ const MainPage = () => {
                             {range.seatName}
                           </span>
                           <span className="text-base text-neutral-500">
-                            {String(range.start).padStart(2, '0')}:00 - {String(range.end).padStart(2, '0')}:00
+                            {String(range.start).padStart(2, '0')}:00 -{' '}
+                            {String(range.end).padStart(2, '0')}:00
                           </span>
                         </div>
                       </div>
@@ -597,8 +621,12 @@ const MainPage = () => {
 
                   {/* Info text */}
                   <p className="text-black text-xs leading-normal tracking-wide">
-                    It's impossible to book solely within this tool, trust us, we{' '}
-                    <a href="/statement" className="underline">tried hard</a> to make it happen.
+                    It's impossible to book solely within this tool, trust us,
+                    we{' '}
+                    <a href="/statement" className="underline">
+                      tried hard
+                    </a>{' '}
+                    to make it happen.
                   </p>
                 </div>
               )}
@@ -612,8 +640,8 @@ const MainPage = () => {
                 </div>
               )}
               {!error && (
-                <SeatTable 
-                  slots={sortedSlots} 
+                <SeatTable
+                  slots={sortedSlots}
                   onSlotClick={handleSlotClick}
                   isSlotSelected={isSlotSelected}
                   isHourBlocked={isHourBlocked}
@@ -625,12 +653,14 @@ const MainPage = () => {
         )}
 
         {/* Mobile Drawer Toggle Button */}
-        {(selectedSlots.size > 0 && !isDrawerOpen) && (
+        {selectedSlots.size > 0 && !isDrawerOpen && (
           <button
             onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             className="md:hidden fixed bottom-4 right-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg z-50 cursor-pointer"
           >
-            Book seat{getSelectedSlotsInfo().timeRanges.length !== 1 ? 's' : ''} for {getSelectedSlotsInfo().totalHours} hour{getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''}
+            Book seat{getSelectedSlotsInfo().timeRanges.length !== 1 ? 's' : ''}{' '}
+            for {getSelectedSlotsInfo().totalHours} hour
+            {getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''}
           </button>
         )}
 
@@ -641,12 +671,12 @@ const MainPage = () => {
               isDrawerOpen ? 'translate-y-0' : 'translate-y-full'
             }`}
           >
-
             <div className="p-4 max-h-sm overflow-y-auto">
               {/* Total hours header */}
               <div className="mb-4">
                 <h3 className="text-2xl font-bold text-black">
-                  {getSelectedSlotsInfo().totalHours} hour{getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''} selected
+                  {getSelectedSlotsInfo().totalHours} hour
+                  {getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''} selected
                 </h3>
               </div>
 
@@ -656,8 +686,8 @@ const MainPage = () => {
                   Your booking links:
                 </p>
                 {getSelectedSlotsInfo().timeRanges.map((range, index) => (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="flex justify-between items-center py-2 border-b border-neutral-200"
                   >
                     {/* Action buttons */}
@@ -681,7 +711,7 @@ const MainPage = () => {
                     </div>
 
                     {/* Clickable main content area */}
-                    <div 
+                    <div
                       onClick={() => handleOpenBookingLink(range)}
                       className="flex-1 flex flex-col cursor-pointer hover:bg-neutral-100 rounded px-2 py-1 gap-1"
                     >
@@ -689,7 +719,8 @@ const MainPage = () => {
                         {range.seatName}
                       </span>
                       <span className="text-sm text-neutral-500">
-                        {String(range.start).padStart(2, '0')}:00 - {String(range.end).padStart(2, '0')}:00
+                        {String(range.start).padStart(2, '0')}:00 -{' '}
+                        {String(range.end).padStart(2, '0')}:00
                       </span>
                     </div>
                   </div>
@@ -699,7 +730,10 @@ const MainPage = () => {
               {/* Info text */}
               <p className="text-black text-xs leading-normal tracking-wide">
                 It's impossible to book solely within this tool, trust us, we{' '}
-                <a href="/statement" className="underline">tried hard</a> to make it happen.
+                <a href="/statement" className="underline">
+                  tried hard
+                </a>{' '}
+                to make it happen.
               </p>
             </div>
           </div>
@@ -707,7 +741,7 @@ const MainPage = () => {
 
         {/* Overlay for drawer */}
         {selectedSlots.size > 0 && isDrawerOpen && (
-          <div 
+          <div
             className="md:hidden fixed inset-0 bg-black/25 z-30"
             onClick={() => setIsDrawerOpen(false)}
           />
