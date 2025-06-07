@@ -511,6 +511,12 @@ const MainPage = () => {
               Looking up seats availability...
             </div>
           </div>
+        ) : slots.length > 0 && !slots.some(slot => slot.isAvailable()) && !error ? (
+          <div className="flex justify-center items-center py-8">
+            <div className="text-center text-neutral-500">
+              No available time slots found
+            </div>
+          </div>
         ) : (
           <div className="flex flex-col lg:flex-row gap-4 lg:gap-12 px-4 md:px-8 pb-8">
             {/* Left Sidebar */}
