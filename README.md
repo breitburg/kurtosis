@@ -1,24 +1,12 @@
-# Kurtosis
+# React + Vite
 
-Super-snappy tool for power users of [KU Leuven Reservation Tool (KURT)](http://www.kuleuven.be/kurt) built by students. Easily view the availability of seats and rooms in Agora, Erasmushuis, CBA, EBIB and other KU Leuven libraries.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Is it affiliated with KU Leuven?
+Currently, two official plugins are available:
 
-No, this is a student project and is not affiliated with KU Leuven.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Is it allowed to use it?
+## Expanding the ESLint configuration
 
-Kind of. The tool is not officially supported by KU Leuven, so we cannot guarantee that it will always work. While we shared this tool with KURT staff and (as of the time of writing) they didn't have any objections, it is by no means approved/endorsed by KU Leuven. We ask that you use it responsibly and do not abuse it. We are not responsible for any consequences of using this tool.
-
-## How do I use it?
-
-To use the tool you will need:
-
-- A working R-number, U-number, or B-number (find it on your student card labeled as `Gebruikersnaam`)
-- An active KU Leuven account (you need to be a student, staff member, or guest)
-
-Go to [kurtosis.breitburg.com](https://kurtosis.breitburg.com), select a library, select a date (within the 7 days), enter your R-number, U-number, or B-number and click "Fetch".
-
-## Do you log my R-number?
-
-No, we don't. The R-number, U-number, or B-number is only used to fetch the data from KURT and is only stored in your browser for your convenience. We don't store it on our servers or log it in any way.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.library-select {
+  width: 260px;
+  white-space: pre-wrap;
+  height: auto;
+  min-height: 3rem;
+}
