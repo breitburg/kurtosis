@@ -539,7 +539,13 @@ const MainPage = () => {
 
             <div className={`w-full lg:w-70`}>
               <div className={selectedSlots.size !== 0 ? 'md:hidden' : ''}>
-                <h2 className="text-3xl leading-none font-bold text-black tracking-tight mb-4 md:mb-8">
+                <h2
+                  className="text-3xl leading-none font-bold text-black tracking-tight mb-4 md:mb-8"
+                  style={{
+                    textWrap:
+                      'balance' /* Tailwind CSS doesn't support textWrap yet */,
+                  }}
+                >
                   Click on the{' '}
                   <span className="bg-black text-white px-2 md:px-4 rounded-sm text-xl font-medium">
                     A
