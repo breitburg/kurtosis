@@ -27,6 +27,7 @@ const MainPage = () => {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [libraries, setLibraries] = useState([]);
   const [secondsSinceUpdate, setSecondsSinceUpdate] = useState(0);
+  const [selectedSlots, setSelectedSlots] = useState(new Set());
 
 
   // Generate date options (today + 7 days)
@@ -291,6 +292,48 @@ const MainPage = () => {
 
   const sortedSlots = useMemo(() => getSortedSlots(), [slots, selectedSort]);
 
+  // Handle slot selection/deselection
+  const handleSlotClick = (slot) => {
+    if (!slot.isAvailable()) return;
+    
+    const slotKey = `${slot.resourceId}-${slot.hour}`;
+    const newSelectedSlots = new Set(selectedSlots);
+    
+    if (selectedSlots.has(slotKey)) {
+      newSelectedSlots.delete(slotKey);
+    } else {
+      newSelectedSlots.add(slotKey);
+    }
+    
+    setSelectedSlots(newSelectedSlots);
+  };
+
+  // Check if a slot is selected
+  const isSlotSelected = (slot) => {
+    const slotKey = `${slot.resourceId}-${slot.hour}`;
+    return selectedSlots.has(slotKey);
+  };
+
+  // Check if any slot in the same hour is selected
+  const isHourBlocked = (hour) => {
+    return Array.from(selectedSlots).some(slotKey => {
+      const [, slotHour] = slotKey.split('-');
+      return parseInt(slotHour) === hour;
+    });
+  };
+
+  // Handle hour click to deselect all slots in that hour
+  const handleHourClick = (hour) => {
+    const newSelectedSlots = new Set(selectedSlots);
+    Array.from(selectedSlots).forEach(slotKey => {
+      const [, slotHour] = slotKey.split('-');
+      if (parseInt(slotHour) === hour) {
+        newSelectedSlots.delete(slotKey);
+      }
+    });
+    setSelectedSlots(newSelectedSlots);
+  };
+
 
   const formatLastUpdated = () => {
     if (!lastUpdated) return 'Never updated';
@@ -389,7 +432,13 @@ const MainPage = () => {
               </div>
             )}
             {!loading && !error && (
-              <SeatTable slots={sortedSlots} />
+              <SeatTable 
+                slots={sortedSlots} 
+                onSlotClick={handleSlotClick}
+                isSlotSelected={isSlotSelected}
+                isHourBlocked={isHourBlocked}
+                onHourClick={handleHourClick}
+              />
             )}
           </div>
         </div>

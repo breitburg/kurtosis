@@ -2,30 +2,48 @@ import React from 'react';
 import Slot from '../models/Slot.js';
 import SlotStatus from '../models/SlotStatus.js';
 
-const SeatSlot = ({ slot }) => {
+const SeatSlot = ({ slot, onSlotClick, isSlotSelected, isHourBlocked }) => {
+  const isSelected = isSlotSelected(slot);
+  const isBlocked = isHourBlocked(slot.hour);
+  
   const getSlotStyles = () => {
-    if (slot.isAvailable()) {
-      return 'bg-[#33b400] text-white rounded-[2px]';
+    const baseStyles = isBlocked && !isSelected ? 'grayscale' : '';
+    
+    if (isSelected) {
+      return `bg-blue-500 text-white rounded-[2px] cursor-pointer ${baseStyles}`;
+    } else if (slot.isAvailable() && !isBlocked) {
+      return `bg-[#33b400] text-white rounded-[2px] cursor-pointer hover:bg-[#2a9200] ${baseStyles}`;
+    } else if (slot.isAvailable() && isBlocked) {
+      return `bg-[#33b400] text-white rounded-[2px] cursor-not-allowed ${baseStyles}`;
     } else if (slot.isBusy()) {
-      return 'text-[#b80600]';
+      return `text-[#b80600] ${baseStyles}`;
     } else {
-      return 'text-gray-600';
+      return `text-gray-600 ${baseStyles}`;
+    }
+  };
+
+  const handleClick = () => {
+    if (slot.isAvailable() && (!isBlocked || isSelected)) {
+      onSlotClick(slot);
     }
   };
   
   return (
-    <div className={`
-      flex-1 min-w-0 h-5 flex items-center justify-center
-      ${getSlotStyles()}
-    `}>
+    <div 
+      className={`
+        flex-1 min-w-0 h-5 flex items-center justify-center
+        ${getSlotStyles()}
+      `}
+      onClick={handleClick}
+    >
       <span className="leading-none">
-        {slot.getDisplayStatus()}
+        {isSelected ? 'X' : slot.getDisplayStatus()}
       </span>
     </div>
   );
 };
 
-const TableRow = ({ seatName, slots }) => {
+const TableRow = ({ seatName, slots, onSlotClick, isSlotSelected, isHourBlocked }) => {
   return (
     <div className="w-full border-b border-gray-300">
       <div className="flex items-center gap-1 pb-1">
@@ -35,15 +53,27 @@ const TableRow = ({ seatName, slots }) => {
           </span>
         </div>
         {slots.map((slot) => (
-          <SeatSlot key={`${slot.resourceId}-${slot.hour}`} slot={slot} />
+          <SeatSlot 
+            key={`${slot.resourceId}-${slot.hour}`} 
+            slot={slot} 
+            onSlotClick={onSlotClick}
+            isSlotSelected={isSlotSelected}
+            isHourBlocked={isHourBlocked}
+          />
         ))}
       </div>
     </div>
   );
 };
 
-const TableHeader = () => {
+const TableHeader = ({ isHourBlocked, onHourClick }) => {
   const hours = Array.from({ length: 16 }, (_, i) => i + 8); // [8, 9, 10, ..., 23]
+  
+  const handleHourClick = (hour) => {
+    if (isHourBlocked(hour)) {
+      onHourClick(hour);
+    }
+  };
   
   return (
     <div className="w-full">
@@ -54,7 +84,11 @@ const TableHeader = () => {
           </span>
         </div>
         {hours.map((hour) => (
-          <div key={hour} className="flex-1 min-w-0 text-center">
+          <div 
+            key={hour} 
+            className={`flex-1 min-w-0 text-center ${isHourBlocked(hour) ? 'bg-blue-100 rounded-[2px] cursor-pointer hover:bg-blue-200' : ''}`}
+            onClick={() => handleHourClick(hour)}
+          >
             <span className="text-black font-normal">
               {hour.toString().padStart(2, '0')}
             </span>
@@ -65,7 +99,7 @@ const TableHeader = () => {
   );
 };
 
-const SeatTable = ({ slots }) => {
+const SeatTable = ({ slots, onSlotClick, isSlotSelected, isHourBlocked, onHourClick }) => {
   // Group slots by resourceId
   const groupedSlots = slots.reduce((acc, slot) => {
     if (!acc[slot.resourceId]) {
@@ -106,12 +140,15 @@ const SeatTable = ({ slots }) => {
   return (
     <div className="w-full">
       <div className="flex flex-col gap-1">
-        <TableHeader />
+        <TableHeader isHourBlocked={isHourBlocked} onHourClick={onHourClick} />
         {seatData.map((seatInfo) => (
           <TableRow
             key={seatInfo.resourceId}
             seatName={seatInfo.seatName}
             slots={seatInfo.slots}
+            onSlotClick={onSlotClick}
+            isSlotSelected={isSlotSelected}
+            isHourBlocked={isHourBlocked}
           />
         ))}
       </div>
