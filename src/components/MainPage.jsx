@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'lucide-react';
 import SeatTable from './SeatTable';
 import Slot from '../models/Slot.js';
@@ -448,66 +448,71 @@ const MainPage = () => {
     <div className="min-h-screen">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <header className="flex items-start gap-12 p-8">
-          {/* Left: Library Name */}
-          <select
-            className="library-select text-xl leading-tight font-medium text-black bg-white border-none outline-none cursor-pointer w-70"
-            value={selectedLibrary}
-            onChange={(e) => setSelectedLibrary(e.target.value)}
-            disabled={loading}
-          >
-            {libraries.map(library => (
-              <option key={library.file} value={library.file}>
-                {`${library.buildingName}\n${library.spaceName}`}
-              </option>
-            ))}
-          </select>
-
-          {/* Date Dropdown */}
-          <div className="1 flex">
+        <header className="flex flex-col md:flex-row md:items-start gap-4 md:gap-12 p-4 md:p-8">
+          {/* Library Name */}
+          <div className="w-full md:w-auto">
             <select
-              className="text-black bg-white border-none outline-none cursor-pointer"
-              value={selectedDate || ''}
-              onChange={(e) => setSelectedDate(e.target.value)}
+              className="library-select text-xl leading-tight font-medium text-black bg-white border border-gray-300 md:border-none outline-none cursor-pointer w-full md:w-70 p-2 md:p-0 rounded md:rounded-none"
+              value={selectedLibrary}
+              onChange={(e) => setSelectedLibrary(e.target.value)}
               disabled={loading}
             >
-              {dateOptions.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
+              {libraries.map(library => (
+                <option key={library.file} value={library.file}>
+                  {`${library.buildingName}\n${library.spaceName}`}
                 </option>
               ))}
             </select>
           </div>
 
-          {/* Sort Dropdown */}
-          <div className="flex-1 flex">
-            <select
-              className="text-black bg-white border-none outline-none cursor-pointer"
-              value={selectedSort}
-              onChange={(e) => setSelectedSort(e.target.value)}
-            >
-              {availableSortOptions.map(option => (
-                <option key={option} value={option}>{SORT_LABELS[option]}</option>
-              ))}
-            </select>
-          </div>
+          {/* Controls Row */}
+          <div className="flex flex-col sm:flex-row gap-4 w-full md:flex-1">
+            {/* Date Dropdown */}
+            <div className="flex-1">
+              <select
+                className="text-black bg-white border border-gray-300 md:border-none outline-none cursor-pointer w-full p-2 md:p-0 rounded md:rounded-none"
+                value={selectedDate || ''}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                disabled={loading}
+              >
+                {dateOptions.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* Status */}
-          <div className="flex-1 flex">
-            <div className="text-left text-xs tracking-wide">
-              {loading ? (
-                <div></div>
-              ) : (
-                <div className="text-black">{formatLastUpdated()}</div>
-              )}
-              {!loading && (
-                <button
-                  className="text-black underline"
-                  onClick={loadSeatData}
-                >
-                  Refresh
-                </button>
-              )}
+            {/* Sort Dropdown */}
+            <div className="flex-1">
+              <select
+                className="text-black bg-white border border-gray-300 md:border-none outline-none cursor-pointer w-full p-2 md:p-0 rounded md:rounded-none"
+                value={selectedSort}
+                onChange={(e) => setSelectedSort(e.target.value)}
+              >
+                {availableSortOptions.map(option => (
+                  <option key={option} value={option}>{SORT_LABELS[option]}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Status */}
+            <div className="flex-1">
+              <div className="text-left text-xs tracking-wide">
+                {loading ? (
+                  <div></div>
+                ) : (
+                  <div className="text-black">{formatLastUpdated()}</div>
+                )}
+                {!loading && (
+                  <button
+                    className="text-black underline p-2 md:p-0 -m-2 md:m-0"
+                    onClick={loadSeatData}
+                  >
+                    Refresh
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </header>
@@ -520,17 +525,17 @@ const MainPage = () => {
             </div>
           </div>
         ) : (
-          <div className="flex gap-12 px-8 pb-8">
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-12 px-4 md:px-8 pb-8">
             {/* Left Sidebar */}
-            <div className="w-70">
+            <div className="w-full lg:w-70">
               {selectedSlots.size === 0 ? (
                 // Instructions when no slots selected
                 <>
-                  <h2 className="text-3xl leading-none font-bold text-black tracking-tight mb-8">
-                    Click on the <span className="bg-black text-white px-4 rounded-sm text-xl font-medium">A</span> slots you want to book
+                  <h2 className="text-3xl leading-none font-bold text-black tracking-tight mb-4 md:mb-8">
+                    Click on the <span className="bg-black text-white px-2 md:px-4 rounded-sm text-xl font-medium">A</span> slots you want to book
                   </h2>
 
-                  <p className="text-black leading-normal">
+                  <p className="text-black leading-normal text-base">
                     You can select multiple slots across different seats to create a sequence of seats to change during study session in case of limited library capacity.
                   </p>
                 </>
@@ -561,21 +566,8 @@ const MainPage = () => {
                         key={index} 
                         className="flex justify-between items-center py-1 border-b border-neutral-200"
                       >
-                        {/* Clickable main content area */}
-                        <div 
-                          onClick={() => handleOpenBookingLink(range)}
-                          className="flex-1 flex justify-between items-center cursor-pointer hover:bg-neutral-100 rounded px-2"
-                        >
-                          <span className="text-black text-base">
-                            {range.seatName}
-                          </span>
-                          <span className="text-black text-base">
-                            {String(range.start).padStart(2, '0')}:00 - {String(range.end).padStart(2, '0')}:00
-                          </span>
-                        </div>
-                        
                         {/* Action buttons */}
-                        <div className="flex items-center gap-1 ml-1">
+                        <div className="flex items-center gap-1 mr-1">
                           {/* Link icon for copying link */}
                           <div className="relative">
                             <button
@@ -593,6 +585,19 @@ const MainPage = () => {
                             )}
                           </div>
                         </div>
+
+                        {/* Clickable main content area */}
+                        <div 
+                          onClick={() => handleOpenBookingLink(range)}
+                          className="flex-1 flex flex-col sm:flex-row items-start sm:items-center cursor-pointer hover:bg-neutral-100 rounded px-1 gap-1"
+                        >
+                          <span className="text-black text-base flex-1">
+                            {range.seatName}
+                          </span>
+                          <span className="text-base text-neutral-500">
+                            {String(range.start).padStart(2, '0')}:00 - {String(range.end).padStart(2, '0')}:00
+                          </span>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -608,7 +613,7 @@ const MainPage = () => {
             </div>
 
             {/* Main Table Area */}
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-auto min-h-0">
               {error && (
                 <div className="text-center text-red-500 py-8">
                   Error: {error}
