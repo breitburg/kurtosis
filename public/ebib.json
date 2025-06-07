@@ -1,6 +1,8 @@
 {
   "buildingName": "Science & Technology Library",
   "spaceName": "E-Bib",
+  "locationId": 7,
+  "pid": 201406,
   "seats": {
     "303774": "Deloitte Seat 129",
     "303780": "Deloitte Seat 135",

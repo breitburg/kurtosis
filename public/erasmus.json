@@ -1,6 +1,8 @@
 {
   "buildingName": "Erasmus Library",
   "spaceName": "Study Area",
+  "locationId": 3,
+  "pid": 201404,
   "seats": {
     "101101": "G-VP Seat 004",
     "303058": "G-VP Seat 005",

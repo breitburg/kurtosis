@@ -1,5 +1,10 @@
 {
-  "300131": "Flexispace Seat 013",
+  "buildingName": "Science & Technology Library",
+  "spaceName": "E-Bib Flexispace",
+  "locationId": 7,
+  "pid": 201406,
+  "seats": {
+    "300131": "Flexispace Seat 013",
   "303685": "Flexispace Seat 014",
   "303686": "Flexispace Seat 015",
   "303687": "Flexispace Seat 016",
@@ -88,5 +93,6 @@
   "303770": "Flexispace Seat 011",
   "303771": "Flexispace Seat 009",
   "303772": "Flexispace Seat 010",
-  "303773": "Flexispace Seat 012"
+    "303773": "Flexispace Seat 012"
+  }
 }

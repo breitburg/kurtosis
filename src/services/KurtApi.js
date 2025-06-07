@@ -155,6 +155,31 @@ class KurtApi {
   async getMultipleResourcesAvailability(resourceIds, date, uid) {
     return this.queryAvailability(resourceIds, date, uid);
   }
+
+  /**
+   * Generate booking link for a resource with specific time range
+   * @param {string} resourceId - The resource ID
+   * @param {Date} selectedDate - The selected date
+   * @param {number} startTime - Start hour (e.g., 8)
+   * @param {number} endTime - End hour (e.g., 10)
+   * @returns {string} - Booking URL
+   */
+  generateBookingLink(resourceId, selectedDate, startTime, endTime) {
+    const startTimeFormatted = `${selectedDate.getFullYear()}-${String(
+      selectedDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(
+      2,
+      "0"
+    )}T${String(startTime).padStart(2, "0")}:00:00`;
+
+    const endTimeFormatted = `${selectedDate.getFullYear()}-${String(
+      selectedDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(
+      endTime == 0 ? selectedDate.getDate() + 1 : selectedDate.getDate()
+    ).padStart(2, "0")}T${String(endTime).padStart(2, "0")}:00:00`;
+
+    return `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/NEW-Reservation.aspx?StartDateTime=${startTimeFormatted}&EndDateTime=${endTimeFormatted}&ID=${resourceId}&type=b`;
+  }
 }
 
 export default KurtApi;

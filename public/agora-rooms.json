@@ -1,6 +1,8 @@
 {
   "buildingName": "Agora Learning Center",
   "spaceName": "Study Rooms",
+  "locationId": 10,
+  "pid": 202203,
   "seats": {
     "117": "Agra",
     "118": "Amsterdam",

@@ -1,4 +1,5 @@
 import React from 'react';
+import { X } from 'lucide-react';
 import Slot from '../models/Slot.js';
 import SlotStatus from '../models/SlotStatus.js';
 
@@ -18,7 +19,7 @@ const SeatSlot = ({ slot, onSlotClick, isSlotSelected, isHourBlocked }) => {
     } else if (slot.isBusy()) {
       return `text-[#b80600] ${baseStyles}`;
     } else {
-      return `text-gray-600 ${baseStyles}`;
+      return `text-neutral-600 ${baseStyles}`;
     }
   };
 
@@ -37,7 +38,7 @@ const SeatSlot = ({ slot, onSlotClick, isSlotSelected, isHourBlocked }) => {
       onClick={handleClick}
     >
       <span className="leading-none">
-        {isSelected ? 'X' : slot.getDisplayStatus()}
+        {isSelected ? <X size={18} /> : slot.getDisplayStatus()}
       </span>
     </div>
   );
@@ -45,7 +46,7 @@ const SeatSlot = ({ slot, onSlotClick, isSlotSelected, isHourBlocked }) => {
 
 const TableRow = ({ seatName, slots, onSlotClick, isSlotSelected, isHourBlocked }) => {
   return (
-    <div className="w-full border-b border-gray-300">
+    <div className="w-full border-b border-neutral-300">
       <div className="flex items-center gap-1 pb-1">
         <div className="w-32 flex-shrink-0 text-left">
           <span className="text-black font-normal">
@@ -79,7 +80,7 @@ const TableHeader = ({ isHourBlocked, onHourClick }) => {
     <div className="w-full">
       <div className="flex items-center gap-1 pb-1">
         <div className="w-32 flex-shrink-0 text-left">
-          <span className="text-gray-500 font-normal">
+          <span className="text-neutral-500 font-normal">
             № / Hour
           </span>
         </div>

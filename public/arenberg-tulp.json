@@ -1,6 +1,8 @@
 {
   "buildingName": "Arenberg Castle Library",
   "spaceName": "Tulp Room",
+  "locationId": 1,
+  "pid": 201401,
   "seats": {
     "301578": "Tulp 0 Seat 503",
     "301580": "Tulp 0 Seat 505",

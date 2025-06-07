@@ -1,6 +1,8 @@
 {
   "buildingName": "Arenberg Castle Library",
   "spaceName": "Rest Area",
+  "locationId": 1,
+  "pid": 201401,
   "seats": {
     "301276": "Kelder Seat 201",
     "301277": "Kelder Seat 202",

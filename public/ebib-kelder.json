@@ -1,5 +1,10 @@
 {
-  "304064": "Kelder Seat 419",
+  "buildingName": "Science & Technology Library",
+  "spaceName": "E-Bib Kelder",
+  "locationId": 7,
+  "pid": 201406,
+  "seats": {
+    "304064": "Kelder Seat 419",
   "304066": "Kelder Seat 415",
   "304067": "Kelder Seat 416",
   "304069": "Kelder Seat 420",
@@ -29,4 +34,5 @@
   "401521": "Kelder Seat 430",
   "401522": "Kelder Seat 436",
   "401523": "Kelder Seat 442"
+  }
 }

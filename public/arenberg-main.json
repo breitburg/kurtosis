@@ -1,6 +1,8 @@
 {
   "buildingName": "Arenberg Castle Library",
   "spaceName": "Main Hall",
+  "locationId": 1,
+  "pid": 201401,
   "seats": {
     "106963": "Lees Seat 01",
     "301117": "Lees Seat 02",

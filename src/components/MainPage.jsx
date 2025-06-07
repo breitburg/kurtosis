@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { Link } from 'lucide-react';
 import SeatTable from './SeatTable';
 import Slot from '../models/Slot.js';
 import KurtApi from '../services/KurtApi.js';
@@ -28,6 +29,7 @@ const MainPage = () => {
   const [libraries, setLibraries] = useState([]);
   const [secondsSinceUpdate, setSecondsSinceUpdate] = useState(0);
   const [selectedSlots, setSelectedSlots] = useState(new Set());
+  const [copiedRangeIndex, setCopiedRangeIndex] = useState(null);
 
 
   // Generate date options (today + 7 days)
@@ -85,7 +87,9 @@ const MainPage = () => {
                 file,
                 buildingName: data.buildingName,
                 spaceName: data.spaceName,
-                seats: data.seats
+                seats: data.seats,
+                locationId: data.locationId,
+                pid: data.pid,
               });
             }
           } catch (err) {
@@ -115,6 +119,7 @@ const MainPage = () => {
 
     setLoading(true);
     setError(null);
+    setSelectedSlots(new Set()); // Clear selected slots when starting new data load
 
     try {
       const library = libraries.find(lib => lib.file === selectedLibrary);
@@ -146,6 +151,7 @@ const MainPage = () => {
       setLoading(false);
     }
   }, [selectedLibrary, selectedDate, libraries]);
+
 
   // Load data on component mount and when dependencies change
   useEffect(() => {
@@ -334,6 +340,102 @@ const MainPage = () => {
     setSelectedSlots(newSelectedSlots);
   };
 
+  // Get selected slots information for display
+  const getSelectedSlotsInfo = () => {
+    const selectedSlotsArray = Array.from(selectedSlots).map(slotKey => {
+      const [resourceId, hour] = slotKey.split('-');
+      const slot = slots.find(s => s.resourceId === resourceId && s.hour === parseInt(hour));
+      return slot;
+    }).filter(Boolean);
+
+    // Group consecutive slots by seat
+    const groupedByResource = selectedSlotsArray.reduce((acc, slot) => {
+      if (!acc[slot.resourceId]) {
+        acc[slot.resourceId] = {
+          seatName: slot.seatName,
+          hours: []
+        };
+      }
+      acc[slot.resourceId].hours.push(slot.hour);
+      return acc;
+    }, {});
+
+    // Convert to time ranges
+    const timeRanges = Object.entries(groupedByResource).map(([, data]) => {
+      const sortedHours = data.hours.sort((a, b) => a - b);
+      const ranges = [];
+      let start = sortedHours[0];
+      let end = sortedHours[0];
+
+      for (let i = 1; i < sortedHours.length; i++) {
+        if (sortedHours[i] === end + 1) {
+          end = sortedHours[i];
+        } else {
+          ranges.push({ start, end: end + 1, seatName: data.seatName });
+          start = sortedHours[i];
+          end = sortedHours[i];
+        }
+      }
+      ranges.push({ start, end: end + 1, seatName: data.seatName });
+      return ranges;
+    }).flat();
+
+    const totalHours = selectedSlotsArray.length;
+    return { timeRanges, totalHours };
+  };
+
+  // Generate booking link for a range
+  const generateBookingLinkForRange = (range) => {
+    const library = libraries.find(lib => lib.file === selectedLibrary);
+    if (!library) {
+      console.error('Library not found');
+      return null;
+    }
+
+    // Find the resourceId for this seat
+    const resourceId = Object.keys(library.seats).find(
+      id => library.seats[id] === range.seatName
+    );
+
+    if (!resourceId) {
+      console.error('Resource ID not found for seat:', range.seatName);
+      return null;
+    }
+
+    const api = new KurtApi();
+    const selectedDateObj = new Date(selectedDate);
+
+    // Generate booking link for the specific time range
+    return api.generateBookingLink(
+      resourceId,
+      selectedDateObj,
+      range.start,
+      range.end
+    );
+  };
+
+  // Handle opening booking link
+  const handleOpenBookingLink = (range) => {
+    const bookingLink = generateBookingLinkForRange(range);
+    if (bookingLink) {
+      window.open(bookingLink, '_blank');
+    }
+  };
+
+  // Handle copying booking link
+  const handleCopyBookingLink = async (range, index) => {
+    const bookingLink = generateBookingLinkForRange(range);
+    if (bookingLink) {
+      try {
+        await navigator.clipboard.writeText(bookingLink);
+        setCopiedRangeIndex(index);
+        setTimeout(() => setCopiedRangeIndex(null), 2000);
+      } catch (err) {
+        console.error('Failed to copy link:', err);
+      }
+    }
+  };
+
 
   const formatLastUpdated = () => {
     if (!lastUpdated) return 'Never updated';
@@ -344,7 +446,7 @@ const MainPage = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <header className="flex items-start gap-12 p-8">
           {/* Left: Library Name */}
@@ -410,19 +512,94 @@ const MainPage = () => {
         <div className="flex gap-12 px-8 pb-8">
           {/* Left Sidebar */}
           <div className="w-70">
-            <h2 className="text-3xl leading-none font-bold text-black tracking-tight mb-8">
-              Click on the <span className="bg-black text-white px-4 rounded-sm text-xl font-medium">A</span> slots you want to book
-            </h2>
+            {selectedSlots.size === 0 ? (
+              // Instructions when no slots selected
+              <>
+                <h2 className="text-3xl leading-none font-bold text-black tracking-tight mb-8">
+                  Click on the <span className="bg-black text-white px-4 rounded-sm text-xl font-medium">A</span> slots you want to book
+                </h2>
 
-            <p className="text-black leading-normal">
-              You can select multiple slots across different seats to create a sequence of seats to change during study session in case of limited library capacity.
-            </p>
+                <p className="text-black leading-normal">
+                  You can select multiple slots across different seats to create a sequence of seats to change during study session in case of limited library capacity.
+                </p>
+              </>
+            ) : (
+              // Selected slots information panel
+              <div className="flex flex-col gap-8">
+                {/* Total hours header */}
+                <div>
+                  <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
+                    {getSelectedSlotsInfo().totalHours} hour{getSelectedSlotsInfo().totalHours !== 1 ? 's' : ''}
+                  </h2>
+                  <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
+                    in total
+                  </h2>
+                  <h2 className="text-4xl leading-none font-bold text-black tracking-tight">
+                    selected
+                  </h2>
+                </div>
+
+
+                {/* Time ranges list */}
+                <div className="flex flex-col gap-1">
+                  <p class="mb-4 font-medium text-lg">
+                    Your booking links:
+                  </p>
+                  {getSelectedSlotsInfo().timeRanges.map((range, index) => (
+                    <div 
+                      key={index} 
+                      className="flex justify-between items-center py-1 border-b border-neutral-200"
+                    >
+                      {/* Clickable main content area */}
+                      <div 
+                        onClick={() => handleOpenBookingLink(range)}
+                        className="flex-1 flex justify-between items-center cursor-pointer hover:bg-neutral-100 rounded px-2"
+                      >
+                        <span className="text-black text-base">
+                          {String(range.start).padStart(2, '0')}:00 - {String(range.end).padStart(2, '0')}:00
+                        </span>
+                        <span className="text-black text-base">
+                          {range.seatName}
+                        </span>
+                      </div>
+                      
+                      {/* Action buttons */}
+                      <div className="flex items-center gap-1 ml-1">
+                        {/* Link icon for copying link */}
+                        <div className="relative">
+                          <button
+                            onClick={() => handleCopyBookingLink(range, index)}
+                            className="p-1 hover:bg-neutral-100 rounded cursor-pointer"
+                            title="Copy booking link"
+                          >
+                            <Link size={14} />
+                          </button>
+                          {copiedRangeIndex === index && (
+                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 px-2 py-1 bg-neutral-700 text-white text-xs rounded whitespace-nowrap">
+                              Copied!
+                              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-l-transparent border-r-transparent border-t-neutral-700"></div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+
+                {/* Info text */}
+                <p className="text-black text-xs leading-normal tracking-wide">
+                  {getSelectedSlotsInfo().timeRanges.length} new booking tab{getSelectedSlotsInfo().timeRanges.length !== 1 ? 's' : ''} will be opened. It's impossible to book solely within this tool, trust us, we{' '}
+                  <span className="underline">tried hard</span> to make it happen.
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Main Table Area */}
           <div className="flex-1 overflow-auto">
             {loading && (
-              <div className="text-center text-gray-500 py-8">
+              <div className="text-center text-neutral-500 py-8">
                 Loading seat data...
               </div>
             )}

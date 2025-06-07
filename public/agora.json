@@ -1,6 +1,8 @@
 {
   "buildingName": "Agora Learning Center",
   "spaceName": "Silent Study",
+  "locationId": 10,
+  "pid": 201403,
   "seats": {
     "300855": "Silent 102",
     "300856": "Silent 103",

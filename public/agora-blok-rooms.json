@@ -1,6 +1,8 @@
 {
   "buildingName": "Agora Learning Center",
   "spaceName": "Block Rooms",
+  "locationId": 10,
+  "pid": 201403,
   "seats": {
     "301035": " 362 Cambridge",
     "301036": " 363 Cambridge",

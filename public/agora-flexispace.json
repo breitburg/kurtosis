@@ -1,6 +1,8 @@
 {
   "buildingName": "Agora Learning Center",
   "spaceName": "Flexible Space",
+  "locationId": 10,
+  "pid": 201403,
   "seats": {
     "305441": "FlexiSpace 079",
     "305442": "FlexiSpace 077",

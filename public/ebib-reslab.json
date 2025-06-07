@@ -1,5 +1,10 @@
 {
-  "402265": "ResLab Seat 103",
+  "buildingName": "Science & Technology Library",
+  "spaceName": "E-Bib ResLab",
+  "locationId": 7,
+  "pid": 201406,
+  "seats": {
+    "402265": "ResLab Seat 103",
   "402266": "ResLab Seat 104",
   "402267": "ResLab Seat 102",
   "402268": "ResLab Seat 101",
@@ -23,4 +28,5 @@
   "402286": "ResLab Seat 122",
   "402287": "ResLab Seat 123",
   "402288": "ResLab Seat 124"
+  }
 }
