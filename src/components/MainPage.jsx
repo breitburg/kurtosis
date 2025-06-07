@@ -494,7 +494,7 @@ const MainPage = () => {
                 )}
                 {!loading && (
                   <button
-                    className="text-black underline p-2 md:p-0 -m-2 md:m-0"
+                    className="text-black underline p-2 md:p-0 -m-2 md:m-0 cursor-pointer"
                     onClick={loadSeatData}
                   >
                     Refresh
@@ -510,6 +510,12 @@ const MainPage = () => {
           <div className="flex justify-center items-center py-8">
             <div className="text-center text-neutral-500">
               Looking up seats availability...
+            </div>
+          </div>
+        ) : slots.length > 0 && !slots.some(slot => slot.isAvailable()) && !error ? (
+          <div className="flex justify-center items-center py-8">
+            <div className="text-center text-neutral-500">
+              No available time slots found
             </div>
           </div>
         ) : (
