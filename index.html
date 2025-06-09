@@ -1,223 +1,50 @@
 <!doctype html>
-<html>
-  <head>
-    <title>Kurtosis</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-    <meta name="description" content="A tool for KURT power users" />
-    <meta name="keywords" content="Agora, booking, seats, KU Leuven" />
-    <link rel="preconnect" href="https://rsms.me/" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=no"
-    />
+<html lang="en">
 
-    <!-- Apple Touch Icon -->
-    <link
-      rel="apple-touch-icon"
-      sizes="400x400"
-      href="/assets/apple-icon.png"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kurtosis</title>
 
-  <body>
-    <div id="banner" style="display: none">
-      <img
-        src="statement/assets/app-icon.png"
-        alt="App Icon"
-        style="width: 80px; height: 80px"
-      />
-      <div style="display: flex; flex-direction: column; gap: 10px">
-        <h2>
-          Kurtosis might stop working at any moment. We've built a new KURT
-          mobile app, but KU Leuven didn't allow us to launch it.
-        </h2>
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Kurtosis helps KU Leuven students find and book study seats faster. Check real-time availability across all libraries and reserve your perfect study spot." />
+  <meta name="keywords"
+    content="KU Leuven, study seats, library booking, seat reservation, student tools, Leuven university, study spaces" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://kurtosis.breitburg.com" />
 
-        <p>
-          Hello. If you like Kurtosis and believe that improving KURT would
-          benefit the student community, please read our open statement, which
-          explains what happened and how you can help.
-        </p>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kurtosis.breitburg.com" />
+  <meta property="og:title" content="Kurtosis" />
+  <meta property="og:description"
+    content="Kurtosis helps KU Leuven students find and book study seats faster. Check real-time availability across all libraries and reserve your perfect study spot." />
+  <meta property="og:site_name" content="Kurtosis" />
+  <meta property="og:locale" content="en_US" />
 
-        <p>
-          Otherwise, Kurtosis will stop working when KURTv2 is disabled, and
-          everyone will be forced to use the official KURT web app for booking.
-        </p>
-      </div>
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://kurtosis.breitburg.com" />
+  <meta property="twitter:title" content="Kurtosis" />
+  <meta property="twitter:description"
+    content="Kurtosis helps KU Leuven students find and book study seats faster. Check real-time availability across all libraries and reserve your perfect study spot." />
 
-      <button
-        onclick="window.open('https://kurtosis.breitburg.com/statement')"
-        class="primary"
-      >
-        Read our open statement
-      </button>
-      <button onclick="doNotShowBannerAgain()" class="secondary">
-        Do not show again
-      </button>
-    </div>
-    <form id="queryForm">
-      <div class="queryContainer">
-        <label for="date">Library:</label>
-        <select id="library" name="library" required>
-          <optgroup label="Agora">
-            <option value="agora" selected>Silent Study</option>
-            <option value="agora-blok-rooms">
-              Seats in rooms (Only during blokperiode)
-            </option>
-            <option value="agora-flexispace">
-              FlexiSpace (Only during blokperiode)
-            </option>
-            <option value="agora-rooms">
-              Meeting rooms (Not during blokperiode)
-            </option>
-          </optgroup>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-          <optgroup label="Arenberg">
-            <option value="arenberg-main">Boekenzaal/Leeszaal/DeLeVille</option>
-            <option value="arenberg-rest">Kelder/Zolder</option>
-            <option value="arenberg-tulp">Tulp 0/1</option>
-          </optgroup>
-          <optgroup label="Antwerpen">
-            <option value="antwerp-balustrade">Balustrade</option>
-            <option value="antwerp-silentstudy">Silent study</option>
-          </optgroup>
+  <!-- Additional SEO -->
+  <meta name="application-name" content="Kurtosis" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Kurtosis" />
+</head>
 
-          <optgroup label="LDC">
-            <option value="ldc-back">Back</option>
-            <option value="ldc-flex">Flex</option>
-            <option value="ldc-inkom">Inkom</option>
-            <option value="ldc-rooms">Rooms</option>
-            <option value="ldc-leeszaal">Leeszaal</option>
-          </optgroup>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
 
-          <optgroup label="EBIB">
-            <option value="ebib">Quiet Study + Deloitte Seats</option>
-            <option value="ebib-reslab">
-              ResLab (Only during blokperiode)
-            </option>
-            <option value="ebib-kelder">
-              Kelder (Only during blokperiode)
-            </option>
-            <option value="ebib-flexispace">
-              Flexispace (Only during blokperiode)
-            </option>
-          </optgroup>
-
-          <option value="erasmus">Artes Erasmushuis</option>
-          <option value="kulak">Kulak</option>
-        </select>
-      </div>
-      <div class="queryContainer">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required />
-      </div>
-      <div class="queryContainer">
-        <label for="rNumber">R-number:</label>
-        <input
-          type="text"
-          id="rNumber"
-          name="rNumber"
-          placeholder="r1234567"
-          autocapitalize="no"
-          required
-        />
-      </div>
-      <div class="queryContainer">
-        <label for="rememberRNumber">Remember R-number:</label>
-        <input
-          type="checkbox"
-          id="rememberRNumber"
-          name="rememberRNumber"
-          checked
-        />
-      </div>
-      <div class="queryContainer" id="sortContainer" style="display: none">
-        <label for="sortBy">Sort by:</label>
-        <select id="sortBy" name="sortBy">
-          <option value="seat-number">Seat number</option>
-          <option value="total-hours">Total available hours</option>
-          <option value="max-consecutive">Max consecutive hours</option>
-          <option value="available-now">Available right now</option>
-        </select>
-      </div>
-      <button id="fetchButton" type="submit">Fetch</button>
-    </form>
-    <!--<details id="seatGuide">
-      <summary>Seat guide</summary>
-      <div id="agora">
-        <ul>
-          <li>101-256 — Silent Study 1 <a href="https://bib.kuleuven.be/agora/afbeeldingen/lokalen/ss1.png/image_view_fullscreen">[Map]</a></li>
-          <li>257-310 — Silent Study 2 <a href="https://bib.kuleuven.be/agora/afbeeldingen/lokalen/ss2.png/image_view_fullscreen">[Map]</a></li>
-        </ul>
-      </div>
-      
-    </details>-->
-    <div id="tableContainer">
-      <table id="seatTable" border="1"></table>
-    </div>
-    <br />
-
-    <div class="notice">
-      This tool communicates directly with
-      <a href="https://kuleuven.be/kurt">KURT</a> and does not store or process
-      any personal data.
-      <br />
-      It is built by students and is not affiliated with KU Leuven. Please use
-      it responsibly and do not abuse the system.
-    </div>
-    <div class="notice">
-      Built by <a href="https://breitburg.com/">Ilia Breitburg</a> and
-      <a href="https://gbgk.me/">George Bougakov</a>. Special thanks to
-      <a href="https://github.com/alexandervanhee">Alexander Vanhee</a>.
-      <br />
-      Get the source code and learn more
-      <a href="https://github.com/breitburg/kurtosis">on GitHub</a>.
-    </div>
-
-    <!-- <button onclick="document.getElementById('bookDialog').showModal()">DEBUG: open dialog</button> -->
-
-    <dialog id="bookDialog">
-      <div class="dialogContent">
-        <h2 class="dialogTitle">Reserve this seat</h2>
-
-        <div class="warningBlock" id="reservationClosed">
-          <b>Warning!</b> You have selected a date for which reservation is not
-          yet open. You can still make a link and book the seat later.
-        </div>
-
-        <div class="dialogFormBlock">
-          <label for="startTime">Start time:</label>
-          <select id="startTime" name="startTime"></select>
-        </div>
-
-        <div class="dialogFormBlock">
-          <label for="endTime">End time:</label>
-          <select id="endTime" name="startTime"></select>
-        </div>
-
-        <p>
-          You will be redirected to KURT to complete the reservation, where you
-          will be able to add a subject or attendees
-        </p>
-
-        <div class="dialogButtonRow">
-          <button id="copyLink">Copy link</button>
-          <button id="bookButton">Go to booking</button>
-        </div>
-        <form class="dialogButtonRow">
-          <button
-            type="submit"
-            id="closeButton"
-            formmethod="dialog"
-            formnovalidate
-          >
-            Close
-          </button>
-        </form>
-      </div>
-    </dialog>
-
-    <script src="script.js"></script>
-  </body>
 </html>
