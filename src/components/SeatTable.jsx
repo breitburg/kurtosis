@@ -15,11 +15,11 @@ const SeatSlot = ({ slot, onSlotClick, isSlotSelected, isHourBlocked }) => {
     } else if (slot.isAvailable() && !isBlocked) {
       return `bg-[#33b400] text-white rounded-[2px] cursor-pointer hover:bg-[#2a9200] ${baseStyles}`;
     } else if (slot.isAvailable() && isBlocked) {
-      return `bg-[#33b400] text-white rounded-[2px] cursor-not-allowed ${baseStyles}`;
+      return `bg-[#33b400] text-white rounded-[2px] ${baseStyles}`;
     } else if (slot.isBusy()) {
-      return `text-[#b80600] cursor-not-allowed ${baseStyles}`;
+      return `text-[#b80600] ${baseStyles}`;
     } else {
-      return `text-neutral-600 cursor-not-allowed ${baseStyles}`;
+      return `text-neutral-600 ${baseStyles}`;
     }
   };
 
