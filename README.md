@@ -1,24 +1,75 @@
 # Kurtosis
 
+[![Live Site](https://img.shields.io/badge/Live%20Site-blue)](https://kurtosis.breitburg.com)
+[![GitHub Issues](https://img.shields.io/github/issues/breitburg/kurtosis)](https://github.com/breitburg/kurtosis/issues)
+
 Super-snappy tool for power users of [KU Leuven Reservation Tool (KURT)](http://www.kuleuven.be/kurt) built by students. Easily view the availability of seats and rooms in Agora, Erasmushuis, CBA, EBIB and other KU Leuven libraries.
 
-## Is it affiliated with KU Leuven?
+## Quick Start
 
-No, this is a student project and is not affiliated with KU Leuven.
+### For Users
 
-## Is it allowed to use it?
+1. Visit [kurtosis.breitburg.com](https://kurtosis.breitburg.com)
+2. Enter your R-number, U-number, or B-number (found on your student card as `Gebruikersnaam`)
+3. Select a library and date (up to 7 days ahead)
+4. Browse available time slots and select the ones you want
+5. Click generated booking links to reserve on the official KURT system
 
-Kind of. The tool is not officially supported by KU Leuven, so we cannot guarantee that it will always work. While we shared this tool with KURT staff and (as of the time of writing) they didn't have any objections, it is by no means approved/endorsed by KU Leuven. We ask that you use it responsibly and do not abuse it. We are not responsible for any consequences of using this tool.
+**Requirements:**
+- Valid KU Leuven R-number, U-number, or B-number
+- Active KU Leuven account (student, staff, or guest)
 
-## How do I use it?
+### For Developers
 
-To use the tool you will need:
+```bash
+# Clone the repository
+git clone https://github.com/breitburg/kurtosis.git
+cd kurtosis
 
-- A working R-number, U-number, or B-number (find it on your student card labeled as `Gebruikersnaam`)
-- An active KU Leuven account (you need to be a student, staff member, or guest)
+# Install dependencies
+bun install
 
-Go to [kurtosis.breitburg.com](https://kurtosis.breitburg.com), select a library, select a date (within the 7 days), enter your R-number, U-number, or B-number and click "Fetch".
+# Start development server
+bun run dev
 
-## Do you log my R-number?
+# Build for production
+bun run build
+```
 
-No, we don't. The R-number, U-number, or B-number is only used to fetch the data from KURT and is only stored in your browser for your convenience. We don't store it on our servers or log it in any way.
+## Development
+
+### Available Scripts
+
+```bash
+bun run dev      # Start development server
+bun run build    # Build for production
+bun run lint     # Run ESLint
+bun run preview  # Preview production build
+```
+
+### Working with Claude Code
+
+This repository includes a `CLAUDE.md` file with detailed guidance for [Claude Code](https://claude.ai/code) when working with this codebase.
+
+## Legal & Disclaimer
+
+**Not affiliated with KU Leuven** - This is an independent student project.
+
+While we've shared this tool with KURT staff and received no objections, it is not officially approved or endorsed by KU Leuven. Use responsibly and don't abuse the system. We're not responsible for any consequences of using this tool.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Support
+
+- **Email**: [kurtosis@breitburg.com](mailto:kurtosis@breitburg.com)
+- **Issues**: [GitHub Issues](https://github.com/breitburg/kurtosis/issues/new)
+
+## License
+
+This project is open source. See the repository for license details.

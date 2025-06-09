@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.library-select {
+  white-space: pre-wrap;
+  height: auto;
+  min-height: 3.5rem;
+}
+
+select {
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 20px;
+  padding-right: 32px; /* Space for the arrow */
+  @apply outline-2 outline-neutral-400 -outline-offset-2 md:outline-none rounded-none;
+}
+
