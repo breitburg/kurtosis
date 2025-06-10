@@ -508,23 +508,23 @@ const MainPage = () => {
             {/* Library Selection */}
             <div className="w-full md:w-auto relative">
               <select
-                className="library-select text-xl leading-tight font-medium text-transparent cursor-pointer w-full md:w-70 p-2 md:p-0 rounded md:rounded-none relative z-10"
+                className="library-select text-xl leading-tight font-medium cursor-pointer w-full md:w-70 p-2 md:p-0 rounded md:rounded-none relative z-10"
                 value={selectedLibrary}
                 onChange={(e) => setSelectedLibrary(e.target.value)}
                 disabled={loading}
                 aria-label="Select library"
               >
                 {Object.entries(groupedLibraries).map(([buildingName, librariesInBuilding]) => (
-                  <optgroup key={buildingName} label={buildingName}>
+                  <optgroup key={buildingName} label={buildingName} className="bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white">
                     {librariesInBuilding.map((library) => (
-                      <option key={library.file} value={library.file} className="text-black">
+                      <option key={library.file} value={library.file} className="bg-white dark:bg-black text-black dark:text-white">
                         {library.spaceName}
                       </option>
                     ))}
                   </optgroup>
                 ))}
               </select>
-              <div className="pointer-events-none absolute inset-y-0 left-0 right-8 flex items-center px-2 md:px-0 text-xl leading-tight font-medium text-black z-20">
+              <div className="pointer-events-none absolute inset-y-0 left-0 right-8 flex items-center px-2 md:px-0 text-xl leading-tight font-medium z-20 text-black dark:text-white">
                 {getSelectedLibraryDisplayName()}
               </div>
             </div>
@@ -532,7 +532,7 @@ const MainPage = () => {
             {/* Date Selection */}
             <div className="flex w-full sm:flex-1 items-center">
               <select
-                className="text-black cursor-pointer w-full p-2 md:p-0 rounded md:rounded-none"
+                className="text-black dark:text-white cursor-pointer w-full p-2 md:p-0 rounded md:rounded-none bg-white dark:bg-black border-neutral-300 dark:border-neutral-700"
                 value={selectedDate || ''}
                 onChange={(e) => setSelectedDate(e.target.value)}
                 disabled={loading}
@@ -549,7 +549,7 @@ const MainPage = () => {
             {/* Sort Options */}
             <div className="flex w-full sm:flex-1 items-center">
               <select
-                className="text-black cursor-pointer w-full p-2 md:p-0 rounded md:rounded-none"
+                className="text-black dark:text-white cursor-pointer w-full p-2 md:p-0 rounded md:rounded-none bg-white dark:bg-black border-neutral-300 dark:border-neutral-700"
                 value={selectedSort}
                 onChange={(e) => setSelectedSort(e.target.value)}
                 aria-label="Sort by"
@@ -565,18 +565,18 @@ const MainPage = () => {
             {/* User Info & Actions */}
             <div className="flex flex-1 items-center">
               <div className="text-xs tracking-wide space-y-2">
-                <div className="text-black">
+                <div className="text-black dark:text-white">
                   <p>Want to say hi or report a bug?</p>
                   <p>
                     <a href="mailto:kurtosis@breitburg.com" className="underline">Contact</a> or make a <a href="https://github.com/breitburg/kurtosis/issues/new" className="underline">new issue</a>
                   </p>
                 </div>
                 {rNumber && (
-                  <div className="text-black">
+                  <div className="text-black dark:text-white">
                     <p>Using {rNumber}</p>
                     <button
                       type="button"
-                      className="text-black underline cursor-pointer"
+                      className="text-black dark:text-white underline cursor-pointer"
                       onClick={handleLogout}
                     >
                       Logout
@@ -594,11 +594,11 @@ const MainPage = () => {
             <section className="w-md m-6 sm:m-12">
               <div className="flex flex-col gap-8 items-start">
                 <header>
-                  <h1 className="font-bold text-5xl leading-none text-black tracking-tight">
+                  <h1 className="font-bold text-5xl leading-none text-black dark:text-white tracking-tight">
                     Kurtosis<br />finds seats faster.
                   </h1>
                 </header>
-                <div className="text-lg leading-normal text-black space-y-4">
+                <div className="text-lg leading-normal text-black dark:text-white space-y-4">
                   <p>
                     Built by students and is not affiliated with KU Leuven.
                     Please use it responsibly and do not abuse the system.
@@ -618,14 +618,18 @@ const MainPage = () => {
                     value={tempRNumber}
                     onChange={(e) => handleRNumberChange(e.target.value)}
                     placeholder="r0123456"
-                    className="w-full p-2 text-xl text-black placeholder:text-black/30 bg-transparent border-2 border-neutral-400 outline-none focus:border-black"
+                    className="w-full p-2 text-xl text-black dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 bg-transparent border-2 border-neutral-400 dark:border-neutral-600 outline-none focus:border-black dark:focus:border-white"
                     onKeyDown={(e) => e.key === 'Enter' && handleRNumberSubmit()}
                   />
                 </div>
                 <button
                   onClick={handleRNumberSubmit}
                   disabled={!tempRNumber.trim() || !validateRNumber(tempRNumber)}
-                  className="flex items-center justify-center aspect-square bg-black rounded-full w-50 p-4 font-medium text-2xl text-white disabled:bg-neutral-300 disabled:cursor-not-allowed hover:bg-neutral-800 cursor-pointer"
+                  className={`flex items-center justify-center aspect-square rounded-full w-50 p-4 font-medium text-2xl
+                    ${!tempRNumber.trim() || !validateRNumber(tempRNumber) 
+                      ? 'bg-neutral-300 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-600 cursor-not-allowed' 
+                      : 'bg-black dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 cursor-pointer'
+                    }`}
                 >
                   Get Started
                 </button>
@@ -656,20 +660,20 @@ const MainPage = () => {
             <aside className="w-full lg:w-70">
               <div className={`${selectedSlots.size !== 0 ? 'md:hidden ' : ''}my-8 md:my-0 gap-4 flex flex-col`}>
                 <h2
-                  className="text-3xl leading-none font-bold text-black tracking-tight"
+                  className="text-3xl leading-none font-bold text-black dark:text-white tracking-tight"
                   style={{
                     textWrap:
                       'balance' /* Tailwind CSS doesn't support textWrap yet */,
                   }}
                 >
                   Select the{' '}
-                  <span className="bg-black text-white px-3 rounded-sm text-xl font-medium">
+                  <span className="bg-black dark:bg-white text-white dark:text-black px-3 rounded-sm text-xl font-medium">
                     A
                   </span>{' '}
                   slots you want to book, even across different seats
                 </h2>
 
-                <p className="text-black leading-normal text-base">
+                <p className="text-black dark:text-white leading-normal text-base">
                   For cases of limited library capacity, you can choose
                   slots across different seats to create a sequence
                   and change seats during your study session.
@@ -713,7 +717,7 @@ const MainPage = () => {
           <button
             type="button"
             onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-            className="md:hidden fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-4 rounded-t-xl z-50 cursor-pointer shadow-lg flex items-center font-medium gap-2"
+            className="md:hidden fixed bottom-0 left-1/2 transform -translate-x-1/2 px-4 py-4 rounded-t-xl z-50 cursor-pointer shadow-lg flex items-center font-medium gap-2 bg-blue-500 text-white"
             aria-label="Open booking links panel"
           >
             Your {getSelectedSlotsInfo().timeRanges.length} booking link{getSelectedSlotsInfo().timeRanges.length !== 1 ? 's' : ''}
@@ -724,7 +728,7 @@ const MainPage = () => {
         {/* Mobile Drawer */}
         {selectedSlots.size > 0 && (
           <div
-            className={`md:hidden fixed inset-0 bg-white transform duration-300 ease-out z-60 shadow-2xl ${
+            className={`md:hidden fixed inset-0 bg-white dark:bg-black transform z-60 shadow-2xl ${
               isDrawerOpen ? 'translate-y-0' : 'translate-y-full'
             }`}
             role="dialog"
@@ -734,7 +738,7 @@ const MainPage = () => {
             <button
               type="button"
               onClick={() => setIsDrawerOpen(false)}
-              className="absolute top-4 right-4 bg-gray-200 text-black p-2 rounded-full z-70 cursor-pointer"
+              className="absolute top-4 right-4 bg-gray-200 dark:bg-neutral-800 text-black dark:text-white p-2 rounded-full z-70 cursor-pointer"
               aria-label="Close booking links panel"
             >
               <X size={20} strokeWidth={2.5} aria-hidden="true" />

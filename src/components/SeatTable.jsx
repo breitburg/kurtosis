@@ -46,10 +46,10 @@ const SeatSlot = ({ slot, onSlotClick, isSlotSelected, isHourBlocked }) => {
 
 const TableRow = ({ seatName, slots, onSlotClick, isSlotSelected, isHourBlocked }) => {
   return (
-    <div className="w-full border-b border-neutral-300">
+    <div className="w-full border-b border-neutral-300 dark:border-neutral-700">
       <div className="flex items-center gap-1 pb-1">
         <div className="w-20 md:w-32 flex-shrink-0 text-left">
-          <span className="text-black font-normal">
+          <span className="text-black dark:text-white font-normal">
             {seatName}
           </span>
         </div>
@@ -84,14 +84,14 @@ const TableHeader = ({ isHourBlocked, onHourClick }) => {
     <div className="w-full">
       <div className="flex items-center gap-1 py-1">
         <div className="w-20 md:w-32 flex-shrink-0 text-left">
-          <span className="text-neutral-500 font-normal">
+          <span className="text-neutral-500 dark:text-neutral-400 font-normal">
             Seat / Hour
           </span>
         </div>
         {hours.map((hour) => (
           <div 
             key={hour} 
-            className={`flex-1 min-w-0 text-center flex items-center justify-center ${isHourBlocked(hour) ? 'bg-blue-100 rounded-[2px] cursor-pointer text-blue-500 hover:bg-blue-200' : ''}`}
+            className={`flex-1 min-w-0 text-center flex items-center justify-center ${isHourBlocked(hour) ? 'bg-blue-100 rounded-[2px] cursor-pointer text-blue-500 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800' : ''}`}
             onClick={() => handleHourClick(hour)}
           >
             <span className="font-normal">
