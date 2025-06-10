@@ -664,13 +664,13 @@ const MainPage = () => {
                   <span className="bg-black text-white px-3 rounded-sm text-xl font-medium">
                     A
                   </span>{' '}
-                  slots you want to book
+                  slots you want to book, even across different seats
                 </h2>
 
                 <p className="text-black leading-normal text-base">
-                  You can select multiple slots across different seats to create
-                  a sequence of seats to change during study session in case of
-                  limited library capacity.
+                  For cases of limited library capacity, you can choose
+                  slots across different seats to create a sequence
+                  and change seats during your study session.
                 </p>
               </div>
               {selectedSlots.size !== 0 && (
