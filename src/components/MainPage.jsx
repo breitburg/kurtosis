@@ -37,12 +37,12 @@ const MainPage = () => {
   });
   const [tempRNumber, setTempRNumber] = useState('');
 
-  // Generate date options (today + 7 days)
+  // Generate date options (today + 8 days)
   const generateDateOptions = () => {
     const options = [];
     const today = new Date();
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 9; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
 
