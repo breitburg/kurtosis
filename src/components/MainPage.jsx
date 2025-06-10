@@ -441,7 +441,9 @@ const MainPage = () => {
       .sort((a, b) => a.start - b.start);
 
     const totalHours = selectedSlotsArray.length;
-    return { timeRanges, totalHours };
+    const hasLongSession = timeRanges.some(range => (range.end - range.start) > 6);
+    
+    return { timeRanges, totalHours, hasLongSession };
   };
 
   // Generate booking link for a range

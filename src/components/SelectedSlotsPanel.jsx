@@ -1,11 +1,11 @@
-import { Link, ArrowUpRightIcon } from 'lucide-react';
+import { Link, ArrowUpRightIcon, TimerResetIcon } from 'lucide-react';
 
-const SelectedSlotsPanel = ({ 
-  selectedSlotsInfo, 
-  handleCopyBookingLink, 
-  handleOpenBookingLink, 
+const SelectedSlotsPanel = ({
+  selectedSlotsInfo,
+  handleCopyBookingLink,
+  handleOpenBookingLink,
   copiedRangeIndex,
-  isMobile = false 
+  isMobile = false
 }) => {
   const buttonPadding = isMobile ? "p-3" : "p-1";
   const contentPadding = isMobile ? "px-4 py-3" : "px-1";
@@ -13,18 +13,21 @@ const SelectedSlotsPanel = ({
   return (
     <div className="flex-col gap-8 flex">
       {/* Total hours header */}
-      <div>
-        <h2 className="text-3xl leading-none font-bold text-black tracking-tight">
-          {selectedSlotsInfo.totalHours} hour
-          {selectedSlotsInfo.totalHours !== 1 ? 's' : ''}
-        </h2>
-        <h2 className="text-3xl leading-none font-bold text-black tracking-tight">
-          in total
-        </h2>
-        <h2 className="text-3xl leading-none font-bold text-black tracking-tight">
-          selected
-        </h2>
-      </div>
+      <h2 className="text-3xl leading-none font-bold text-black tracking-tight">
+        {selectedSlotsInfo.totalHours} hour
+        {selectedSlotsInfo.totalHours !== 1 ? 's' : ''}
+        <br />in total<br />selected
+      </h2>
+
+      {/* Long session alert */}
+      {selectedSlotsInfo.hasLongSession && (
+        <div className="p-2 pr-3 border-2 border-black flex items-start gap-2">
+          <TimerResetIcon size={22} className="text-black flex-shrink-0 mt-1" />
+          <p className="leading-normal text-black font-medium">
+            Planning a long study session? Consider including an hour break to allow others to use the space while you step away.
+          </p>
+        </div>
+      )}
 
       {/* Time ranges list */}
       <div className="flex flex-col gap-1">
