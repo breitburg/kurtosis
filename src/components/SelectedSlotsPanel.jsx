@@ -1,10 +1,9 @@
-import { Link, ArrowUpRightIcon, TimerResetIcon } from 'lucide-react';
+import { ArrowUpRightIcon, TimerResetIcon, LucideTicketSlash } from 'lucide-react';
 
 const SelectedSlotsPanel = ({
   selectedSlotsInfo,
-  handleCopyBookingLink,
   handleOpenBookingLink,
-  copiedRangeIndex,
+  handleCheckIn,
   isMobile = false
 }) => {
   const buttonPadding = isMobile ? "p-3" : "p-1";
@@ -37,28 +36,8 @@ const SelectedSlotsPanel = ({
         {selectedSlotsInfo.timeRanges.map((range, index) => (
           <div
             key={index}
-            className="flex justify-between items-center py-1 border-b border-neutral-200 dark:border-neutral-700"
+            className="flex justify-between items-center py-1 border-b border-neutral-200 dark:border-neutral-700 gap-1"
           >
-            {/* Action buttons */}
-            <div className="flex items-center gap-1 mr-1">
-              {/* Link icon for copying link */}
-              <div className="relative">
-                <button
-                  onClick={() => handleCopyBookingLink(range, index)}
-                  className={`${buttonPadding} rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800`}
-                  title="Copy booking link"
-                >
-                  <Link size={14} />
-                </button>
-                {copiedRangeIndex === index && (
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-700 dark:bg-neutral-300 text-white dark:text-black text-xs rounded whitespace-nowrap">
-                    Copied
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-l-transparent border-r-transparent border-t-neutral-700 dark:border-t-neutral-300"></div>
-                  </div>
-                )}
-              </div>
-            </div>
-
             {/* Clickable main content area */}
             <div
               onClick={() => handleOpenBookingLink(range)}
@@ -73,6 +52,15 @@ const SelectedSlotsPanel = ({
               </span>
               <ArrowUpRightIcon size={18} />
             </div>
+
+            {/* Check-in icon */}
+            <button
+              onClick={() => handleCheckIn(range)}
+              className={`${buttonPadding} rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800`}
+              title="Check in"
+            >
+              <LucideTicketSlash size={18} />
+            </button>
           </div>
         ))}
       </div>

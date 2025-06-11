@@ -45,6 +45,24 @@ Uses React hooks for state management:
 - Format validation: single letter followed by 7 digits
 - Credentials are stored locally and passed to KURT API for authentication
 
+### Styling Architecture
+- **Tailwind CSS v4** with `@apply` directives in `src/index.css`
+- **No transitions or animations** - all UI changes are instant
+- **Dark mode support** via CSS `prefers-color-scheme` and Tailwind `dark:` variants
+
 ### Deployment
 - Uses Cloudflare Pages (wrangler.jsonc configuration)
 - Static site deployment with assets served from `./dist/` directory
+
+## Code Style Guidelines
+
+### ESLint Configuration
+- Uses modern ESLint flat config with React hooks and React refresh plugins
+- Allows unused variables starting with uppercase (constants pattern)
+- Ignores `dist` directory
+
+### Styling Standards
+- Use Tailwind CSS classes exclusively - no custom CSS except in `index.css`
+- Use `@apply` directive for reusable styles in `index.css`
+- No transitions or animations anywhere in the codebase
+- Support both light and dark modes with `dark:` variants

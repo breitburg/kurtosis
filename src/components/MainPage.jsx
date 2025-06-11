@@ -419,7 +419,7 @@ const MainPage = () => {
 
     // Convert to time ranges
     const timeRanges = Object.entries(groupedByResource)
-      .map(([, data]) => {
+      .map(([resourceId, data]) => {
         const sortedHours = data.hours.sort((a, b) => a - b);
         const ranges = [];
         let start = sortedHours[0];
@@ -429,12 +429,12 @@ const MainPage = () => {
           if (sortedHours[i] === end + 1) {
             end = sortedHours[i];
           } else {
-            ranges.push({ start, end: end + 1, seatName: data.seatName });
+            ranges.push({ start, end: end + 1, seatName: data.seatName, resourceId });
             start = sortedHours[i];
             end = sortedHours[i];
           }
         }
-        ranges.push({ start, end: end + 1, seatName: data.seatName });
+        ranges.push({ start, end: end + 1, seatName: data.seatName, resourceId });
         return ranges;
       })
       .flat()
@@ -498,6 +498,11 @@ const MainPage = () => {
     }
   };
 
+  // Handle check-in link
+  const handleCheckIn = (range) => {
+    const checkInLink = `https://kuleuven.be/kurtqr?id=${range.resourceId}`;
+    window.open(checkInLink, '_blank');
+  };
 
   return (
     <div className="min-h-screen">
@@ -683,9 +688,8 @@ const MainPage = () => {
                 <div className="hidden md:flex">
                   <SelectedSlotsPanel
                     selectedSlotsInfo={getSelectedSlotsInfo()}
-                    handleCopyBookingLink={handleCopyBookingLink}
                     handleOpenBookingLink={handleOpenBookingLink}
-                    copiedRangeIndex={copiedRangeIndex}
+                    handleCheckIn={handleCheckIn}
                     isMobile={false}
                   />
                 </div>
@@ -747,9 +751,8 @@ const MainPage = () => {
             <div className="p-4 pt-16 h-full overflow-y-auto">
               <SelectedSlotsPanel
                 selectedSlotsInfo={getSelectedSlotsInfo()}
-                handleCopyBookingLink={handleCopyBookingLink}
                 handleOpenBookingLink={handleOpenBookingLink}
-                copiedRangeIndex={copiedRangeIndex}
+                handleCheckIn={handleCheckIn}
                 isMobile={true}
               />
             </div>
