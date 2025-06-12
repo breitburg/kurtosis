@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, TimerResetIcon, LucideTicketSlash } from 'lucide-react';
+import { ArrowUpRightIcon, TimerResetIcon, LucideTicketCheck } from 'lucide-react';
 
 const SelectedSlotsPanel = ({
   selectedSlotsInfo,
@@ -59,7 +59,7 @@ const SelectedSlotsPanel = ({
               className={`${buttonPadding} rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800`}
               title="Check in"
             >
-              <LucideTicketSlash size={18} />
+              <LucideTicketCheck size={18} />
             </button>
           </div>
         ))}
