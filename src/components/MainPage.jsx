@@ -3,6 +3,7 @@ import { ChevronUp, X } from 'lucide-react';
 import SeatTable from './SeatTable';
 import SelectedSlotsPanel from './SelectedSlotsPanel';
 import OnboardingScreen from './OnboardingScreen';
+import Contributors from './Contributors.jsx';
 import Slot from '../models/Slot.js';
 import KurtApi from '../services/KurtApi.js';
 
@@ -36,6 +37,7 @@ const MainPage = () => {
   const [rNumber, setRNumber] = useState(() => {
     return localStorage.getItem('rNumber') || '';
   });
+  const [showContributors, setShowContributors] = useState(false);
 
   // Generate date options (today + 8 days)
   const generateDateOptions = () => {
@@ -423,7 +425,7 @@ const MainPage = () => {
 
     const totalHours = selectedSlotsArray.length;
     const hasLongSession = timeRanges.some(range => (range.end - range.start) > 6);
-    
+
     return { timeRanges, totalHours, hasLongSession };
   };
 
@@ -494,7 +496,7 @@ const MainPage = () => {
             {/* Library Selection */}
             <div className="w-full md:w-auto relative">
               <select
-                className="library-select text-xl leading-tight font-medium cursor-pointer w-full md:w-70 p-2 md:p-0 rounded md:rounded-none relative z-10"
+                className="library-select text-xl font-medium cursor-pointer w-full md:w-70 p-2 md:p-0 rounded md:rounded-none relative z-10"
                 value={selectedLibrary}
                 onChange={(e) => setSelectedLibrary(e.target.value)}
                 disabled={loading}
@@ -550,15 +552,26 @@ const MainPage = () => {
 
             {/* User Info & Actions */}
             <div className="flex flex-1 items-center">
-              <div className="text-xs tracking-wide space-y-2">
-                <div className="text-black dark:text-white">
-                  <p>Want to say hi or report a bug?</p>
+              <div className="text-xs tracking-wide space-y-2 text-black dark:text-white">
+                <div>
                   <p>
-                    <a href="mailto:kurtosis@breitburg.com" className="underline">Contact</a> or make a <a href="https://github.com/breitburg/kurtosis/issues/new" className="underline">new issue</a>
+                    Made by <button
+                      type="button"
+                      className="underline cursor-pointer"
+                      onClick={() => setShowContributors(true)}
+                    >
+                      students
+                    </button> in Belgium
+                  </p>
+                  <p>
+                    Want to say hi or report a bug?
+                  </p>
+                  <p>
+                    <a href="mailto:kurtosis@breitburg.com" className="underline">Email us</a> or make a <a href="https://github.com/breitburg/kurtosis/issues/new" className="underline">new issue</a>
                   </p>
                 </div>
                 {rNumber && (
-                  <div className="text-black dark:text-white">
+                  <div>
                     <p>Using {rNumber}</p>
                     <button
                       type="button"
@@ -668,9 +681,8 @@ const MainPage = () => {
         {/* Mobile Drawer */}
         {selectedSlots.size > 0 && (
           <div
-            className={`md:hidden fixed inset-0 bg-white dark:bg-black transform z-60 shadow-2xl ${
-              isDrawerOpen ? 'translate-y-0' : 'translate-y-full'
-            }`}
+            className={`md:hidden fixed inset-0 bg-white dark:bg-black transform z-60 shadow-2xl ${isDrawerOpen ? 'translate-y-0' : 'translate-y-full'
+              }`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="drawer-title"
@@ -696,6 +708,15 @@ const MainPage = () => {
         )}
 
       </div>
+
+      {/* Contributors Modal */}
+      {showContributors && (
+        <div className="fixed inset-0 bg-neutral-500/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white dark:bg-black rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
+            <Contributors onClose={() => setShowContributors(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
