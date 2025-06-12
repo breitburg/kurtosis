@@ -71,13 +71,17 @@ const TableRow = ({ seatName, slots, onSlotClick, isSlotSelected, isHourBlocked 
   );
 };
 
-const TableHeader = ({ isHourBlocked, onHourClick }) => {
+const TableHeader = ({ isHourBlocked, onHourClick, slots }) => {
   const hours = Array.from({ length: 16 }, (_, i) => i + 8); // [8, 9, 10, ..., 23]
   
   const handleHourClick = (hour) => {
     if (isHourBlocked(hour)) {
       onHourClick(hour);
     }
+  };
+
+  const hasAvailableSlotInHour = (hour) => {
+    return slots.some(slot => slot.hour === hour && slot.isAvailable());
   };
   
   return (
@@ -94,7 +98,7 @@ const TableHeader = ({ isHourBlocked, onHourClick }) => {
             className={`flex-1 min-w-0 text-center flex items-center justify-center ${isHourBlocked(hour) ? 'bg-blue-100 rounded-[2px] cursor-pointer text-blue-500 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800' : ''}`}
             onClick={() => handleHourClick(hour)}
           >
-            <span className="font-normal">
+            <span className={`font-normal ${!hasAvailableSlotInHour(hour) ? 'line-through text-neutral-400' : ''}`}>
               {hour.toString().padStart(2, '0')}
             </span>
           </div>
@@ -147,7 +151,7 @@ const SeatTable = ({ slots, onSlotClick, isSlotSelected, isHourBlocked, onHourCl
     <div className="w-full overflow-x-auto">
       <div className="flex flex-col gap-1 min-w-max">
         
-        <TableHeader isHourBlocked={isHourBlocked} onHourClick={onHourClick} />
+        <TableHeader isHourBlocked={isHourBlocked} onHourClick={onHourClick} slots={slots} />
         {seatData.map((seatInfo) => (
           <TableRow
             key={seatInfo.resourceId}
