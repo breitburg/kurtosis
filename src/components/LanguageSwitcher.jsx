@@ -11,12 +11,9 @@ const LanguageSwitcher = () => {
   const availableLanguages = Object.keys(i18n.services.resourceStore.data);
 
   const getLanguageLabel = (code) => {
-    const labels = {
-      nl: 'Nederlands',
-      en: 'English', 
-      fr: 'Français'
-    };
-    return labels[code] || code;
+    const resourceStore = i18n.services.resourceStore;
+    const translation = resourceStore.getResource(code, 'translation', 'languageDisplayName');
+    return translation || code;
   };
 
   return (

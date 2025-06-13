@@ -48,6 +48,7 @@
   "bookingLinksPlural": "Je {{count}} boekingslinks",
   "error": "Fout: {{message}}",
   "language": "Taal",
+  "languageDisplayName": "Nederlands",
   "onboarding": {
     "title": "Kurtosis is een tool om sneller zitplaatsen te vinden in KU Leuven bibliotheken.",
     "description1": "Gemaakt door studenten en is niet verwant aan KU Leuven. Gebruik het verantwoordelijk en misbruik het systeem niet.",

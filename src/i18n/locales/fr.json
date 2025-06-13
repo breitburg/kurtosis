@@ -48,6 +48,7 @@
   "bookingLinksPlural": "Vos {{count}} liens de réservation",
   "error": "Erreur : {{message}}",
   "language": "Langue",
+  "languageDisplayName": "Français",
   "onboarding": {
     "title": "Kurtosis est un outil pour trouver des places dans les bibliothèques de la KU Leuven plus rapidement.",
     "description1": "Créé par des étudiants et n'est pas affilié à la KU Leuven. Veuillez l'utiliser de manière responsable et ne pas abuser du système.",

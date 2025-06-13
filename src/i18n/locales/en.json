@@ -48,6 +48,7 @@
   "bookingLinksPlural": "Your {{count}} booking links",
   "error": "Error: {{message}}",
   "language": "Language",
+  "languageDisplayName": "English",
   "onboarding": {
     "title": "Kurtosis is a tool to find seats at KU Leuven libraries faster.",
     "description1": "Built by students and is not affiliated with KU Leuven. Please use it responsibly and do not abuse the system.",
