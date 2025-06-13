@@ -483,7 +483,7 @@ const MainPage = () => {
 
   // Handle check-in link
   const handleCheckIn = (range) => {
-    const checkInLink = `https://kuleuven.be/kurtqr?id=${range.resourceId}`;
+    const checkInLink = `https://kurt3.ghum.kuleuven.be/check-in/${range.resourceId}`;
     window.open(checkInLink, '_blank');
   };
 
