@@ -49,12 +49,12 @@
   "error": "Fout: {{message}}",
   "language": "Taal",
   "onboarding": {
-    "title": "Kurtosis is een tool om sneller zitplaatsen te vinden in KU Leuven bibliotheken."
-    "description1": "Gemaakt door studenten en is niet verwant aan KU Leuven. Gebruik het verantwoordelijk en misbruik het systeem niet."
-    "description2": "Deze website communiceert rechtstreeks met de {link} en verwerkt of slaat geen persoonlijke gegevens op. Bovendien is het {openSourceLink}."
+    "title": "Kurtosis is een tool om sneller zitplaatsen te vinden in KU Leuven bibliotheken.",
+    "description1": "Gemaakt door studenten en is niet verwant aan KU Leuven. Gebruik het verantwoordelijk en misbruik het systeem niet.",
+    "description2": "Deze website communiceert rechtstreeks met de {link} en verwerkt of slaat geen persoonlijke gegevens op. Bovendien is het {openSourceLink}.",
     "linkText": "KU Leuven Reservatietool",
     "openSourceText": "open-source",
-    "enterRNumber": "Voer je R-nummer in om te starten:"
+    "enterRNumber": "Voer je R-nummer in om te starten:",
     "getStarted": "Start"
   },
   "contributors": {
