@@ -60,11 +60,7 @@ const MainPage = () => {
       } else if (i === 1) {
         label = t('dates.tomorrow');
       } else {
-        let locale = 'en-US';
-        if (i18n.language === 'nl') locale = 'nl-NL';
-        else if (i18n.language === 'fr') locale = 'fr-FR';
-        
-        label = date.toLocaleDateString(locale, {
+        label = date.toLocaleDateString(i18n.language, {
           weekday: 'long',
           month: 'short',
           day: 'numeric',

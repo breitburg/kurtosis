@@ -20,7 +20,7 @@ This is a React + Vite application that interfaces with KU Leuven's KURT (reserv
 - **SelectedSlotsPanel** (`src/components/SelectedSlotsPanel.jsx`) - Shows selected time slots and generates booking links
 - **OnboardingScreen** (`src/components/OnboardingScreen.jsx`) - User authentication flow for R-number entry
 - **Contributors** (`src/components/Contributors.jsx`) - Modal displaying project contributors from GitHub
-- **LanguageSwitcher** (`src/components/LanguageSwitcher.jsx`) - Language selection dropdown with globe icon
+- **LanguageSwitcher** (`src/components/LanguageSwitcher.jsx`) - Dynamic language selection dropdown with globe icon that automatically detects available languages from i18n resources
 
 ### Data Models
 - **Slot** (`src/models/Slot.js`) - Represents a time slot for a specific seat/resource
@@ -38,10 +38,10 @@ This is a React + Vite application that interfaces with KU Leuven's KURT (reserv
 
 ### Internationalization (i18n)
 - **react-i18next** for translation management with browser language detection
-- **Supported Languages**: Dutch (default), English, French
-- **Translation Files**: `src/i18n/locales/[lang].json` (nl.json, en.json, fr.json)
+- **Dynamic Language Support**: Languages automatically detected from i18n resources configuration
+- **Translation Files**: `src/i18n/locales/[lang].json` - add new language files to automatically extend support
 - **Language Persistence**: User's language choice saved to localStorage as `selectedLanguage`
-- **Localized Date Formatting**: Weekdays and dates display in selected language
+- **Localized Date Formatting**: Uses raw language IDs (e.g., 'en', 'nl', 'fr') for native date formatting
 - **Configuration**: `src/i18n/i18n.js` handles language detection and caching
 
 ### State Management

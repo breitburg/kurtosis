@@ -8,6 +8,17 @@ const LanguageSwitcher = () => {
     i18n.changeLanguage(lng);
   };
 
+  const availableLanguages = Object.keys(i18n.services.resourceStore.data);
+
+  const getLanguageLabel = (code) => {
+    const labels = {
+      nl: 'Nederlands',
+      en: 'English', 
+      fr: 'Français'
+    };
+    return labels[code] || code;
+  };
+
   return (
     <div className="relative">
       <Globe size={12} className="absolute left-2 md:left-0 top-1/2 transform -translate-y-1/2 text-black dark:text-white pointer-events-none" />
@@ -17,9 +28,11 @@ const LanguageSwitcher = () => {
         onChange={(e) => changeLanguage(e.target.value)}
         aria-label={t('language')}
       >
-        <option value="nl">Nederlands</option>
-        <option value="en">English</option>
-        <option value="fr">Français</option>
+        {availableLanguages.map(code => (
+          <option key={code} value={code}>
+            {getLanguageLabel(code)}
+          </option>
+        ))}
       </select>
     </div>
   );
