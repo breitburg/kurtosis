@@ -30,9 +30,9 @@
     "title": "Geen beschikbare tijdslots gevonden.",
     "subtitle": "Probeer een andere studieruimte te bekijken."
   },
-  "selectSlots": "Selecteer de {highlighted} slots die je wilt boeken, zelfs over verschillende stoelen",
-  "selectSlotsDescription": "Voor gevallen van beperkte bibliotheekkapaciteit kun je slots over verschillende stoelen kiezen om een reeks te creëren en van stoel wisselen tijdens je studiesessie.",
-  "seatHour": "Stoel / Uur",
+  "selectSlots": "Selecteer de {highlighted} slots die je wilt boeken, zelfs over verschillende zitplaatsen",
+  "selectSlotsDescription": "Voor gevallen van beperkte bibliotheekkapaciteit kun je slots over verschillende zitplaatsen kiezen om een reeks te creëren en van zitplaats wisselen tijdens je studiesessie.",
+  "seatHour": "Zitplaats / Uur",
   "selectedSlots": {
     "hour": "uur",
     "hours": "uren",
@@ -49,13 +49,13 @@
   "error": "Fout: {{message}}",
   "language": "Taal",
   "onboarding": {
-    "title": "Kurtosis is een tool om sneller stoelen te vinden in KU Leuven bibliotheken.",
-    "description1": "Gemaakt door studenten en is niet gelieerd aan KU Leuven. Gebruik het verantwoordelijk en misbruik het systeem niet.",
-    "description2": "Deze website communiceert rechtstreeks met de {link} en slaat geen persoonlijke gegevens op of verwerkt deze. Bovendien is het {openSourceLink}.",
+    "title": "Kurtosis is een tool om sneller zitplaatsen te vinden in KU Leuven bibliotheken."
+    "description1": "Gemaakt door studenten en is niet verwant aan KU Leuven. Gebruik het verantwoordelijk en misbruik het systeem niet."
+    "description2": "Deze website communiceert rechtstreeks met de {link} en verwerkt of slaat geen persoonlijke gegevens op. Bovendien is het {openSourceLink}."
     "linkText": "KU Leuven Reservatietool",
     "openSourceText": "open-source",
-    "enterRNumber": "Voer je R-nummer in om te beginnen:",
-    "getStarted": "Beginnen"
+    "enterRNumber": "Voer je R-nummer in om te starten:"
+    "getStarted": "Start"
   },
   "contributors": {
     "title": "Bijdragers",
