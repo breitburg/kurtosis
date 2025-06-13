@@ -1,0 +1,68 @@
+{
+  "selectLibrary": "Bibliothek wählen",
+  "selectDate": "Datum wählen",
+  "sortBy": "Sortieren nach",
+  "sortOptions": {
+    "sequential": "Der Reihe nach",
+    "mostAvailable": "Meiste freie Stunden",
+    "maxConsecutive": "Längste Zeiträume",
+    "availableNow": "Sofort verfügbar"
+  },
+  "dates": {
+    "today": "Heute",
+    "tomorrow": "Morgen"
+  },
+  "userInfo": {
+    "madeBy": "Entwickelt von",
+    "students": "Studierenden",
+    "inBelgium": "in Belgien",
+    "wantToSayHi": "Fragen oder Fehler gefunden?",
+    "emailUs": "Schreibt uns",
+    "or": "oder erstellt ein",
+    "newIssue": "Issue",
+    "using": "Nutzt",
+    "logout": "Abmelden"
+  },
+  "loading": {
+    "lookingUp": "Suche freie Plätze..."
+  },
+  "noSlots": {
+    "title": "Keine freien Zeiten gefunden",
+    "subtitle": "Probiert einen anderen Lernbereich"
+  },
+  "selectSlots": "Markiert die {highlighted} Zeiten, die ihr buchen möchtet – auch an verschiedenen Plätzen",
+  "selectSlotsDescription": "Wenn die Bibliothek voll ist, könnt ihr Zeiten an verschiedenen Plätzen reservieren und während eurer Lernsession den Platz wechseln.",
+  "seatHour": "Platz / Zeit",
+  "selectedSlots": {
+    "hour": "Stunde",
+    "hours": "Stunden",
+    "inTotal": "insgesamt",
+    "selected": "ausgewählt",
+    "longSessionAlert": "Plant ihr eine längere Lernsession? Denkt an eine Stunde Pause, damit andere auch den Platz nutzen können.",
+    "bookingLinks": "Eure Buchungslinks:",
+    "checkIn": "Anmelden",
+    "impossibleToBook": "Direkt buchen ist mit diesem Tool leider nicht möglich – aber wir haben {link}, es trotzdem zu ermöglichen.",
+    "linkText": "alles versucht"
+  },
+  "bookingLinks": "Euer {{count}} Buchungslink",
+  "bookingLinksPlural": "Eure {{count}} Buchungslinks",
+  "error": "Fehler: {{message}}",
+  "language": "Sprache",
+  "languageDisplayName": "Deutsch",
+  "onboarding": {
+    "title": "Kurtosis hilft euch, schnell freie Plätze in KU Leuven Bibliotheken zu finden",
+    "description1": "Von Studierenden entwickelt, nicht offiziell von der KU Leuven. Bitte verantwortungsvoll nutzen!",
+    "description2": "Diese Seite kommuniziert direkt mit dem {link}, speichert keine persönlichen Daten und ist {openSourceLink}.",
+    "linkText": "KU Leuven Buchungssystem",
+    "openSourceText": "Open Source",
+    "enterRNumber": "R-Nummer eingeben:",
+    "getStarted": "Los geht's"
+  },
+  "contributors": {
+    "title": "Mitwirkende",
+    "loading": "Lade Mitwirkende...",
+    "notFound": "Keine Mitwirkenden gefunden",
+    "viewOnGitHub": "Auf GitHub ansehen",
+    "close": "Schließen"
+  }
+}
