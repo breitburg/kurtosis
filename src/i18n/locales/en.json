@@ -1,0 +1,67 @@
+{
+  "selectLibrary": "Select library",
+  "selectDate": "Select date",
+  "sortBy": "Sort by",
+  "sortOptions": {
+    "sequential": "Sequential",
+    "mostAvailable": "Most available hours",
+    "maxConsecutive": "Max consecutive hours",
+    "availableNow": "Available right now first"
+  },
+  "dates": {
+    "today": "Today",
+    "tomorrow": "Tomorrow"
+  },
+  "userInfo": {
+    "madeBy": "Made by",
+    "students": "students",
+    "inBelgium": "in Belgium",
+    "wantToSayHi": "Want to say hi or report a bug?",
+    "emailUs": "Email us",
+    "or": "or make a",
+    "newIssue": "new issue",
+    "using": "Using",
+    "logout": "Logout"
+  },
+  "loading": {
+    "lookingUp": "Looking up seats availability..."
+  },
+  "noSlots": {
+    "title": "No available time slots found.",
+    "subtitle": "Try to check another study space."
+  },
+  "selectSlots": "Select the {highlighted} slots you want to book, even across different seats",
+  "selectSlotsDescription": "For cases of limited library capacity, you can choose slots across different seats to create a sequence and change seats during your study session.",
+  "seatHour": "Seat / Hour",
+  "selectedSlots": {
+    "hour": "hour",
+    "hours": "hours",
+    "inTotal": "in total",
+    "selected": "selected",
+    "longSessionAlert": "Planning a long study session? Consider including an hour break to allow others to use the space while you step away.",
+    "bookingLinks": "Your booking links:",
+    "checkIn": "Check in",
+    "impossibleToBook": "It's impossible to book solely within this tool, trust us, we {link} to make it happen.",
+    "linkText": "tried hard"
+  },
+  "bookingLinks": "Your {{count}} booking link",
+  "bookingLinksPlural": "Your {{count}} booking links",
+  "error": "Error: {{message}}",
+  "language": "Language",
+  "onboarding": {
+    "title": "Kurtosis is a tool to find seats at KU Leuven libraries faster.",
+    "description1": "Built by students and is not affiliated with KU Leuven. Please use it responsibly and do not abuse the system.",
+    "description2": "This website communicates directly with the {link} and does not store or process any personal data. Moreover, it's {openSourceLink}.",
+    "linkText": "KU Leuven Reservation Tool",
+    "openSourceText": "open-source",
+    "enterRNumber": "Enter your R-number to begin:",
+    "getStarted": "Get Started"
+  },
+  "contributors": {
+    "title": "Contributors",
+    "loading": "Loading contributors...",
+    "notFound": "No contributors found",
+    "viewOnGitHub": "View on GitHub",
+    "close": "Close contributors"
+  }
+}

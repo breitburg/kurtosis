@@ -1,4 +1,5 @@
 import { ArrowUpRightIcon, TimerResetIcon, LucideTicketCheck } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const SelectedSlotsPanel = ({
   selectedSlotsInfo,
@@ -6,6 +7,7 @@ const SelectedSlotsPanel = ({
   handleCheckIn,
   isMobile = false
 }) => {
+  const { t } = useTranslation();
   const buttonPadding = isMobile ? "p-3" : "p-1";
   const contentPadding = isMobile ? "px-4 py-3" : "px-1";
 
@@ -13,9 +15,8 @@ const SelectedSlotsPanel = ({
     <div className="flex-col gap-8 flex">
       {/* Total hours header */}
       <h2 className="text-3xl leading-none font-bold text-black dark:text-white tracking-tight">
-        {selectedSlotsInfo.totalHours} hour
-        {selectedSlotsInfo.totalHours !== 1 ? 's' : ''}
-        <br />in total<br />selected
+        {selectedSlotsInfo.totalHours} {selectedSlotsInfo.totalHours === 1 ? t('selectedSlots.hour') : t('selectedSlots.hours')}
+        <br />{t('selectedSlots.inTotal')}<br />{t('selectedSlots.selected')}
       </h2>
 
       {/* Long session alert */}
@@ -23,7 +24,7 @@ const SelectedSlotsPanel = ({
         <div className="p-2 pr-3 border-2 border-black dark:border-white flex items-start gap-2">
           <TimerResetIcon size={22} className="text-black dark:text-white flex-shrink-0 mt-1" />
           <p className="leading-normal text-black dark:text-white font-medium">
-            Planning a long study session? Consider including an hour break to allow others to use the space while you step away.
+            {t('selectedSlots.longSessionAlert')}
           </p>
         </div>
       )}
@@ -31,7 +32,7 @@ const SelectedSlotsPanel = ({
       {/* Time ranges list */}
       <div className="flex flex-col gap-1">
         <p className="mb-4 font-medium text-lg">
-          Your booking links:
+          {t('selectedSlots.bookingLinks')}
         </p>
         {selectedSlotsInfo.timeRanges.map((range, index) => (
           <div
@@ -57,7 +58,7 @@ const SelectedSlotsPanel = ({
             <button
               onClick={() => handleCheckIn(range)}
               className={`${buttonPadding} rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800`}
-              title="Check in"
+              title={t('selectedSlots.checkIn')}
             >
               <LucideTicketCheck size={18} />
             </button>
@@ -67,12 +68,11 @@ const SelectedSlotsPanel = ({
 
       {/* Info text */}
       <p className="text-xs leading-normal tracking-wide text-black dark:text-white">
-        It's impossible to book solely within this tool, trust us,
-        we{' '}
+        {t('selectedSlots.impossibleToBook').split('{link}')[0]}
         <a href="/statement" className="underline">
-          tried hard
-        </a>{' '}
-        to make it happen.
+          {t('selectedSlots.linkText')}
+        </a>
+        {t('selectedSlots.impossibleToBook').split('{link}')[1]}
       </p>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import Slot from '../models/Slot.js';
 import SlotStatus from '../models/SlotStatus.js';
 
@@ -72,6 +73,7 @@ const TableRow = ({ seatName, slots, onSlotClick, isSlotSelected, isHourBlocked 
 };
 
 const TableHeader = ({ isHourBlocked, onHourClick, slots }) => {
+  const { t } = useTranslation();
   const hours = Array.from({ length: 16 }, (_, i) => i + 8); // [8, 9, 10, ..., 23]
   
   const handleHourClick = (hour) => {
@@ -89,7 +91,7 @@ const TableHeader = ({ isHourBlocked, onHourClick, slots }) => {
       <div className="flex items-center gap-1 py-1">
         <div className="w-20 md:w-32 flex-shrink-0 text-left">
           <span className="text-neutral-500 dark:text-neutral-400 font-normal">
-            Seat / Hour
+            {t('seatHour')}
           </span>
         </div>
         {hours.map((hour) => (

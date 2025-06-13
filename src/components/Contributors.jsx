@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function Contributors({ onClose }) {
+  const { t } = useTranslation();
   const [contributors, setContributors] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,21 +24,21 @@ export default function Contributors({ onClose }) {
   }, []);
 
   return (
-    <div class="flex flex-col p-4 gap-8">
+    <div className="flex flex-col p-4 gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl leading-tight font-medium text-black dark:text-white">Contributors</h1>
+        <h1 className="text-xl leading-tight font-medium text-black dark:text-white">{t('contributors.title')}</h1>
         <button
           type="button"
           onClick={onClose}
           className="bg-gray-200 dark:bg-neutral-800 text-black dark:text-white p-2 rounded-full cursor-pointer"
-          aria-label="Close contributors"
+          aria-label={t('contributors.close')}
         >
           <X size={20} strokeWidth={2.5} aria-hidden="true" />
         </button>
       </div>
 
       {loading ? (
-        <div className="text-black dark:text-white leading-normal text-base">Loading contributors...</div>
+        <div className="text-black dark:text-white leading-normal text-base">{t('contributors.loading')}</div>
       ) : contributors.length > 0 ? (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
           {contributors.map((contributor) => (
@@ -59,7 +61,7 @@ export default function Contributors({ onClose }) {
           ))}
         </div>
       ) : (
-        <div className="text-black dark:text-white leading-normal text-base mb-6">No contributors found</div>
+        <div className="text-black dark:text-white leading-normal text-base mb-6">{t('contributors.notFound')}</div>
       )}
 
       <a
@@ -68,7 +70,7 @@ export default function Contributors({ onClose }) {
         rel="noopener noreferrer"
         className="text-neutral-600 tracking-wide underline text-xs text-center"
       >
-        View on GitHub
+        {t('contributors.viewOnGitHub')}
       </a>
     </div>
   );

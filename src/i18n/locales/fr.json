@@ -1,0 +1,67 @@
+{
+  "selectLibrary": "Sélectionner la bibliothèque",
+  "selectDate": "Sélectionner la date",
+  "sortBy": "Trier par",
+  "sortOptions": {
+    "sequential": "Séquentiel",
+    "mostAvailable": "Le plus d'heures disponibles",
+    "maxConsecutive": "Max d'heures consécutives",
+    "availableNow": "Disponible maintenant en premier"
+  },
+  "dates": {
+    "today": "Aujourd'hui",
+    "tomorrow": "Demain"
+  },
+  "userInfo": {
+    "madeBy": "Créé par",
+    "students": "des étudiants",
+    "inBelgium": "en Belgique",
+    "wantToSayHi": "Vous voulez dire bonjour ou signaler un bug ?",
+    "emailUs": "Envoyez-nous un e-mail",
+    "or": "ou créez un",
+    "newIssue": "nouveau problème",
+    "using": "Utilise",
+    "logout": "Se déconnecter"
+  },
+  "loading": {
+    "lookingUp": "Recherche de la disponibilité des places..."
+  },
+  "noSlots": {
+    "title": "Aucun créneau horaire disponible trouvé.",
+    "subtitle": "Essayez de vérifier un autre espace d'étude."
+  },
+  "selectSlots": "Sélectionnez les créneaux {highlighted} que vous voulez réserver, même sur différents sièges",
+  "selectSlotsDescription": "En cas de capacité limitée de la bibliothèque, vous pouvez choisir des créneaux sur différents sièges pour créer une séquence et changer de siège pendant votre session d'étude.",
+  "seatHour": "Siège / Heure",
+  "selectedSlots": {
+    "hour": "heure",
+    "hours": "heures",
+    "inTotal": "au total",
+    "selected": "sélectionnées",
+    "longSessionAlert": "Vous planifiez une longue session d'étude ? Pensez à inclure une pause d'une heure pour permettre aux autres d'utiliser l'espace pendant que vous vous absentez.",
+    "bookingLinks": "Vos liens de réservation :",
+    "checkIn": "S'enregistrer",
+    "impossibleToBook": "Il est impossible de réserver uniquement avec cet outil, croyez-nous, nous avons {link} pour que cela fonctionne.",
+    "linkText": "essayé très fort"
+  },
+  "bookingLinks": "Votre {{count}} lien de réservation",
+  "bookingLinksPlural": "Vos {{count}} liens de réservation",
+  "error": "Erreur : {{message}}",
+  "language": "Langue",
+  "onboarding": {
+    "title": "Kurtosis est un outil pour trouver des places dans les bibliothèques de la KU Leuven plus rapidement.",
+    "description1": "Créé par des étudiants et n'est pas affilié à la KU Leuven. Veuillez l'utiliser de manière responsable et ne pas abuser du système.",
+    "description2": "Ce site web communique directement avec le {link} et ne stocke ni ne traite aucune donnée personnelle. De plus, il est {openSourceLink}.",
+    "linkText": "Outil de Réservation KU Leuven",
+    "openSourceText": "open-source",
+    "enterRNumber": "Entrez votre numéro R pour commencer :",
+    "getStarted": "Commencer"
+  },
+  "contributors": {
+    "title": "Contributeurs",
+    "loading": "Chargement des contributeurs...",
+    "notFound": "Aucun contributeur trouvé",
+    "viewOnGitHub": "Voir sur GitHub",
+    "close": "Fermer les contributeurs"
+  }
+}
