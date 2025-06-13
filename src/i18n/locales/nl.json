@@ -1,0 +1,68 @@
+{
+  "selectLibrary": "Selecteer bibliotheek",
+  "selectDate": "Selecteer datum",
+  "sortBy": "Sorteer op",
+  "sortOptions": {
+    "sequential": "Sequentieel",
+    "mostAvailable": "Meeste beschikbare uren",
+    "maxConsecutive": "Max opeenvolgende uren",
+    "availableNow": "Nu beschikbaar eerst"
+  },
+  "dates": {
+    "today": "Vandaag",
+    "tomorrow": "Morgen"
+  },
+  "userInfo": {
+    "madeBy": "Gemaakt door",
+    "students": "studenten",
+    "inBelgium": "in België",
+    "wantToSayHi": "Wil je hallo zeggen of een bug melden?",
+    "emailUs": "Mail ons",
+    "or": "of maak een",
+    "newIssue": "nieuwe issue",
+    "using": "Gebruikt",
+    "logout": "Uitloggen"
+  },
+  "loading": {
+    "lookingUp": "Beschikbare plaatsen opzoeken..."
+  },
+  "noSlots": {
+    "title": "Geen beschikbare tijdslots gevonden.",
+    "subtitle": "Probeer een andere studieruimte te bekijken."
+  },
+  "selectSlots": "Selecteer de {highlighted} slots die je wilt boeken, zelfs over verschillende zitplaatsen",
+  "selectSlotsDescription": "Voor gevallen van beperkte bibliotheekkapaciteit kun je slots over verschillende zitplaatsen kiezen om een reeks te creëren en van zitplaats wisselen tijdens je studiesessie.",
+  "seatHour": "Zitplaats / Uur",
+  "selectedSlots": {
+    "hour": "uur",
+    "hours": "uren",
+    "inTotal": "in totaal",
+    "selected": "geselecteerd",
+    "longSessionAlert": "Plan je een lange studiesessie? Overweeg een pauze van een uur in te plannen zodat anderen de ruimte kunnen gebruiken terwijl je even weggaat.",
+    "bookingLinks": "Je boekingslinks:",
+    "checkIn": "Inchecken",
+    "impossibleToBook": "Het is onmogelijk om alleen binnen deze tool te boeken, geloof ons, we hebben {link} om het te laten gebeuren.",
+    "linkText": "hard geprobeerd"
+  },
+  "bookingLinks": "Je {{count}} boekingslink",
+  "bookingLinksPlural": "Je {{count}} boekingslinks",
+  "error": "Fout: {{message}}",
+  "language": "Taal",
+  "languageDisplayName": "Nederlands",
+  "onboarding": {
+    "title": "Kurtosis is een tool om sneller zitplaatsen te vinden in KU Leuven bibliotheken.",
+    "description1": "Gemaakt door studenten en is niet verwant aan KU Leuven. Gebruik het verantwoordelijk en misbruik het systeem niet.",
+    "description2": "Deze website communiceert rechtstreeks met de {link} en verwerkt of slaat geen persoonlijke gegevens op. Bovendien is het {openSourceLink}.",
+    "linkText": "KU Leuven Reservatietool",
+    "openSourceText": "open-source",
+    "enterRNumber": "Voer je R-nummer in om te starten:",
+    "getStarted": "Start"
+  },
+  "contributors": {
+    "title": "Bijdragers",
+    "loading": "Bijdragers laden...",
+    "notFound": "Geen bijdragers gevonden",
+    "viewOnGitHub": "Bekijk op GitHub",
+    "close": "Sluit bijdragers"
+  }
+}

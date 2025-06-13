@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher.jsx';
 
 const OnboardingScreen = ({ onRNumberSubmit }) => {
+  const { t } = useTranslation();
   const [tempRNumber, setTempRNumber] = useState('');
 
   // Validate R-number format: [a-z] + 7 digits
@@ -31,24 +34,29 @@ const OnboardingScreen = ({ onRNumberSubmit }) => {
     <main className="flex justify-center items-start">
       <section className="w-md m-6 sm:m-12">
         <div className="flex flex-col gap-8 items-start">
+          <div className="self-start">
+            <LanguageSwitcher />
+          </div>
           <header>
             <h1 className="font-bold text-5xl leading-none text-black dark:text-white tracking-tight">
-              Kurtosis is a tool to find seats at KU Leuven libraries faster.
+              {t('onboarding.title')}
             </h1>
           </header>
           <div className="text-lg leading-normal text-black dark:text-white space-y-4">
             <p>
-              Built by students and is not affiliated with KU Leuven.
-              Please use it responsibly and do not abuse the system.
+              {t('onboarding.description1')}
             </p>
             <p>
-              This website communicates directly with the <a href="https://kuleuven.be/kurt" className='underline'>KU Leuven Reservation Tool</a> and does not store or
-              process any personal data. Moreover, it's <a href="https://github.com/breitburg/kurtosis" className='underline'>open-source</a>.
+              {t('onboarding.description2').split('{link}')[0]}
+              <a href="https://kuleuven.be/kurt" className='underline'>{t('onboarding.linkText')}</a>
+              {t('onboarding.description2').split('{link}')[1].split('{openSourceLink}')[0]}
+              <a href="https://github.com/breitburg/kurtosis" className='underline'>{t('onboarding.openSourceText')}</a>
+              {t('onboarding.description2').split('{openSourceLink}')[1]}
             </p>
           </div>
           <div className="flex flex-col gap-2 w-full">
             <label htmlFor="r-number-input" className="font-medium text-lg">
-              Enter your R-number to begin:
+              {t('onboarding.enterRNumber')}
             </label>
             <input
               id="r-number-input"
@@ -69,7 +77,7 @@ const OnboardingScreen = ({ onRNumberSubmit }) => {
                 : 'bg-black dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 cursor-pointer'
               }`}
           >
-            Get Started
+            {t('onboarding.getStarted')}
           </button>
         </div>
       </section>

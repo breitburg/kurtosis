@@ -1,0 +1,68 @@
+{
+  "selectLibrary": "Choisir une bibliothèque",
+  "selectDate": "Choisir une date",
+  "sortBy": "Trier par",
+  "sortOptions": {
+    "sequential": "Ordre séquentiel",
+    "mostAvailable": "Plus d'heures disponibles",
+    "maxConsecutive": "Maximum d'heures consécutives",
+    "availableNow": "Disponible maintenant"
+  },
+  "dates": {
+    "today": "Aujourd'hui",
+    "tomorrow": "Demain"
+  },
+  "userInfo": {
+    "madeBy": "Créé par",
+    "students": "des étudiants",
+    "inBelgium": "en Belgique",
+    "wantToSayHi": "Des questions ou un bug à signaler ?",
+    "emailUs": "Contactez-nous",
+    "or": "ou créez une",
+    "newIssue": "issue",
+    "using": "Utilise",
+    "logout": "Déconnexion"
+  },
+  "loading": {
+    "lookingUp": "Recherche des places disponibles..."
+  },
+  "noSlots": {
+    "title": "Aucun créneau disponible",
+    "subtitle": "Essayez un autre espace d'étude"
+  },
+  "selectSlots": "Sélectionnez les créneaux {highlighted} à réserver, même sur différentes places",
+  "selectSlotsDescription": "Si la bibliothèque affiche complet, vous pouvez réserver des créneaux sur différentes places et changer de place durant votre session d'étude.",
+  "seatHour": "Place / Heure",
+  "selectedSlots": {
+    "hour": "heure",
+    "hours": "heures",
+    "inTotal": "au total",
+    "selected": "sélectionnées",
+    "longSessionAlert": "Vous prévoyez une longue session d'étude ? Pensez à prévoir une pause d'une heure pour permettre à d'autres d'utiliser la place.",
+    "bookingLinks": "Vos liens de réservation :",
+    "checkIn": "S'enregistrer",
+    "impossibleToBook": "Impossible de réserver directement via cet outil, mais nous avons {link} pour rendre cela possible.",
+    "linkText": "tout tenté"
+  },
+  "bookingLinks": "Votre {{count}} lien de réservation",
+  "bookingLinksPlural": "Vos {{count}} liens de réservation",
+  "error": "Erreur : {{message}}",
+  "language": "Langue",
+  "languageDisplayName": "Français",
+  "onboarding": {
+    "title": "Kurtosis vous aide à trouver rapidement une place dans les bibliothèques de la KU Leuven",
+    "description1": "Créé par des étudiants, non affilié à la KU Leuven. Merci de l'utiliser de façon responsable.",
+    "description2": "Ce site communique directement avec le {link}, ne stocke aucune donnée personnelle et est {openSourceLink}.",
+    "linkText": "système de réservation KU Leuven",
+    "openSourceText": "open source",
+    "enterRNumber": "Saisissez votre numéro R :",
+    "getStarted": "Commencer"
+  },
+  "contributors": {
+    "title": "Contributeurs",
+    "loading": "Chargement des contributeurs...",
+    "notFound": "Aucun contributeur trouvé",
+    "viewOnGitHub": "Voir sur GitHub",
+    "close": "Fermer"
+  }
+}

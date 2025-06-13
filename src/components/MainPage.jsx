@@ -1,9 +1,12 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { ChevronUp, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n/i18n.js';
 import SeatTable from './SeatTable';
 import SelectedSlotsPanel from './SelectedSlotsPanel';
 import OnboardingScreen from './OnboardingScreen';
 import Contributors from './Contributors.jsx';
+import LanguageSwitcher from './LanguageSwitcher.jsx';
 import Slot from '../models/Slot.js';
 import KurtApi from '../services/KurtApi.js';
 
@@ -14,14 +17,15 @@ const SortOption = {
   AVAILABLE_NOW: 'availableNow',
 };
 
-const SORT_LABELS = {
-  [SortOption.SEAT_NUMBER]: 'Sequential',
-  [SortOption.TOTAL_AVAILABLE]: 'Most available hours',
-  [SortOption.MAX_CONSECUTIVE]: 'Max consecutive hours',
-  [SortOption.AVAILABLE_NOW]: 'Available right now first',
-};
+const getSortLabels = (t) => ({
+  [SortOption.SEAT_NUMBER]: t('sortOptions.sequential'),
+  [SortOption.TOTAL_AVAILABLE]: t('sortOptions.mostAvailable'),
+  [SortOption.MAX_CONSECUTIVE]: t('sortOptions.maxConsecutive'),
+  [SortOption.AVAILABLE_NOW]: t('sortOptions.availableNow'),
+});
 
 const MainPage = () => {
+  const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSort, setSelectedSort] = useState(SortOption.SEAT_NUMBER);
   const [selectedLibrary, setSelectedLibrary] = useState(() => {
@@ -32,7 +36,7 @@ const MainPage = () => {
   const [error, setError] = useState(null);
   const [libraries, setLibraries] = useState([]);
   const [selectedSlots, setSelectedSlots] = useState(new Set());
-  const [copiedRangeIndex, setCopiedRangeIndex] = useState(null);
+  const [COPIED_RANGE_INDEX, SET_COPIED_RANGE_INDEX] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [rNumber, setRNumber] = useState(() => {
     return localStorage.getItem('rNumber') || '';
@@ -52,11 +56,11 @@ const MainPage = () => {
       let label;
 
       if (i === 0) {
-        label = 'Today';
+        label = t('dates.today');
       } else if (i === 1) {
-        label = 'Tomorrow';
+        label = t('dates.tomorrow');
       } else {
-        label = date.toLocaleDateString('en-US', {
+        label = date.toLocaleDateString(i18n.language, {
           weekday: 'long',
           month: 'short',
           day: 'numeric',
@@ -206,7 +210,7 @@ const MainPage = () => {
 
 
   // Sort slots based on selected sort option
-  const getSortedSlots = () => {
+  const getSortedSlots = useCallback(() => {
     if (!slots.length) return [];
 
     // Group slots by resourceId and calculate metrics
@@ -295,7 +299,7 @@ const MainPage = () => {
     });
 
     return flattenedSlots;
-  };
+  }, [slots, selectedSort]);
 
   // Check if "Available right now" option should be shown
   const shouldShowAvailableNow = useMemo(() => {
@@ -332,7 +336,7 @@ const MainPage = () => {
     }
   }, [availableSortOptions, selectedSort]);
 
-  const sortedSlots = useMemo(() => getSortedSlots(), [slots, selectedSort]);
+  const sortedSlots = useMemo(() => getSortedSlots(), [getSortedSlots]);
 
   // Handle slot selection/deselection
   const handleSlotClick = (slot) => {
@@ -468,13 +472,13 @@ const MainPage = () => {
   };
 
   // Handle copying booking link
-  const handleCopyBookingLink = async (range, index) => {
+  const HANDLE_COPY_BOOKING_LINK = async (range, index) => {
     const bookingLink = generateBookingLinkForRange(range);
     if (bookingLink) {
       try {
         await navigator.clipboard.writeText(bookingLink);
-        setCopiedRangeIndex(index);
-        setTimeout(() => setCopiedRangeIndex(null), 2000);
+        SET_COPIED_RANGE_INDEX(index);
+        setTimeout(() => SET_COPIED_RANGE_INDEX(null), 2000);
       } catch (err) {
         console.error('Failed to copy link:', err);
       }
@@ -500,7 +504,7 @@ const MainPage = () => {
                 value={selectedLibrary}
                 onChange={(e) => setSelectedLibrary(e.target.value)}
                 disabled={loading}
-                aria-label="Select library"
+                aria-label={t('selectLibrary')}
               >
                 {Object.entries(groupedLibraries).map(([buildingName, librariesInBuilding]) => (
                   <optgroup key={buildingName} label={buildingName} className="bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white">
@@ -524,7 +528,7 @@ const MainPage = () => {
                 value={selectedDate || ''}
                 onChange={(e) => setSelectedDate(e.target.value)}
                 disabled={loading}
-                aria-label="Select date"
+                aria-label={t('selectDate')}
               >
                 {dateOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -540,11 +544,11 @@ const MainPage = () => {
                 className="text-black dark:text-white cursor-pointer w-full p-2 md:p-0 rounded md:rounded-none bg-white dark:bg-black border-neutral-300 dark:border-neutral-700"
                 value={selectedSort}
                 onChange={(e) => setSelectedSort(e.target.value)}
-                aria-label="Sort by"
+                aria-label={t('sortBy')}
               >
                 {availableSortOptions.map((option) => (
                   <option key={option} value={option}>
-                    {SORT_LABELS[option]}
+                    {getSortLabels(t)[option]}
                   </option>
                 ))}
               </select>
@@ -553,32 +557,33 @@ const MainPage = () => {
             {/* User Info & Actions */}
             <div className="flex flex-1 items-center">
               <div className="text-xs tracking-wide space-y-2 text-black dark:text-white">
+                <LanguageSwitcher />
                 <div>
                   <p>
-                    Made by <button
+                    {t('userInfo.madeBy')} <button
                       type="button"
                       className="underline cursor-pointer"
                       onClick={() => setShowContributors(true)}
                     >
-                      students
-                    </button> in Belgium
+                      {t('userInfo.students')}
+                    </button> {t('userInfo.inBelgium')}
                   </p>
                   <p>
-                    Want to say hi or report a bug?
+                    {t('userInfo.wantToSayHi')}
                   </p>
                   <p>
-                    <a href="mailto:kurtosis@breitburg.com" className="underline">Email us</a> or make a <a href="https://github.com/breitburg/kurtosis/issues/new" className="underline">new issue</a>
+                    <a href="mailto:kurtosis@breitburg.com" className="underline">{t('userInfo.emailUs')}</a> {t('userInfo.or')} <a href="https://github.com/breitburg/kurtosis/issues/new" className="underline">{t('userInfo.newIssue')}</a>
                   </p>
                 </div>
                 {rNumber && (
                   <div>
-                    <p>Using {rNumber}</p>
+                    <p>{t('userInfo.using')} {rNumber}</p>
                     <button
                       type="button"
                       className="text-black dark:text-white underline cursor-pointer"
                       onClick={handleLogout}
                     >
-                      Logout
+                      {t('userInfo.logout')}
                     </button>
                   </div>
                 )}
@@ -593,7 +598,7 @@ const MainPage = () => {
         ) : loading ? (
           <div className="flex justify-center items-center py-8 text-neutral-500">
             <p className="text-center">
-              Looking up seats availability...
+              {t('loading.lookingUp')}
             </p>
           </div>
         ) : slots.length > 0 &&
@@ -604,8 +609,8 @@ const MainPage = () => {
               ☹︎
             </div>
             <div className="text-center">
-              <p>No available time slots found.</p>
-              <p>Try to check another study space.</p>
+              <p>{t('noSlots.title')}</p>
+              <p>{t('noSlots.subtitle')}</p>
             </div>
           </div>
         ) : (
@@ -620,17 +625,15 @@ const MainPage = () => {
                       'balance' /* Tailwind CSS doesn't support textWrap yet */,
                   }}
                 >
-                  Select the{' '}
+                  {t('selectSlots').split('{highlighted}')[0]}
                   <span className="bg-black dark:bg-white text-white dark:text-black px-3 rounded-sm text-xl font-medium">
                     A
-                  </span>{' '}
-                  slots you want to book, even across different seats
+                  </span>
+                  {t('selectSlots').split('{highlighted}')[1]}
                 </h2>
 
                 <p className="text-black dark:text-white leading-normal text-base">
-                  For cases of limited library capacity, you can choose
-                  slots across different seats to create a sequence
-                  and change seats during your study session.
+                  {t('selectSlotsDescription')}
                 </p>
               </div>
               {selectedSlots.size !== 0 && (
@@ -649,7 +652,7 @@ const MainPage = () => {
             <section className="flex-1 overflow-auto min-h-0">
               {error && (
                 <div className="text-center text-red-500 py-8" role="alert">
-                  Error: {error}
+                  {t('error', { message: error })}
                 </div>
               )}
               {!error && (
@@ -673,7 +676,10 @@ const MainPage = () => {
             className="md:hidden fixed bottom-0 left-1/2 transform -translate-x-1/2 px-4 py-4 rounded-t-xl z-50 cursor-pointer shadow-lg flex items-center font-medium gap-2 bg-blue-500 text-white"
             aria-label="Open booking links panel"
           >
-            Your {getSelectedSlotsInfo().timeRanges.length} booking link{getSelectedSlotsInfo().timeRanges.length !== 1 ? 's' : ''}
+            {getSelectedSlotsInfo().timeRanges.length === 1 
+              ? t('bookingLinks', { count: getSelectedSlotsInfo().timeRanges.length })
+              : t('bookingLinksPlural', { count: getSelectedSlotsInfo().timeRanges.length })
+            }
             <ChevronUp size={20} strokeWidth={2.5} aria-hidden="true" />
           </button>
         )}

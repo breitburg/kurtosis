@@ -47,6 +47,56 @@ bun run lint     # Run ESLint
 bun run preview  # Preview production build
 ```
 
+### Internationalization
+
+The application supports multiple languages with **Dutch as the default**. Currently supported languages:
+
+- 🇳🇱 **Nederlands** (Dutch) - Default
+- 🇬🇧 **English**
+- 🇫🇷 **Français** (French)
+
+#### Adding a New Language
+
+To add support for a new language:
+
+1. **Create a translation file** in `src/i18n/locales/[lang-code].json`
+   ```bash
+   # Example: adding German
+   cp src/i18n/locales/en.json src/i18n/locales/de.json
+   ```
+
+2. **Translate all text strings** in the new JSON file
+   - Keep the same JSON structure
+   - Translate only the values, not the keys
+   - Use `{{variable}}` syntax for interpolated values
+
+3. **Add the language to i18n configuration** in `src/i18n/i18n.js`:
+   ```javascript
+   import de from './locales/de.json';
+   
+   const resources = {
+     // ... existing languages
+     de: {
+       translation: de
+     }
+   };
+   ```
+
+4. **Add the language option** to the switcher in `src/components/LanguageSwitcher.jsx`:
+   ```javascript
+   <option value="de">Deutsch</option>
+   ```
+
+5. **Add locale for date formatting** in `src/components/MainPage.jsx`:
+   ```javascript
+   let locale = 'en-US';
+   if (i18n.language === 'nl') locale = 'nl-NL';
+   else if (i18n.language === 'fr') locale = 'fr-FR';
+   else if (i18n.language === 'de') locale = 'de-DE'; // Add this line
+   ```
+
+The language preference is automatically saved to localStorage and will persist across browser sessions.
+
 ### Working with Claude Code
 
 This repository includes a `CLAUDE.md` file with detailed guidance for [Claude Code](https://claude.ai/code) when working with this codebase.
