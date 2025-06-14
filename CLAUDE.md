@@ -38,11 +38,20 @@ This is a React + Vite application that interfaces with KU Leuven's KURT (reserv
 
 ### Internationalization (i18n)
 - **react-i18next** for translation management with browser language detection
+- **Supported Languages**: Dutch (default), English, French, German
 - **Dynamic Language Support**: Languages automatically detected from i18n resources configuration
 - **Translation Files**: `src/i18n/locales/[lang].json` - add new language files to automatically extend support
+- **Language Display Names**: Each translation file must include `languageDisplayName` key with native language name
+- **Automatic Detection**: LanguageSwitcher component dynamically populates from available translation files
 - **Language Persistence**: User's language choice saved to localStorage as `selectedLanguage`
-- **Localized Date Formatting**: Uses raw language IDs (e.g., 'en', 'nl', 'fr') for native date formatting
-- **Configuration**: `src/i18n/i18n.js` handles language detection and caching
+- **Localized Date Formatting**: Uses raw language IDs (e.g., 'en', 'nl', 'fr', 'de') for native date formatting
+- **Configuration**: `src/i18n/i18n.js` handles language detection, imports, and resource mapping
+
+#### Adding New Languages
+1. Create translation file: `src/i18n/locales/[lang-code].json`
+2. Include `languageDisplayName` key with native language name
+3. Import and add to resources object in `src/i18n/i18n.js`
+4. Language will automatically appear in switcher dropdown
 
 ### State Management
 Uses React hooks for state management:

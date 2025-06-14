@@ -54,46 +54,44 @@ The application supports multiple languages with **Dutch as the default**. Curre
 - 🇳🇱 **Nederlands** (Dutch) - Default
 - 🇬🇧 **English**
 - 🇫🇷 **Français** (French)
+- 🇩🇪 **Deutsch** (German)
 
 #### Adding a New Language
 
-To add support for a new language:
+The application uses **automatic language detection** from available translation files. To add support for a new language:
 
 1. **Create a translation file** in `src/i18n/locales/[lang-code].json`
    ```bash
-   # Example: adding German
-   cp src/i18n/locales/en.json src/i18n/locales/de.json
+   # Example: adding Spanish
+   cp src/i18n/locales/en.json src/i18n/locales/es.json
    ```
 
 2. **Translate all text strings** in the new JSON file
    - Keep the same JSON structure
    - Translate only the values, not the keys
    - Use `{{variable}}` syntax for interpolated values
+   - **Important**: Add a `languageDisplayName` key with the language's native name:
+   ```json
+   {
+     "languageDisplayName": "Español",
+     "welcome": "Bienvenido",
+     ...
+   }
+   ```
 
-3. **Add the language to i18n configuration** in `src/i18n/i18n.js`:
+3. **Add the language import** to `src/i18n/i18n.js`:
    ```javascript
-   import de from './locales/de.json';
+   import es from './locales/es.json';
    
    const resources = {
      // ... existing languages
-     de: {
-       translation: de
+     es: {
+       translation: es
      }
    };
    ```
 
-4. **Add the language option** to the switcher in `src/components/LanguageSwitcher.jsx`:
-   ```javascript
-   <option value="de">Deutsch</option>
-   ```
-
-5. **Add locale for date formatting** in `src/components/MainPage.jsx`:
-   ```javascript
-   let locale = 'en-US';
-   if (i18n.language === 'nl') locale = 'nl-NL';
-   else if (i18n.language === 'fr') locale = 'fr-FR';
-   else if (i18n.language === 'de') locale = 'de-DE'; // Add this line
-   ```
+That's it! The `LanguageSwitcher` component automatically detects available languages from the i18n resources and displays them using their native names from the `languageDisplayName` key. Date formatting uses the raw language code (e.g., 'es') for native localization.
 
 The language preference is automatically saved to localStorage and will persist across browser sessions.
 
