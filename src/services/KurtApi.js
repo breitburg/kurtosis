@@ -175,8 +175,8 @@ class KurtApi {
     const endTimeFormatted = `${selectedDate.getFullYear()}-${String(
       selectedDate.getMonth() + 1
     ).padStart(2, "0")}-${String(
-      endTime == 0 ? selectedDate.getDate() + 1 : selectedDate.getDate()
-    ).padStart(2, "0")}T${String(endTime).padStart(2, "0")}:00:00`;
+      endTime >= 24 ? selectedDate.getDate() + 1 : selectedDate.getDate()
+    ).padStart(2, "0")}T${String(endTime >= 24 ? 0 : endTime).padStart(2, "0")}:00:00`;
 
     return `https://www-sso.groupware.kuleuven.be/sites/KURT/Pages/NEW-Reservation.aspx?StartDateTime=${startTimeFormatted}&EndDateTime=${endTimeFormatted}&ID=${resourceId}&type=b`;
   }
