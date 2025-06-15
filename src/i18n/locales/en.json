@@ -64,5 +64,13 @@
     "notFound": "No contributors found",
     "viewOnGitHub": "View on GitHub",
     "close": "Close contributors"
-  }
+  },
+  "codeBlock": {
+    "copy": "Copy",
+    "copied": "Copied!",
+    "expand": "Expand details",
+    "collapse": "Collapse details"
+  },
+  "retry": "Retry",
+  "errorOccurred": "An error occurred"
 }

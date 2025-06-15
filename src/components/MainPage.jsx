@@ -7,8 +7,35 @@ import SelectedSlotsPanel from './SelectedSlotsPanel';
 import OnboardingScreen from './OnboardingScreen';
 import Contributors from './Contributors.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
+import CodeBlock from './CodeBlock.jsx';
 import Slot from '../models/Slot.js';
 import KurtApi from '../services/KurtApi.js';
+
+// Helper function to format error details with full stack trace
+const formatErrorDetails = (error) => {
+  const errorDetails = {
+    message: error.message || 'Unknown error',
+    name: error.name || 'Error',
+    timestamp: new Date().toISOString(),
+    stack: error.stack || 'No stack trace available'
+  };
+
+  // Add additional context if available
+  if (error.cause) {
+    errorDetails.cause = error.cause;
+  }
+  
+  if (error.code) {
+    errorDetails.code = error.code;
+  }
+
+  return JSON.stringify(errorDetails, null, 2);
+};
+
+// Helper function to get error name for display
+const getErrorName = (error) => {
+  return error.name || 'Error';
+};
 
 const SortOption = {
   SEAT_NUMBER: 'seatNumber',
@@ -112,6 +139,7 @@ const MainPage = () => {
         }
       } catch (err) {
         console.error('Failed to load libraries:', err);
+        setError(err);
       }
     };
 
@@ -196,7 +224,7 @@ const MainPage = () => {
       setSlots(slotsWithNames);
     } catch (err) {
       console.error('Failed to load seat data:', err);
-      setError(err.message);
+      setError(err);
       setSlots([]);
     } finally {
       setLoading(false);
@@ -651,8 +679,24 @@ const MainPage = () => {
             {/* Seat Table */}
             <section className="flex-1 overflow-auto min-h-0">
               {error && (
-                <div className="text-center text-red-500 py-8" role="alert">
-                  {t('error', { message: error })}
+                <div className="flex flex-col gap-4 justify-center items-center py-8" role="alert">
+                  <div className="text-center text-6xl" aria-hidden="true">
+                    ⚠︎
+                  </div>
+                  <div className="text-center">
+                    <p className="font-bold">{t('errorOccurred')}</p>
+                  </div>
+                  <button
+                    onClick={loadSeatData}
+                    className="px-4 py-2 bg-black dark:bg-white text-white dark:text-black font-medium hover:opacity-70 cursor-pointer"
+                  >
+                    {t('retry')}
+                  </button>
+                  <CodeBlock 
+                    content={formatErrorDetails(error)} 
+                    title={error.message || 'Unknown error'}
+                    collapsible={true}
+                  />
                 </div>
               )}
               {!error && (

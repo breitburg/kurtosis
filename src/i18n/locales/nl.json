@@ -64,5 +64,13 @@
     "notFound": "Geen bijdragers gevonden",
     "viewOnGitHub": "Bekijk op GitHub",
     "close": "Sluit bijdragers"
-  }
+  },
+  "codeBlock": {
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd!",
+    "expand": "Details uitklappen",
+    "collapse": "Details inklappen"
+  },
+  "retry": "Opnieuw proberen",
+  "errorOccurred": "Er is een fout opgetreden"
 }

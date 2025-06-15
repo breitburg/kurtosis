@@ -64,5 +64,13 @@
     "notFound": "Aucun contributeur trouvé",
     "viewOnGitHub": "Voir sur GitHub",
     "close": "Fermer"
-  }
+  },
+  "codeBlock": {
+    "copy": "Copier",
+    "copied": "Copié !",
+    "expand": "Développer les détails",
+    "collapse": "Réduire les détails"
+  },
+  "retry": "Réessayer",
+  "errorOccurred": "Une erreur s'est produite"
 }

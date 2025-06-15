@@ -64,5 +64,13 @@
     "notFound": "Keine Mitwirkenden gefunden",
     "viewOnGitHub": "Auf GitHub ansehen",
     "close": "Schließen"
-  }
+  },
+  "codeBlock": {
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "expand": "Details erweitern",
+    "collapse": "Details reduzieren"
+  },
+  "retry": "Wiederholen",
+  "errorOccurred": "Ein Fehler ist aufgetreten"
 }
