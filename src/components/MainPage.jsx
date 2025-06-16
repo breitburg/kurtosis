@@ -366,6 +366,18 @@ const MainPage = () => {
 
   const sortedSlots = useMemo(() => getSortedSlots(), [getSortedSlots]);
 
+  // Calculate occupancy percentage (excluding unavailable slots)
+  const occupancyPercentage = useMemo(() => {
+    if (!slots.length) return 0;
+    
+    // Only count available and busy slots (exclude unavailable ones)
+    const availableSlots = slots.filter(slot => !slot.isUnavailable());
+    const totalSlots = availableSlots.length;
+    const busySlots = availableSlots.filter(slot => slot.isBusy()).length;
+    
+    return totalSlots > 0 ? Math.round((busySlots / totalSlots) * 100) : 0;
+  }, [slots]);
+
   // Handle slot selection/deselection
   const handleSlotClick = (slot) => {
     if (!slot.isAvailable()) return;
@@ -663,6 +675,12 @@ const MainPage = () => {
                 <p className="text-black dark:text-white leading-normal text-base">
                   {t('selectSlotsDescription')}
                 </p>
+                
+                {slots.length > 0 && (
+                  <div className="text-black dark:text-white text-sm">
+                    <span className="font-medium">{t('libraryOccupancy', { percentage: occupancyPercentage })}</span>
+                  </div>
+                )}
               </div>
               {selectedSlots.size !== 0 && (
                 <div className="hidden md:flex">

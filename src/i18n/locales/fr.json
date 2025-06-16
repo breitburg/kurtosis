@@ -32,6 +32,7 @@
   },
   "selectSlots": "Sélectionnez les créneaux {highlighted} à réserver, même sur différentes places",
   "selectSlotsDescription": "Si la bibliothèque affiche complet, vous pouvez réserver des créneaux sur différentes places et changer de place durant votre session d'étude.",
+  "libraryOccupancy": "{{percentage}}% des créneaux sont occupés",
   "seatHour": "Place / Heure",
   "selectedSlots": {
     "hour": "heure",

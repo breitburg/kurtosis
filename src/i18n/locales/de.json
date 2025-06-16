@@ -32,6 +32,7 @@
   },
   "selectSlots": "Markiert die {highlighted} Zeiten, die ihr buchen möchtet – auch an verschiedenen Plätzen",
   "selectSlotsDescription": "Wenn die Bibliothek voll ist, könnt ihr Zeiten an verschiedenen Plätzen reservieren und während eurer Lernsession den Platz wechseln.",
+  "libraryOccupancy": "{{percentage}}% der Slots sind belegt",
   "seatHour": "Platz / Zeit",
   "selectedSlots": {
     "hour": "Stunde",

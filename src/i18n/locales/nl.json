@@ -32,6 +32,7 @@
   },
   "selectSlots": "Selecteer de {highlighted} slots die je wilt boeken, zelfs over verschillende zitplaatsen",
   "selectSlotsDescription": "Voor gevallen van beperkte bibliotheekkapaciteit kun je slots over verschillende zitplaatsen kiezen om een reeks te creëren en van zitplaats wisselen tijdens je studiesessie.",
+  "libraryOccupancy": "{{percentage}}% van de slots zijn bezet",
   "seatHour": "Zitplaats / Uur",
   "selectedSlots": {
     "hour": "uur",

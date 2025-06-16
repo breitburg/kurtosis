@@ -32,6 +32,7 @@
   },
   "selectSlots": "Select the {highlighted} slots you want to book, even across different seats",
   "selectSlotsDescription": "For cases of limited library capacity, you can choose slots across different seats to create a sequence and change seats during your study session.",
+  "libraryOccupancy": "{{percentage}}% of slots are busy",
   "seatHour": "Seat / Hour",
   "selectedSlots": {
     "hour": "hour",
