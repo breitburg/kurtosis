@@ -505,10 +505,8 @@ const MainPage = () => {
 
   // Handle opening booking link
   const handleOpenBookingLink = (range) => {
-    const bookingLink = generateBookingLinkForRange(range);
-    if (bookingLink) {
-      window.open(bookingLink, '_blank');
-    }
+    alert('KURT has recently discontinued the KURT 2 booking system that was previously used for reservations. Please book your seat manually using KURT 3. You will now be redirected to the new KURT 3 system.');
+    window.open('https://kuleuven.be/kurt', '_blank');
   };
 
   // Handle copying booking link
