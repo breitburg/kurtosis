@@ -5,6 +5,8 @@
 
 Super-snappy tool for power users of [KU Leuven Reservation Tool (KURT)](http://www.kuleuven.be/kurt) built by students. Easily view the availability of seats and rooms in Agora, Erasmushuis, CBA, EBIB and other KU Leuven libraries.
 
+![Screenshot](public/statement/assets/kurtosis.png)
+
 ## Quick Start
 
 ### For Users
