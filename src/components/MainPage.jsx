@@ -538,7 +538,7 @@ const MainPage = () => {
             {/* Library Selection */}
             <div className="w-full md:w-auto relative">
               <select
-                className="library-select text-xl font-medium cursor-pointer w-full md:w-70 p-2 md:p-0 rounded md:rounded-none relative z-10"
+                className="library-select text-xl font-medium cursor-pointer w-full md:w-62 p-2 md:p-0 rounded md:rounded-none relative z-10"
                 value={selectedLibrary}
                 onChange={(e) => setSelectedLibrary(e.target.value)}
                 disabled={loading}
@@ -555,7 +555,9 @@ const MainPage = () => {
                 ))}
               </select>
               <div className="pointer-events-none absolute inset-y-0 left-0 right-8 flex items-center px-2 md:px-0 text-xl leading-tight font-medium z-20 text-black dark:text-white">
-                {getSelectedLibraryDisplayName()}
+                <span className="truncate">
+                  {getSelectedLibraryDisplayName()}
+                </span>
               </div>
             </div>
 
@@ -654,7 +656,7 @@ const MainPage = () => {
         ) : (
           <main className="flex flex-col lg:flex-row gap-4 lg:gap-12 px-4 md:px-8 pb-8">
             {/* Sidebar */}
-            <aside className="w-full lg:w-70">
+            <aside className="w-full lg:w-62">
               <div className={`${selectedSlots.size !== 0 ? 'md:hidden ' : ''}my-8 md:my-0 gap-4 flex flex-col`}>
                 <h2
                   className="text-3xl leading-none font-bold text-black dark:text-white tracking-tight"
@@ -685,7 +687,6 @@ const MainPage = () => {
                   <SelectedSlotsPanel
                     selectedSlotsInfo={getSelectedSlotsInfo()}
                     handleOpenBookingLink={handleOpenBookingLink}
-                    handleCheckIn={handleCheckIn}
                     isMobile={false}
                   />
                 </div>
@@ -722,6 +723,8 @@ const MainPage = () => {
                   isSlotSelected={isSlotSelected}
                   isHourBlocked={isHourBlocked}
                   onHourClick={handleHourClick}
+                  onCheckIn={handleCheckIn}
+                  showCheckInRow={selectedDate === new Date().toISOString().split('T')[0]}
                 />
               )}
             </section>
@@ -766,7 +769,6 @@ const MainPage = () => {
               <SelectedSlotsPanel
                 selectedSlotsInfo={getSelectedSlotsInfo()}
                 handleOpenBookingLink={handleOpenBookingLink}
-                handleCheckIn={handleCheckIn}
                 isMobile={true}
               />
             </div>

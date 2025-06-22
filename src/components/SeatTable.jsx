@@ -1,5 +1,5 @@
 import React from 'react';
-import { X } from 'lucide-react';
+import { X, LucideTicketCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Slot from '../models/Slot.js';
 import SlotStatus from '../models/SlotStatus.js';
@@ -45,7 +45,15 @@ const SeatSlot = ({ slot, onSlotClick, isSlotSelected, isHourBlocked }) => {
   );
 };
 
-const TableRow = ({ seatName, slots, onSlotClick, isSlotSelected, isHourBlocked }) => {
+const TableRow = ({ seatName, slots, onSlotClick, isSlotSelected, isHourBlocked, onCheckIn, showCheckInRow }) => {
+  const { t } = useTranslation();
+  
+  const handleCheckIn = () => {
+    if (slots.length > 0) {
+      onCheckIn({ resourceId: slots[0].resourceId });
+    }
+  };
+  
   return (
     <div className="w-full border-b border-neutral-300 dark:border-neutral-700">
       <div className="flex items-center gap-1 pb-1">
@@ -67,12 +75,23 @@ const TableRow = ({ seatName, slots, onSlotClick, isSlotSelected, isHourBlocked 
             />
           </div>
         ))}
+        {showCheckInRow && (
+          <div className="w-12 flex-shrink-0 flex justify-center">
+            <button 
+              onClick={handleCheckIn}
+              className="p-1 rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800" 
+              title={t('selectedSlots.checkIn')}
+            >
+              <LucideTicketCheck size={18} />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-const TableHeader = ({ isHourBlocked, onHourClick, slots }) => {
+const TableHeader = ({ isHourBlocked, onHourClick, slots, showCheckInRow }) => {
   const { t } = useTranslation();
   const hours = Array.from({ length: 16 }, (_, i) => i + 8); // [8, 9, 10, ..., 23]
   
@@ -105,12 +124,16 @@ const TableHeader = ({ isHourBlocked, onHourClick, slots }) => {
             </span>
           </div>
         ))}
+        {showCheckInRow && (
+          <div className="w-12 flex-shrink-0">
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-const SeatTable = ({ slots, onSlotClick, isSlotSelected, isHourBlocked, onHourClick }) => {
+const SeatTable = ({ slots, onSlotClick, isSlotSelected, isHourBlocked, onHourClick, onCheckIn, showCheckInRow }) => {
   // Group slots by resourceId
   const groupedSlots = slots.reduce((acc, slot) => {
     if (!acc[slot.resourceId]) {
@@ -153,7 +176,7 @@ const SeatTable = ({ slots, onSlotClick, isSlotSelected, isHourBlocked, onHourCl
     <div className="w-full overflow-x-auto">
       <div className="flex flex-col gap-1 min-w-max">
         
-        <TableHeader isHourBlocked={isHourBlocked} onHourClick={onHourClick} slots={slots} />
+        <TableHeader isHourBlocked={isHourBlocked} onHourClick={onHourClick} slots={slots} showCheckInRow={showCheckInRow} />
         {seatData.map((seatInfo) => (
           <TableRow
             key={seatInfo.resourceId}
@@ -162,6 +185,8 @@ const SeatTable = ({ slots, onSlotClick, isSlotSelected, isHourBlocked, onHourCl
             onSlotClick={onSlotClick}
             isSlotSelected={isSlotSelected}
             isHourBlocked={isHourBlocked}
+            onCheckIn={onCheckIn}
+            showCheckInRow={showCheckInRow}
           />
         ))}
       </div>
