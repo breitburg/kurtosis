@@ -1,14 +1,12 @@
-import { ArrowUpRightIcon, TimerResetIcon, LucideTicketCheck } from 'lucide-react';
+import { ArrowUpRightIcon, TimerResetIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const SelectedSlotsPanel = ({
   selectedSlotsInfo,
   handleOpenBookingLink,
-  handleCheckIn,
   isMobile = false
 }) => {
   const { t } = useTranslation();
-  const buttonPadding = isMobile ? "p-3" : "p-1";
   const contentPadding = isMobile ? "px-4 py-3" : "px-1";
 
   return (
@@ -37,12 +35,12 @@ const SelectedSlotsPanel = ({
         {selectedSlotsInfo.timeRanges.map((range, index) => (
           <div
             key={index}
-            className="flex justify-between items-center py-1 border-b border-neutral-200 dark:border-neutral-700 gap-1"
+            className="py-1 border-b border-neutral-200 dark:border-neutral-700"
           >
             {/* Clickable main content area */}
             <div
               onClick={() => handleOpenBookingLink(range)}
-              className={`flex-1 flex flex-row items-center cursor-pointer rounded ${contentPadding} gap-2 hover:bg-neutral-100 dark:hover:bg-neutral-800`}
+              className={`flex flex-row items-center cursor-pointer rounded ${contentPadding} gap-2 hover:bg-neutral-100 dark:hover:bg-neutral-800`}
             >
               <span className="text-base text-black dark:text-white">
                 {range.seatName}
@@ -53,15 +51,6 @@ const SelectedSlotsPanel = ({
               </span>
               <ArrowUpRightIcon size={18} />
             </div>
-
-            {/* Check-in icon */}
-            <button
-              onClick={() => handleCheckIn(range)}
-              className={`${buttonPadding} rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800`}
-              title={t('selectedSlots.checkIn')}
-            >
-              <LucideTicketCheck size={18} />
-            </button>
           </div>
         ))}
       </div>
