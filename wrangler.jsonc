@@ -1,5 +1,5 @@
 {
-  "name": "kurtosis-swiss",
+  "name": "kurtosis",
   "compatibility_date": "2025-04-01",
   "assets": {
     "directory": "./dist/"
