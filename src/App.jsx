@@ -31,6 +31,17 @@ function App() {
       <p>
         {tp.execute('Thank you for your interest in Kurtosis. It was fun while it lasted.')}
       </p>
+
+      <p className="text-sm font-normal text-neutral-500 dark:text-neutral-400">
+        Kurtosis could've been an app, but KU Leuven did not allow us to launch it. You can read our{' '}
+        <a href="https://kurtosis.breitburg.com/statement/" className="underline hover:text-neutral-700 dark:hover:text-neutral-300" target="_blank" rel="noopener noreferrer">
+          statement
+        </a>
+        {' '}and an{' '}
+        <a href="https://www.veto.be/student/studenten-ontwikkelen-alternatief-voor-kurt-maar-ku-leuven-wijst-het-af/352977" className="underline hover:text-neutral-700 dark:hover:text-neutral-300" target="_blank" rel="noopener noreferrer">
+          article on Veto
+        </a>.
+      </p>
 {/* 
       <div className="w-3 h-3 rounded-full bg-neutral-300 dark:bg-neutral-700" />
 
